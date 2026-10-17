@@ -1,0 +1,6 @@
+node_modules
+dist
+dist-ssr
+*.local
+.superpowers/sdd
+.DS_Store
