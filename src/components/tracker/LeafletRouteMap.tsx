@@ -64,12 +64,12 @@ export const LeafletRouteMap: React.FC<LeafletRouteMapProps> = ({
           />
         )}
 
-        {/* Rally Orange Polyline */}
+        {/* Monolith Stark White Polyline */}
         {polylinePositions.length > 1 && (
           <Polyline
             positions={polylinePositions}
             pathOptions={{
-              color: '#FF3B00',
+              color: '#FFFFFF',
               weight: 5,
               opacity: 0.95,
               lineCap: 'round',
@@ -78,24 +78,24 @@ export const LeafletRouteMap: React.FC<LeafletRouteMapProps> = ({
           />
         )}
 
-        {/* Current Position Marker (Rally Orange Beacon) */}
+        {/* Current Position Marker (Monolith Beacon) */}
         {currentPosition && (
           <>
             <CircleMarker
               center={[currentPosition.lat, currentPosition.lng]}
               radius={currentPosition.accuracy ? Math.min(25, currentPosition.accuracy / 2) : 12}
               pathOptions={{
-                fillColor: '#FF3B00',
-                color: '#FF3B00',
+                fillColor: '#FFFFFF',
+                color: '#FFFFFF',
                 weight: 1,
-                fillOpacity: 0.2,
+                fillOpacity: 0.25,
               }}
             />
             <CircleMarker
               center={[currentPosition.lat, currentPosition.lng]}
               radius={7}
               pathOptions={{
-                fillColor: '#FF3B00',
+                fillColor: '#FF2E54',
                 color: '#FFFFFF',
                 weight: 2.5,
                 fillOpacity: 1,

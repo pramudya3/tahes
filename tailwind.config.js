@@ -7,24 +7,35 @@ export default {
   theme: {
     extend: {
       colors: {
+        mono: {
+          bg: '#09090B',
+          card: '#121214',
+          cardSoft: '#18181B',
+          border: '#27272A',
+          white: '#FFFFFF',
+          silver: '#E4E4E7',
+          muted: '#A1A1AA',
+          crimson: '#FF2E54',
+          crimsonDeep: '#DC2626',
+        },
         rally: {
-          orange: '#FF3B00',
-          orangeDeep: '#D63200',
+          orange: '#FFFFFF',
+          orangeDeep: '#E4E4E7',
           amber: '#F59E0B',
           emerald: '#10B981',
-          asphalt: '#0B0F19',
-          slate: '#111827',
-          slateSoft: '#1A2436',
-          border: '#24334A',
-          textMuted: '#8292A8',
+          asphalt: '#09090B',
+          slate: '#121214',
+          slateSoft: '#18181B',
+          border: '#27272A',
+          textMuted: '#A1A1AA',
         },
         strava: {
-          orange: '#FF3B00',
-          hover: '#D63200',
-          light: '#FFF0EB',
-          dark: '#0B0F19',
-          card: '#111827',
-          cardSoft: '#1A2436',
+          orange: '#FFFFFF',
+          hover: '#E4E4E7',
+          light: '#27272A',
+          dark: '#09090B',
+          card: '#121214',
+          cardSoft: '#18181B',
         }
       }
     },

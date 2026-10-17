@@ -42,13 +42,13 @@ export const ActivitySummaryModal: React.FC<ActivitySummaryModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in font-sans">
-      <div className="w-full max-w-md bg-[#111827] border border-[#24334A] rounded-2xl p-6 shadow-2xl space-y-5">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-sm animate-fade-in font-sans">
+      <div className="w-full max-w-md bg-[#121214] border border-[#27272A] rounded-2xl p-6 shadow-2xl space-y-5">
         <div className="flex items-center justify-between">
           <div>
             <div className="flex items-center gap-1.5">
-              <span className="w-2 h-2 rounded-sm bg-rally-orange" />
-              <span className="text-[10px] font-black tracking-widest text-rally-orange uppercase font-mono">
+              <span className="w-2 h-2 rounded-sm bg-white" />
+              <span className="text-[10px] font-black tracking-widest text-zinc-300 uppercase font-mono">
                 TELEMETRY // DEBRIEF
               </span>
             </div>
@@ -58,7 +58,7 @@ export const ActivitySummaryModal: React.FC<ActivitySummaryModalProps> = ({
           </div>
           <button
             onClick={() => setIsConfirmingDiscard(true)}
-            className="p-1.5 rounded-xl bg-[#0B0F19] border border-[#24334A] text-slate-400 hover:text-white cursor-pointer"
+            className="p-1.5 rounded-xl bg-[#09090B] border border-[#27272A] text-zinc-400 hover:text-white cursor-pointer"
             title="Tutup / Buang"
           >
             <X className="w-5 h-5" />
@@ -66,44 +66,44 @@ export const ActivitySummaryModal: React.FC<ActivitySummaryModalProps> = ({
         </div>
 
         {/* Stats Grid Tripmeter */}
-        <div className="grid grid-cols-3 gap-2 p-3.5 bg-[#0B0F19] rounded-xl border border-[#24334A] text-center font-mono">
+        <div className="grid grid-cols-3 gap-2 p-3.5 bg-[#09090B] rounded-xl border border-[#27272A] text-center font-mono">
           <div>
-            <div className="flex items-center justify-center text-slate-400 text-[10px] font-bold uppercase mb-1">
-              <Navigation className="w-3 h-3 mr-1 text-rally-orange" /> Jarak
+            <div className="flex items-center justify-center text-zinc-400 text-[10px] font-bold uppercase mb-1">
+              <Navigation className="w-3 h-3 mr-1 text-white" /> Jarak
             </div>
             <div className="text-xl font-black text-white">{activity.distanceKm?.toFixed(2) || '0.00'}</div>
-            <div className="text-[9px] text-slate-500 uppercase">km</div>
+            <div className="text-[9px] text-zinc-500 uppercase">km</div>
           </div>
 
-          <div className="border-x border-[#24334A]">
-            <div className="flex items-center justify-center text-slate-400 text-[10px] font-bold uppercase mb-1">
-              <Clock className="w-3 h-3 mr-1 text-blue-400" /> Waktu
+          <div className="border-x border-[#27272A]">
+            <div className="flex items-center justify-center text-zinc-400 text-[10px] font-bold uppercase mb-1">
+              <Clock className="w-3 h-3 mr-1 text-zinc-300" /> Waktu
             </div>
             <div className="text-xl font-black text-white">{formatDuration(activity.durationSeconds)}</div>
-            <div className="text-[9px] text-slate-500 uppercase">durasi</div>
+            <div className="text-[9px] text-zinc-500 uppercase">durasi</div>
           </div>
 
           <div>
-            <div className="flex items-center justify-center text-slate-400 text-[10px] font-bold uppercase mb-1">
-              <Flame className="w-3 h-3 mr-1 text-amber-500" /> Kalori
+            <div className="flex items-center justify-center text-zinc-400 text-[10px] font-bold uppercase mb-1">
+              <Flame className="w-3 h-3 mr-1 text-zinc-300" /> Kalori
             </div>
-            <div className="text-xl font-black text-amber-400">{activity.caloriesBurned}</div>
-            <div className="text-[9px] text-slate-500 uppercase">kcal</div>
+            <div className="text-xl font-black text-white">{activity.caloriesBurned}</div>
+            <div className="text-[9px] text-zinc-500 uppercase">kcal</div>
           </div>
         </div>
 
         {/* Pace Banner */}
         {activity.avgPaceString && activity.avgPaceString !== '--:-- /km' && (
-          <div className="flex items-center justify-between px-3.5 py-2.5 bg-[#0B0F19] border border-[#24334A] rounded-xl text-xs font-mono">
-            <span className="text-slate-400 font-bold">RATA-RATA PACE</span>
-            <span className="font-black text-rally-orange">{activity.avgPaceString}</span>
+          <div className="flex items-center justify-between px-3.5 py-2.5 bg-[#09090B] border border-[#27272A] rounded-xl text-xs font-mono">
+            <span className="text-zinc-400 font-bold">RATA-RATA PACE</span>
+            <span className="font-black text-white">{activity.avgPaceString}</span>
           </div>
         )}
 
         {/* Title & Notes Input */}
         <div className="space-y-3">
           <div>
-            <label className="block text-[11px] font-black text-slate-400 uppercase tracking-wider mb-1 font-mono">
+            <label className="block text-[11px] font-black text-zinc-400 uppercase tracking-wider mb-1 font-mono">
               Judul Sesi
             </label>
             <input
@@ -111,12 +111,12 @@ export const ActivitySummaryModal: React.FC<ActivitySummaryModalProps> = ({
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="Contoh: Jalan Cepat Sore di Lapangan"
-              className="w-full px-4 py-2.5 bg-[#0B0F19] border border-[#24334A] rounded-xl text-white placeholder-slate-600 focus:outline-none focus:border-rally-orange text-xs font-bold"
+              className="w-full px-4 py-2.5 bg-[#09090B] border border-[#27272A] rounded-xl text-white placeholder-zinc-600 focus:outline-none focus:border-white text-xs font-bold"
             />
           </div>
 
           <div>
-            <label className="block text-[11px] font-black text-slate-400 uppercase tracking-wider mb-1 font-mono">
+            <label className="block text-[11px] font-black text-zinc-400 uppercase tracking-wider mb-1 font-mono">
               Catatan Tubuh / Sendi
             </label>
             <textarea
@@ -124,7 +124,7 @@ export const ActivitySummaryModal: React.FC<ActivitySummaryModalProps> = ({
               onChange={(e) => setNotes(e.target.value)}
               rows={2}
               placeholder="Contoh: Lutut aman, napas stabil, ritme langkah konstan..."
-              className="w-full px-4 py-2.5 bg-[#0B0F19] border border-[#24334A] rounded-xl text-white placeholder-slate-600 focus:outline-none focus:border-rally-orange text-xs resize-none"
+              className="w-full px-4 py-2.5 bg-[#09090B] border border-[#27272A] rounded-xl text-white placeholder-zinc-600 focus:outline-none focus:border-white text-xs resize-none"
             />
           </div>
         </div>

@@ -27,7 +27,7 @@ export const BottomNavbar: React.FC<BottomNavbarProps> = ({
     : allTabs;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-40 bg-[#0B0F19]/95 backdrop-blur-md border-t border-[#24334A] px-2 py-1.5 safe-bottom">
+    <div className="fixed bottom-0 left-0 right-0 z-40 bg-[#09090B]/95 backdrop-blur-md border-t border-[#27272A] px-2 py-1.5 safe-bottom">
       <div className="max-w-lg mx-auto flex items-center justify-around">
         {tabs.map((tab) => {
           const Icon = tab.icon;
@@ -39,27 +39,27 @@ export const BottomNavbar: React.FC<BottomNavbarProps> = ({
               key={tab.id}
               onClick={() => onChangeTab(tab.id)}
               className={`flex flex-col items-center justify-center py-1 px-3 rounded-xl transition relative group ${
-                isActive ? 'text-rally-orange' : 'text-slate-400 hover:text-slate-200'
+                isActive ? 'text-white' : 'text-zinc-500 hover:text-zinc-300'
               }`}
             >
               <div
                 className={`p-1.5 rounded-xl transition duration-75 ${
                   isRecord && !isActive
-                    ? 'bg-rally-orange/15 text-rally-orange border border-rally-orange/30'
+                    ? 'bg-zinc-800 text-zinc-300 border border-zinc-700'
                     : isRecord && isActive
-                    ? 'bg-rally-orange text-white shadow-lg shadow-rally-orange/30 border-b-2 border-orange-800'
+                    ? 'bg-white text-black shadow-lg shadow-white/10 border-b-2 border-zinc-400'
                     : isActive
-                    ? 'bg-rally-slateSoft text-rally-orange'
+                    ? 'bg-[#18181B] text-white border border-zinc-700'
                     : ''
                 }`}
               >
-                <Icon className={`w-5 h-5 ${isRecord && isActive ? 'fill-white stroke-white' : ''}`} />
+                <Icon className={`w-5 h-5 ${isRecord && isActive ? 'fill-black stroke-black' : ''}`} />
               </div>
-              <span className={`text-[10px] font-black tracking-tight mt-0.5 ${isActive ? 'text-rally-orange' : 'text-slate-400'}`}>
+              <span className={`text-[10px] font-black tracking-tight mt-0.5 ${isActive ? 'text-white' : 'text-zinc-500'}`}>
                 {tab.label}
               </span>
               {isActive && !isRecord && (
-                <span className="absolute bottom-0 w-2 h-1 rounded-full bg-rally-orange" />
+                <span className="absolute bottom-0 w-2 h-1 rounded-full bg-white" />
               )}
             </button>
           );

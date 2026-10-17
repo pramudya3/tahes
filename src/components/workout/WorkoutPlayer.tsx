@@ -159,7 +159,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
           <h2 className="text-2xl font-black text-white">Latihan Selesai!</h2>
           <button
             onClick={finishWorkout}
-            className="px-6 py-3 rounded-2xl bg-strava-orange text-white font-bold"
+            className="px-6 py-3.5 btn-rally-primary text-black font-black text-sm cursor-pointer"
           >
             Simpan & Selesai
           </button>
@@ -178,18 +178,18 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
   return (
     <div className="fixed inset-0 z-50 flex flex-col bg-slate-950 text-white overflow-y-auto">
       {/* Top Header */}
-      <div className="p-4 flex items-center justify-between border-b border-[#24334A] bg-[#111827]/95 backdrop-blur">
+      <div className="p-4 flex items-center justify-between border-b border-[#27272A] bg-[#121214]/95 backdrop-blur">
         <div>
           <div className="flex items-center gap-1.5">
-            <span className="w-2 h-2 rounded-sm bg-rally-orange" />
-            <span className="text-[10px] font-black text-rally-orange uppercase tracking-wider block">
+            <span className="w-2 h-2 rounded-sm bg-white" />
+            <span className="text-[10px] font-black text-zinc-400 uppercase tracking-wider block">
               CIRCUIT // INTERVAL PLAYER
             </span>
           </div>
           <h2 className="text-sm font-black text-white mt-0.5">
             {routine.title}
           </h2>
-          <span className="text-xs text-slate-400 font-mono">
+          <span className="text-xs text-zinc-400 font-mono">
             GERAKAN {exerciseIndex + 1} / {routine.exercises.length}
           </span>
         </div>
@@ -198,7 +198,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
             setIsPaused(true);
             setIsConfirmingExit(true);
           }}
-          className="p-2 rounded-xl bg-[#0B0F19] border border-[#24334A] text-slate-400 hover:text-white cursor-pointer"
+          className="p-2 rounded-xl bg-[#09090B] border border-[#27272A] text-zinc-400 hover:text-white cursor-pointer"
           title="Tutup Latihan"
         >
           <X className="w-5 h-5" />
@@ -207,16 +207,16 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
 
       {/* Exit Confirmation Dialog */}
       {isConfirmingExit && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-[#111827] border border-[#24334A] rounded-2xl p-5 max-w-sm w-full space-y-4 shadow-2xl animate-fade-in font-sans">
+        <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-[#121214] border border-[#27272A] rounded-2xl p-5 max-w-sm w-full space-y-4 shadow-2xl animate-fade-in font-sans">
             <div className="space-y-1">
-              <span className="text-[10px] font-black text-rally-orange uppercase tracking-wider block font-mono">
+              <span className="text-[10px] font-black text-rose-500 uppercase tracking-wider block font-mono">
                 KONFIRMASI // KELUAR LATIHAN
               </span>
               <h3 className="text-base font-black text-white">
                 Hentikan Sesi Latihan?
               </h3>
-              <p className="text-xs text-slate-400 leading-relaxed">
+              <p className="text-xs text-zinc-400 leading-relaxed">
                 Sesi latihan Anda belum selesai. Jika keluar sekarang, progres gerakan saat ini tidak akan tercatat ke logbook.
               </p>
             </div>
@@ -227,13 +227,13 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                   setIsConfirmingExit(false);
                   setIsPaused(false);
                 }}
-                className="flex-1 py-3 btn-rally-primary text-white text-xs font-black cursor-pointer"
+                className="flex-1 py-3 btn-rally-primary text-black text-xs font-black cursor-pointer"
               >
                 LANJUTKAN
               </button>
               <button
                 onClick={onClose}
-                className="py-3 px-4 btn-rally-secondary text-slate-300 hover:text-red-400 text-xs font-black cursor-pointer"
+                className="py-3 px-4 btn-rally-secondary text-zinc-300 hover:text-rose-400 text-xs font-black cursor-pointer"
               >
                 KELUAR
               </button>
@@ -253,7 +253,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                 cx="96"
                 cy="96"
                 r="86"
-                className="stroke-[#1A2436]"
+                className="stroke-[#27272A]"
                 strokeWidth="12"
                 fill="none"
               />
@@ -262,7 +262,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                 cy="96"
                 r="86"
                 className={`transition-all duration-300 ${
-                  phase === 'work' ? 'stroke-[#FF3B00]' : 'stroke-emerald-400'
+                  phase === 'work' ? 'stroke-white' : 'stroke-emerald-400'
                 }`}
                 strokeWidth="12"
                 strokeDasharray="540.35"
@@ -277,7 +277,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
               <span
                 className={`text-[10px] font-black uppercase tracking-widest px-2.5 py-0.5 rounded-md ${
                   phase === 'work'
-                    ? 'bg-rally-orange/20 text-rally-orange border border-rally-orange/30'
+                    ? 'bg-white text-black font-black'
                     : 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
                 }`}
               >
@@ -286,13 +286,13 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
               <div className="text-5xl font-black font-mono tracking-tight text-white">
                 {secondsRemaining}
               </div>
-              <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">detik tersisa</span>
+              <span className="text-[10px] text-zinc-400 font-bold uppercase tracking-wider block">detik tersisa</span>
             </div>
           </div>
 
           {/* Quick Reps target indicator if work phase */}
           {phase === 'work' && currentItem.targetReps && (
-            <div className="mt-2 text-xs font-mono font-bold text-slate-300 bg-[#111827] border border-[#24334A] px-3.5 py-1 rounded-lg">
+            <div className="mt-2 text-xs font-mono font-bold text-zinc-200 bg-[#121214] border border-[#27272A] px-3.5 py-1 rounded-lg">
               TARGET: ~{currentItem.targetReps} REPETISI TERKONTROL
             </div>
           )}
@@ -330,7 +330,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
 
           <button
             onClick={handleSkip}
-            className="px-4 py-3.5 btn-rally-secondary text-slate-300 hover:text-white flex items-center justify-center gap-1.5 text-xs font-black cursor-pointer"
+            className="px-4 py-3.5 btn-rally-secondary text-zinc-300 hover:text-white flex items-center justify-center gap-1.5 text-xs font-black cursor-pointer"
           >
             <SkipForward className="w-4 h-4" />
             <span>LEWATI</span>
@@ -338,7 +338,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
 
           <button
             onClick={finishWorkout}
-            className="px-5 py-3.5 btn-rally-primary text-white text-xs font-black cursor-pointer"
+            className="px-5 py-3.5 btn-rally-primary text-black text-xs font-black cursor-pointer"
           >
             SELESAI
           </button>

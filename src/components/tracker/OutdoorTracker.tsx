@@ -88,29 +88,29 @@ export const OutdoorTracker: React.FC<OutdoorTrackerProps> = ({ onActivitySaved 
   };
 
   return (
-    <div className="relative flex flex-col h-[calc(100vh-5rem)] w-full max-w-lg mx-auto bg-slate-950 text-white overflow-hidden pb-16">
+    <div className="relative flex flex-col h-[calc(100vh-5rem)] w-full max-w-lg mx-auto bg-[#09090B] text-white overflow-hidden pb-16">
       {/* Top Header & Type Switcher */}
-      <div className="p-4 z-20 flex items-center justify-between bg-[#111827]/95 backdrop-blur-md border-b border-[#24334A]">
+      <div className="p-4 z-20 flex items-center justify-between bg-[#121214]/95 backdrop-blur-md border-b border-[#27272A]">
         <div>
           <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-sm bg-rally-orange" />
-            <span className="text-[10px] font-black tracking-widest text-rally-orange uppercase">
+            <span className={`w-2 h-2 rounded-sm ${isTracking ? 'bg-rose-500 animate-pulse' : 'bg-white'}`} />
+            <span className="text-[10px] font-black tracking-widest text-zinc-300 uppercase">
               PACER // OUTDOOR GPS
             </span>
           </div>
           <h1 className="text-base font-black tracking-tight text-white mt-0.5">
-            Rally GPS Tripmeter
+            Monolith GPS Tripmeter
           </h1>
         </div>
 
         {!isTracking && (
-          <div className="flex bg-[#0B0F19] p-1 rounded-xl border border-[#24334A]">
+          <div className="flex bg-[#09090B] p-1 rounded-xl border border-[#27272A]">
             <button
               onClick={() => setSelectedType('brisk_walk')}
               className={`px-3 py-1.5 rounded-lg text-xs font-black transition ${
                 selectedType === 'brisk_walk'
-                  ? 'bg-rally-orange text-white shadow-sm'
-                  : 'text-slate-400 hover:text-white'
+                  ? 'bg-white text-black shadow-sm'
+                  : 'text-zinc-400 hover:text-white'
               }`}
             >
               Jalan Cepat
@@ -119,8 +119,8 @@ export const OutdoorTracker: React.FC<OutdoorTrackerProps> = ({ onActivitySaved 
               onClick={() => setSelectedType('run')}
               className={`px-3 py-1.5 rounded-lg text-xs font-black transition ${
                 selectedType === 'run'
-                  ? 'bg-rally-orange text-white shadow-sm'
-                  : 'text-slate-400 hover:text-white'
+                  ? 'bg-white text-black shadow-sm'
+                  : 'text-zinc-400 hover:text-white'
               }`}
             >
               Lari/Jog
@@ -153,7 +153,7 @@ export const OutdoorTracker: React.FC<OutdoorTrackerProps> = ({ onActivitySaved 
                 notes: 'Dicatat manual via pacebook',
               });
             }}
-            className="px-2.5 py-1 bg-[#0B0F19] hover:bg-slate-800 border border-red-600 rounded-lg text-white font-bold whitespace-nowrap active:scale-95"
+            className="px-2.5 py-1 bg-[#09090B] hover:bg-zinc-800 border border-rose-600 rounded-lg text-white font-bold whitespace-nowrap active:scale-95 cursor-pointer"
           >
             Catat Manual
           </button>
@@ -161,11 +161,11 @@ export const OutdoorTracker: React.FC<OutdoorTrackerProps> = ({ onActivitySaved 
       )}
 
       {/* Leaflet OpenStreetMap Container */}
-      <div className="relative flex-1 w-full bg-[#0B0F19] overflow-hidden">
+      <div className="relative flex-1 w-full bg-[#09090B] overflow-hidden">
         <LeafletRouteMap route={route} currentPosition={currentPosition} />
 
         {/* Status pill overlay */}
-        <div className="absolute top-4 left-4 z-20 bg-[#111827]/95 border border-[#24334A] px-3.5 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2.5 shadow-xl">
+        <div className="absolute top-4 left-4 z-20 bg-[#121214]/95 border border-[#27272A] px-3.5 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2.5 shadow-xl">
           <span
             className={`w-2.5 h-2.5 rounded-sm ${
               isTracking && !isPaused
@@ -190,12 +190,12 @@ export const OutdoorTracker: React.FC<OutdoorTrackerProps> = ({ onActivitySaved 
         </div>
       </div>
 
-      {/* Primary Metrics HUD (Rally Tripmeter) */}
-      <div className="bg-[#111827] border-t border-[#24334A] p-5 rounded-t-3xl shadow-2xl z-20 space-y-4">
+      {/* Primary Metrics HUD (Monolith Tripmeter) */}
+      <div className="bg-[#121214] border-t border-[#27272A] p-5 rounded-t-3xl shadow-2xl z-20 space-y-4">
         {/* Main Distance */}
-        <div className="text-center bg-[#0B0F19] py-3 px-4 rounded-2xl border border-[#24334A]">
-          <div className="text-[11px] font-black text-slate-400 uppercase tracking-widest flex items-center justify-center gap-1.5">
-            <span className="text-rally-orange">STAGE DISTANCE</span> // KILOMETER
+        <div className="text-center bg-[#09090B] py-3 px-4 rounded-2xl border border-[#27272A]">
+          <div className="text-[11px] font-black text-zinc-400 uppercase tracking-widest flex items-center justify-center gap-1.5">
+            <span className="text-white">STAGE DISTANCE</span> // KILOMETER
           </div>
           <div className="text-5xl font-black font-mono tracking-tight text-white mt-0.5">
             {distanceKm.toFixed(2)}
@@ -204,31 +204,31 @@ export const OutdoorTracker: React.FC<OutdoorTrackerProps> = ({ onActivitySaved 
 
         {/* 3 Secondary Stats in Co-driver Tripmeter format */}
         <div className="grid grid-cols-3 gap-2 py-2 text-center">
-          <div className="bg-[#0B0F19] p-3 rounded-xl border border-[#24334A]">
-            <div className="text-[10px] text-slate-400 font-bold tracking-wider uppercase">ELAPSED</div>
+          <div className="bg-[#09090B] p-3 rounded-xl border border-[#27272A]">
+            <div className="text-[10px] text-zinc-400 font-bold tracking-wider uppercase">ELAPSED</div>
             <div className="text-lg font-black font-mono text-white mt-0.5">
               {formatTime(durationSeconds)}
             </div>
           </div>
 
-          <div className="bg-[#0B0F19] p-3 rounded-xl border border-[#24334A]">
-            <div className="text-[10px] text-slate-400 font-bold tracking-wider uppercase">SPLIT PACE</div>
-            <div className="text-lg font-black font-mono text-rally-orange mt-0.5">
+          <div className="bg-[#09090B] p-3 rounded-xl border border-[#27272A]">
+            <div className="text-[10px] text-zinc-400 font-bold tracking-wider uppercase">SPLIT PACE</div>
+            <div className="text-lg font-black font-mono text-white mt-0.5">
               {avgPace}
             </div>
           </div>
 
-          <div className="bg-[#0B0F19] p-3 rounded-xl border border-[#24334A]">
-            <div className="text-[10px] text-slate-400 font-bold tracking-wider uppercase font-mono">
+          <div className="bg-[#09090B] p-3 rounded-xl border border-[#27272A]">
+            <div className="text-[10px] text-zinc-400 font-bold tracking-wider uppercase font-mono">
               KALORI ({profile.currentWeightKg}KG)
             </div>
-            <div className="text-lg font-black font-mono text-amber-400 mt-0.5">
-              {calories} <span className="text-[10px] font-normal text-slate-500">kcal</span>
+            <div className="text-lg font-black font-mono text-zinc-200 mt-0.5">
+              {calories} <span className="text-[10px] font-normal text-zinc-500">kcal</span>
             </div>
           </div>
         </div>
 
-        {/* Action Controls with Mechanical Push Feel & Hold-to-Finish Protection */}
+        {/* Action Controls with Mechanical Push Feel & Laser Crimson Hold-to-Finish */}
         <div className="pt-1">
           {!isTracking ? (
             <button
@@ -236,9 +236,9 @@ export const OutdoorTracker: React.FC<OutdoorTrackerProps> = ({ onActivitySaved 
                 soundService.unlockAudio();
                 startTracking(selectedType);
               }}
-              className="w-full py-4 btn-rally-primary text-white font-black text-base flex items-center justify-center gap-2 uppercase tracking-wide cursor-pointer"
+              className="w-full py-4 btn-rally-primary text-black font-black text-base flex items-center justify-center gap-2 uppercase tracking-wide cursor-pointer"
             >
-              <Play className="w-5 h-5 fill-white" />
+              <Play className="w-5 h-5 fill-black text-black" />
               MULAI // {selectedType === 'run' ? 'LARI OUTDOOR' : 'JALAN CEPAT'}
             </button>
           ) : (
@@ -264,18 +264,18 @@ export const OutdoorTracker: React.FC<OutdoorTrackerProps> = ({ onActivitySaved 
                 </button>
               )}
 
-              {/* Hold-to-Finish Button (Guards against sweaty hands and pocket taps) */}
+              {/* Laser Crimson Hold-to-Finish Button */}
               <div
                 onPointerDown={startHold}
                 onPointerUp={cancelHold}
                 onPointerLeave={cancelHold}
                 onPointerCancel={cancelHold}
                 onContextMenu={(e) => e.preventDefault()}
-                className="flex-1 relative overflow-hidden py-3.5 rounded-xl bg-rally-orange text-white font-black text-sm flex items-center justify-center gap-2 cursor-pointer select-none active:scale-[0.98] transition shadow-md touch-none"
+                className="flex-1 relative overflow-hidden py-3.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-black text-sm flex items-center justify-center gap-2 cursor-pointer select-none active:scale-[0.98] transition shadow-md touch-none"
               >
                 {/* Hold Progress Fill */}
                 <div
-                  className="absolute inset-y-0 left-0 bg-[#b82a00] transition-all"
+                  className="absolute inset-y-0 left-0 bg-rose-900 transition-all"
                   style={{ width: `${holdProgress}%` }}
                 />
                 <span className="relative z-10 flex items-center gap-2">

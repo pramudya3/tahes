@@ -77,11 +77,11 @@ export const AICoachChat: React.FC = () => {
   ];
 
   return (
-    <div className="w-full bg-slate-900 border border-slate-800 rounded-3xl shadow-xl flex flex-col h-[480px] overflow-hidden">
+    <div className="w-full bg-[#121214] border border-[#27272A] rounded-2xl shadow-xl flex flex-col h-[480px] overflow-hidden">
       {/* Header */}
-      <div className="p-4 border-b border-slate-800 bg-slate-900/90 flex items-center justify-between">
+      <div className="p-4 border-b border-[#27272A] bg-[#121214]/90 flex items-center justify-between">
         <div className="flex items-center gap-2.5">
-          <div className="w-9 h-9 rounded-2xl bg-gradient-to-tr from-strava-orange to-amber-500 flex items-center justify-center text-white shadow-md shadow-strava-orange/20">
+          <div className="w-9 h-9 rounded-xl bg-[#18181B] border border-zinc-700 flex items-center justify-center text-white shadow-md">
             <Bot className="w-5 h-5" />
           </div>
           <div>
@@ -91,14 +91,14 @@ export const AICoachChat: React.FC = () => {
                 {profile.geminiApiKey ? 'Gemini AI Aktif' : 'Smart Offline'}
               </span>
             </h3>
-            <p className="text-[11px] text-slate-400">Konsultasi Latihan & Nutrisi</p>
+            <p className="text-[11px] text-zinc-400">Konsultasi Latihan & Nutrisi</p>
           </div>
         </div>
 
         {!profile.geminiApiKey && (
           <div
             title="Tambahkan Gemini API Key di Pengaturan untuk model AI cloud penuh"
-            className="text-slate-500 hover:text-amber-400 cursor-pointer"
+            className="text-zinc-500 hover:text-white cursor-pointer"
           >
             <Sparkles className="w-4 h-4" />
           </div>
@@ -117,28 +117,28 @@ export const AICoachChat: React.FC = () => {
             <div
               className={`w-7 h-7 rounded-xl flex items-center justify-center shrink-0 text-xs font-bold ${
                 msg.sender === 'user'
-                  ? 'bg-strava-orange text-white'
-                  : 'bg-slate-800 text-slate-300'
+                  ? 'bg-white text-black font-black'
+                  : 'bg-[#18181B] border border-zinc-700 text-white'
               }`}
             >
               {msg.sender === 'user' ? (
                 <User className="w-3.5 h-3.5" />
               ) : (
-                <Bot className="w-3.5 h-3.5 text-strava-orange" />
+                <Bot className="w-3.5 h-3.5 text-white" />
               )}
             </div>
 
             <div
               className={`max-w-[80%] rounded-2xl p-3 text-xs leading-relaxed space-y-1 ${
                 msg.sender === 'user'
-                  ? 'bg-strava-orange text-white rounded-tr-none'
-                  : 'bg-slate-950 border border-slate-800 text-slate-200 rounded-tl-none'
+                  ? 'bg-white text-black rounded-tr-none font-medium shadow-sm'
+                  : 'bg-[#09090B] border border-[#27272A] text-zinc-200 rounded-tl-none'
               }`}
             >
               <p className="whitespace-pre-wrap">{msg.text}</p>
               <div
                 className={`text-[9px] text-right ${
-                  msg.sender === 'user' ? 'text-white/70' : 'text-slate-500'
+                  msg.sender === 'user' ? 'text-black/60 font-mono' : 'text-zinc-500 font-mono'
                 }`}
               >
                 {msg.time}
@@ -148,8 +148,8 @@ export const AICoachChat: React.FC = () => {
         ))}
 
         {isThinking && (
-          <div className="flex items-center gap-2 text-slate-400 text-xs pl-9">
-            <span className="w-2 h-2 rounded-full bg-strava-orange animate-ping" />
+          <div className="flex items-center gap-2 text-zinc-400 text-xs pl-9">
+            <span className="w-2 h-2 rounded-full bg-white animate-ping" />
             <span>Mentor sedang menganalisis saran terbaik...</span>
           </div>
         )}
@@ -157,12 +157,12 @@ export const AICoachChat: React.FC = () => {
       </div>
 
       {/* Quick Suggestions Chips */}
-      <div className="px-3 py-2 bg-slate-950/40 border-t border-slate-800/80 flex gap-1.5 overflow-x-auto no-scrollbar">
+      <div className="px-3 py-2 bg-[#09090B]/60 border-t border-[#27272A] flex gap-1.5 overflow-x-auto no-scrollbar">
         {quickQuestions.map((q, idx) => (
           <button
             key={idx}
             onClick={() => handleSend(q)}
-            className="whitespace-nowrap px-2.5 py-1 rounded-xl bg-slate-800/60 hover:bg-slate-800 text-[11px] text-slate-300 font-medium border border-slate-700/50 transition"
+            className="whitespace-nowrap px-2.5 py-1 rounded-xl bg-[#18181B] hover:bg-zinc-800 text-[11px] text-zinc-300 font-medium border border-zinc-700 transition cursor-pointer"
           >
             {q}
           </button>
@@ -170,7 +170,7 @@ export const AICoachChat: React.FC = () => {
       </div>
 
       {/* Input Field */}
-      <div className="p-3 bg-slate-950 border-t border-slate-800 flex items-center gap-2">
+      <div className="p-3 bg-[#09090B] border-t border-[#27272A] flex items-center gap-2">
         <input
           type="text"
           value={inputText}
@@ -179,14 +179,14 @@ export const AICoachChat: React.FC = () => {
             if (e.key === 'Enter') handleSend();
           }}
           placeholder="Tanya saran lutut, latihan, atau makanan..."
-          className="flex-1 px-4 py-2.5 bg-slate-900 border border-slate-800 rounded-xl text-white text-xs placeholder-slate-500 focus:outline-none focus:border-strava-orange"
+          className="flex-1 px-4 py-2.5 bg-[#121214] border border-[#27272A] rounded-xl text-white text-xs placeholder-zinc-500 focus:outline-none focus:border-white font-sans"
         />
         <button
           onClick={() => handleSend()}
           disabled={!inputText.trim() || isThinking}
-          className="p-2.5 bg-strava-orange hover:bg-strava-hover disabled:opacity-50 text-white rounded-xl shadow-md transition"
+          className="p-2.5 btn-rally-primary text-black disabled:opacity-50 rounded-xl transition cursor-pointer"
         >
-          <Send className="w-4 h-4" />
+          <Send className="w-4 h-4 fill-black text-black" />
         </button>
       </div>
     </div>

@@ -48,11 +48,11 @@ export const FeedDashboard: React.FC<FeedDashboardProps> = ({
   return (
     <div className="w-full max-w-lg mx-auto bg-slate-950 text-white min-h-[calc(100vh-5rem)] pb-20">
       {/* Top Header */}
-      <div className="p-4 border-b border-[#24334A] bg-[#111827]/95 backdrop-blur sticky top-0 z-10 flex items-center justify-between">
+      <div className="p-4 border-b border-[#27272A] bg-[#121214]/95 backdrop-blur sticky top-0 z-10 flex items-center justify-between">
         <div>
           <div className="flex items-center gap-1.5">
-            <span className="w-2 h-2 rounded-sm bg-rally-orange" />
-            <span className="text-[10px] font-black text-rally-orange uppercase tracking-widest block">
+            <span className="w-2 h-2 rounded-sm bg-white" />
+            <span className="text-[10px] font-black text-zinc-400 uppercase tracking-widest block">
               {isIndoor ? 'INDOOR BASE // ATHLETE CONSOLE' : 'STAGE TELEMETRY // ATHLETE CONSOLE'}
             </span>
           </div>
@@ -62,55 +62,55 @@ export const FeedDashboard: React.FC<FeedDashboardProps> = ({
         </div>
 
         {/* Streak Pill */}
-        <div className="flex items-center gap-1.5 px-3 py-1.5 bg-amber-500/15 border border-amber-500/40 rounded-xl text-amber-400 shadow-sm">
-          <Zap className="w-4 h-4 fill-amber-400" />
+        <div className="flex items-center gap-1.5 px-3 py-1.5 bg-[#18181B] border border-[#27272A] rounded-xl text-zinc-200 shadow-sm">
+          <Zap className="w-4 h-4 fill-zinc-200" />
           <span className="text-xs font-black font-mono">{streak} HARI STREAK</span>
         </div>
       </div>
 
       <div className="p-4 space-y-4">
-        {/* Weekly Progress Card (Rally Telemetry) */}
-        <div className="p-5 bg-[#111827] border border-[#24334A] rounded-2xl shadow-xl space-y-4">
+        {/* Weekly Progress Card (Monolith Telemetry) */}
+        <div className="p-5 bg-[#121214] border border-[#27272A] rounded-2xl shadow-xl space-y-4">
           <div className="flex items-center justify-between text-xs">
-            <span className="font-black uppercase tracking-wider text-slate-300 flex items-center gap-1.5">
-              <TrendingUp className="w-3.5 h-3.5 text-rally-orange" /> 7-DAY STAGE RECAP
+            <span className="font-black uppercase tracking-wider text-zinc-300 flex items-center gap-1.5">
+              <TrendingUp className="w-3.5 h-3.5 text-white" /> 7-DAY STAGE RECAP
             </span>
-            <span className="text-slate-400 font-mono font-bold bg-[#0B0F19] px-2 py-0.5 rounded-md border border-[#24334A]">
+            <span className="text-zinc-400 font-mono font-bold bg-[#09090B] px-2 py-0.5 rounded-md border border-[#27272A]">
               {isIndoor ? 'FOKUS RUMAHAN' : `${weekly.totalWorkouts} SESI TERCATAT`}
             </span>
           </div>
 
           <div className="grid grid-cols-3 gap-2 text-center font-mono">
-            <div className="bg-[#0B0F19] p-3 rounded-xl border border-[#24334A]">
-              <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">
+            <div className="bg-[#09090B] p-3 rounded-xl border border-[#27272A]">
+              <span className="text-[10px] text-zinc-400 font-bold uppercase tracking-wider block">
                 {isIndoor ? 'SESI WORKOUT' : 'STAGE KM'}
               </span>
               <div className="text-2xl font-black text-white mt-0.5">
                 {isIndoor ? weekly.totalWorkouts : weekly.totalDistanceKm}
               </div>
-              <span className="text-[9px] text-slate-500 uppercase">
+              <span className="text-[9px] text-zinc-500 uppercase">
                 {isIndoor ? 'sesi rumah' : 'km total'}
               </span>
             </div>
 
-            <div className="bg-[#0B0F19] p-3 rounded-xl border border-[#24334A]">
-              <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">
+            <div className="bg-[#09090B] p-3 rounded-xl border border-[#27272A]">
+              <span className="text-[10px] text-zinc-400 font-bold uppercase tracking-wider block">
                 TOTAL WAKTU
               </span>
               <div className="text-2xl font-black text-white mt-0.5">
                 {Math.round(weekly.totalDurationSeconds / 60)}
               </div>
-              <span className="text-[9px] text-slate-500 uppercase">menit</span>
+              <span className="text-[9px] text-zinc-500 uppercase">menit</span>
             </div>
 
-            <div className="bg-[#0B0F19] p-3 rounded-xl border border-[#24334A]">
-              <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">
+            <div className="bg-[#09090B] p-3 rounded-xl border border-[#27272A]">
+              <span className="text-[10px] text-zinc-400 font-bold uppercase tracking-wider block">
                 KALORI
               </span>
-              <div className="text-2xl font-black text-amber-400 mt-0.5">
+              <div className="text-2xl font-black text-zinc-200 mt-0.5">
                 {weekly.totalCalories}
               </div>
-              <span className="text-[9px] text-slate-500 uppercase">kcal</span>
+              <span className="text-[9px] text-zinc-500 uppercase">kcal</span>
             </div>
           </div>
         </div>
@@ -120,27 +120,27 @@ export const FeedDashboard: React.FC<FeedDashboardProps> = ({
           <div className="grid grid-cols-2 gap-3">
             <button
               onClick={() => onNavigateTab('workout')}
-              className="p-4 bg-[#111827] border border-rally-orange/60 hover:border-rally-orange rounded-2xl shadow-lg transition text-left space-y-2 group active:scale-[0.98] cursor-pointer"
+              className="p-4 bg-[#121214] border border-[#27272A] hover:border-white rounded-2xl shadow-lg transition text-left space-y-2 group active:scale-[0.98] cursor-pointer"
             >
-              <div className="w-10 h-10 rounded-xl bg-rally-orange/15 text-rally-orange flex items-center justify-center border border-rally-orange/30 group-hover:bg-rally-orange group-hover:text-white transition">
+              <div className="w-10 h-10 rounded-xl bg-[#18181B] text-white flex items-center justify-center border border-[#27272A] group-hover:bg-white group-hover:text-black transition">
                 <Dumbbell className="w-5 h-5" />
               </div>
               <div>
                 <span className="text-sm font-black text-white block tracking-tight">LATIHAN // WORKOUT RUMAH</span>
-                <span className="text-[11px] text-slate-400">Kalistenik Tanpa Alat</span>
+                <span className="text-[11px] text-zinc-400">Kalistenik Tanpa Alat</span>
               </div>
             </button>
 
             <button
               onClick={() => onNavigateTab('progress')}
-              className="p-4 bg-[#111827] border border-[#24334A] hover:border-emerald-500 rounded-2xl shadow-lg transition text-left space-y-2 group active:scale-[0.98] cursor-pointer"
+              className="p-4 bg-[#121214] border border-[#27272A] hover:border-emerald-500 rounded-2xl shadow-lg transition text-left space-y-2 group active:scale-[0.98] cursor-pointer"
             >
               <div className="w-10 h-10 rounded-xl bg-emerald-500/15 text-emerald-400 flex items-center justify-center border border-emerald-500/30 group-hover:bg-emerald-500 group-hover:text-white transition">
                 <TrendingUp className="w-5 h-5" />
               </div>
               <div>
                 <span className="text-sm font-black text-white block tracking-tight">PROGRES // TIMBANGAN</span>
-                <span className="text-[11px] text-slate-400">Catat Berat & Etape</span>
+                <span className="text-[11px] text-zinc-400">Catat Berat & Etape</span>
               </div>
             </button>
           </div>
@@ -148,27 +148,27 @@ export const FeedDashboard: React.FC<FeedDashboardProps> = ({
           <div className="grid grid-cols-2 gap-3">
             <button
               onClick={() => onNavigateTab('record')}
-              className="p-4 bg-[#111827] border border-[#24334A] hover:border-rally-orange rounded-2xl shadow-lg transition text-left space-y-2 group active:scale-[0.98] cursor-pointer"
+              className="p-4 bg-[#121214] border border-[#27272A] hover:border-white rounded-2xl shadow-lg transition text-left space-y-2 group active:scale-[0.98] cursor-pointer"
             >
-              <div className="w-10 h-10 rounded-xl bg-rally-orange/15 text-rally-orange flex items-center justify-center border border-rally-orange/30 group-hover:bg-rally-orange group-hover:text-white transition">
+              <div className="w-10 h-10 rounded-xl bg-[#18181B] text-white flex items-center justify-center border border-[#27272A] group-hover:bg-white group-hover:text-black transition">
                 <Footprints className="w-5 h-5" />
               </div>
               <div>
                 <span className="text-sm font-black text-white block tracking-tight">OUTDOOR // JALAN & LARI</span>
-                <span className="text-[11px] text-slate-400">Jalan Cepat & Lari</span>
+                <span className="text-[11px] text-zinc-400">Jalan Cepat & Lari</span>
               </div>
             </button>
 
             <button
               onClick={() => onNavigateTab('workout')}
-              className="p-4 bg-[#111827] border border-[#24334A] hover:border-amber-500 rounded-2xl shadow-lg transition text-left space-y-2 group active:scale-[0.98] cursor-pointer"
+              className="p-4 bg-[#121214] border border-[#27272A] hover:border-zinc-400 rounded-2xl shadow-lg transition text-left space-y-2 group active:scale-[0.98] cursor-pointer"
             >
-              <div className="w-10 h-10 rounded-xl bg-amber-500/15 text-amber-400 flex items-center justify-center border border-amber-500/30 group-hover:bg-amber-500 group-hover:text-white transition">
+              <div className="w-10 h-10 rounded-xl bg-[#18181B] text-white flex items-center justify-center border border-[#27272A] group-hover:bg-white group-hover:text-black transition">
                 <Dumbbell className="w-5 h-5" />
               </div>
               <div>
                 <span className="text-sm font-black text-white block tracking-tight">INDOOR // WORKOUT RUMAH</span>
-                <span className="text-[11px] text-slate-400">Kalistenik Ramah Sendi</span>
+                <span className="text-[11px] text-zinc-400">Kalistenik Ramah Sendi</span>
               </div>
             </button>
           </div>
