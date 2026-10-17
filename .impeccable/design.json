@@ -1,0 +1,306 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-17T20:47:00.000Z",
+  "title": "Design System: Tahes",
+  "extensions": {
+    "colorMeta": {
+      "primary": {
+        "role": "primary",
+        "displayName": "Ignition Orange",
+        "canonical": "oklch(63.3% 0.237 37.8)",
+        "tonalRamp": [
+          "#380d00",
+          "#6e1a01",
+          "#a32a02",
+          "#d43b02",
+          "#fc4c02",
+          "#ff7638",
+          "#ffa173",
+          "#ffd4c2"
+        ]
+      },
+      "primary-hover": {
+        "role": "primary",
+        "displayName": "Ignition Orange Deep",
+        "canonical": "oklch(59.5% 0.228 36.9)",
+        "tonalRamp": [
+          "#300b00",
+          "#5e1701",
+          "#912502",
+          "#bd3502",
+          "#e34402",
+          "#ff6f33",
+          "#ff9c6e",
+          "#ffd1bd"
+        ]
+      },
+      "neutral-bg": {
+        "role": "neutral",
+        "displayName": "Nocturnal Base",
+        "canonical": "oklch(12.8% 0.027 264.4)",
+        "tonalRamp": [
+          "#01030d",
+          "#020617",
+          "#081026",
+          "#0f172a",
+          "#1e293b",
+          "#334155",
+          "#475569",
+          "#64748b"
+        ]
+      },
+      "neutral-card": {
+        "role": "neutral",
+        "displayName": "Card Slate Layer",
+        "canonical": "oklch(20.8% 0.042 265.7)",
+        "tonalRamp": [
+          "#050b17",
+          "#0a1224",
+          "#0f172a",
+          "#19253d",
+          "#223352",
+          "#334970",
+          "#48628f",
+          "#627eaf"
+        ]
+      },
+      "neutral-card-soft": {
+        "role": "neutral",
+        "displayName": "Card Surface Soft",
+        "canonical": "oklch(27.9% 0.041 260.0)",
+        "tonalRamp": [
+          "#080c14",
+          "#101824",
+          "#1e293b",
+          "#2e3d54",
+          "#40536f",
+          "#576f91",
+          "#738cb0",
+          "#95add0"
+        ]
+      },
+      "neutral-border": {
+        "role": "neutral",
+        "displayName": "Subtle Border",
+        "canonical": "oklch(37.2% 0.044 257.3)",
+        "tonalRamp": [
+          "#10161f",
+          "#1f2a38",
+          "#334155",
+          "#465770",
+          "#5e7391",
+          "#7a92b3",
+          "#9db2d1",
+          "#c4d3eb"
+        ]
+      },
+      "neutral-text": {
+        "role": "neutral",
+        "displayName": "Pure White",
+        "canonical": "oklch(98.4% 0.006 247.9)",
+        "tonalRamp": [
+          "#334155",
+          "#64748b",
+          "#94a3b8",
+          "#cbd5e1",
+          "#e2e8f0",
+          "#f1f5f9",
+          "#f8fafc",
+          "#ffffff"
+        ]
+      },
+      "neutral-text-muted": {
+        "role": "neutral",
+        "displayName": "Slate Muted",
+        "canonical": "oklch(71.5% 0.035 256.8)",
+        "tonalRamp": [
+          "#1e293b",
+          "#334155",
+          "#475569",
+          "#64748b",
+          "#94a3b8",
+          "#cbd5e1",
+          "#e2e8f0",
+          "#f8fafc"
+        ]
+      },
+      "accent-success": {
+        "role": "secondary",
+        "displayName": "Joint Shield Emerald",
+        "canonical": "oklch(69.6% 0.17 162.5)",
+        "tonalRamp": [
+          "#022c1f",
+          "#05523b",
+          "#077d5a",
+          "#0aa175",
+          "#10b981",
+          "#34d399",
+          "#6ee7b7",
+          "#a7f3d0"
+        ]
+      },
+      "accent-warning": {
+        "role": "secondary",
+        "displayName": "Kinetic Amber",
+        "canonical": "oklch(75.5% 0.182 69.5)",
+        "tonalRamp": [
+          "#451a03",
+          "#78350f",
+          "#b45309",
+          "#d97706",
+          "#f59e0b",
+          "#fbbf24",
+          "#fcd34d",
+          "#fde68a"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display Metric",
+        "purpose": "Hero quantitative workout metrics (real-time distance, countdown timer seconds) at 900 ultra-bold weight."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Main surface headers, greeting cards, and workout summary completion modals."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Exercise titles, workout routine headings, and secondary card headers."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Posture cues, workout instructions, and local/Gemini AI coach recommendations."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Tracked uppercase metric descriptors (JARAK, WAKTU, AVG PACE, KALORI)."
+      }
+    },
+    "shadows": [
+      {
+        "name": "ignition-pulse",
+        "value": "0 10px 25px -5px rgba(252, 76, 2, 0.25)",
+        "purpose": "Action glow under primary buttons and active workout recording indicators."
+      },
+      {
+        "name": "dock-glass",
+        "value": "0 -4px 20px rgba(0, 0, 0, 0.5)",
+        "purpose": "Subtle elevation for fixed bottom navigation dock above scrolling feed."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-standard",
+        "value": "cubic-bezier(0.4, 0, 0.2, 1)",
+        "purpose": "Default easing curve for modal dialog entrances and layout tab transitions."
+      },
+      {
+        "name": "tap-spring",
+        "value": "scale(0.98)",
+        "purpose": "Tactile haptic scale feedback on active button tap for sweaty workout gestures."
+      }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Ignition Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "High-confidence primary action button with ignition glow for starting workouts and saving activities.",
+      "html": "<button class=\"ds-btn-primary\"><svg class=\"ds-icon\" viewBox=\"0 0 24 24\" fill=\"currentColor\"><polygon points=\"5 3 19 12 5 21 5 3\"></polygon></svg><span>MULAI LATIHAN</span></button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; min-height: 52px; padding: 16px 24px; background: #fc4c02; color: #f8fafc; font-family: system-ui, -apple-system, sans-serif; font-size: 15px; font-weight: 800; letter-spacing: -0.01em; border: none; border-radius: 16px; cursor: pointer; box-shadow: 0 10px 25px -5px rgba(252, 76, 2, 0.35); transition: background 0.15s ease, transform 0.1s ease; } .ds-btn-primary:hover { background: #e34402; } .ds-btn-primary:active { transform: scale(0.98); } .ds-icon { width: 18px; height: 18px; }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Tactile slate button for secondary options, pause states, and modal dismissals.",
+      "html": "<button class=\"ds-btn-secondary\"><svg class=\"ds-icon-stroke\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><rect x=\"6\" y=\"4\" width=\"4\" height=\"16\"></rect><rect x=\"14\" y=\"4\" width=\"4\" height=\"16\"></rect></svg><span>JEDA SESI</span></button>",
+      "css": ".ds-btn-secondary { display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; min-height: 50px; padding: 14px 20px; background: #1e293b; color: #f8fafc; font-family: system-ui, -apple-system, sans-serif; font-size: 14px; font-weight: 700; border: 1px solid #334155; border-radius: 16px; cursor: pointer; transition: background 0.15s ease, border-color 0.15s ease, transform 0.1s ease; } .ds-btn-secondary:hover { background: #26334a; border-color: #475569; } .ds-btn-secondary:active { transform: scale(0.98); } .ds-icon-stroke { width: 18px; height: 18px; }"
+    },
+    {
+      "name": "Metric Card Surface",
+      "kind": "card",
+      "refersTo": "card-surface",
+      "description": "Standard slate card for feed items, metric slots, and workout summary cards.",
+      "html": "<div class=\"ds-card\"><div class=\"ds-card-header\"><span class=\"ds-badge\">JALAN CEPAT</span><span class=\"ds-time\">Hari ini, 06:15</span></div><div class=\"ds-metric-row\"><div class=\"ds-metric-col\"><span class=\"ds-metric-val\">3.25</span><span class=\"ds-metric-lbl\">JARAK (KM)</span></div><div class=\"ds-metric-col\"><span class=\"ds-metric-val\">09:12</span><span class=\"ds-metric-lbl\">AVG PACE (/KM)</span></div><div class=\"ds-metric-col\"><span class=\"ds-metric-val\">198</span><span class=\"ds-metric-lbl\">KALORI (KKAL)</span></div></div></div>",
+      "css": ".ds-card { background: #0f172a; border: 1px solid #1e293b; border-radius: 24px; padding: 20px; font-family: system-ui, -apple-system, sans-serif; color: #f8fafc; } .ds-card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; } .ds-badge { display: inline-block; padding: 4px 10px; background: rgba(252, 76, 2, 0.15); color: #fc4c02; font-size: 11px; font-weight: 800; border-radius: 9999px; letter-spacing: 0.05em; } .ds-time { font-size: 12px; color: #94a3b8; } .ds-metric-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; border-top: 1px solid #1e293b; padding-top: 14px; text-align: center; } .ds-metric-col { display: flex; flex-direction: column; gap: 2px; } .ds-metric-val { font-size: 20px; font-weight: 900; color: #f8fafc; } .ds-metric-lbl { font-size: 10px; font-weight: 700; color: #94a3b8; letter-spacing: 0.08em; }"
+    },
+    {
+      "name": "Joint-Safe Pill Badge",
+      "kind": "chip",
+      "refersTo": "chip-badge",
+      "description": "Pill indicator highlighting knee-friendly low-impact routines and streak counters.",
+      "html": "<span class=\"ds-pill-safe\"><svg class=\"ds-pill-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\"><path d=\"M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z\"></path></svg><span>Ramah Lutut (Zero Impact)</span></span>",
+      "css": ".ds-pill-safe { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; background: rgba(16, 185, 129, 0.12); color: #10b981; font-family: system-ui, -apple-system, sans-serif; font-size: 12px; font-weight: 700; border: 1px solid rgba(16, 185, 129, 0.25); border-radius: 9999px; } .ds-pill-icon { width: 14px; height: 14px; }"
+    },
+    {
+      "name": "Data Input Field",
+      "kind": "input",
+      "refersTo": "input-field",
+      "description": "Tactile dark input field for weight logs and notes with high-contrast active focus ring.",
+      "html": "<div class=\"ds-input-group\"><label class=\"ds-input-label\">BERAT BADAN SAAT INI (KG)</label><input class=\"ds-input\" type=\"number\" value=\"83.0\" placeholder=\"Contoh: 82.5\" /></div>",
+      "css": ".ds-input-group { display: flex; flex-direction: column; gap: 6px; width: 100%; font-family: system-ui, -apple-system, sans-serif; } .ds-input-label { font-size: 11px; font-weight: 700; color: #94a3b8; letter-spacing: 0.08em; text-transform: uppercase; } .ds-input { width: 100%; height: 48px; padding: 12px 16px; background: #020617; border: 1px solid #334155; border-radius: 14px; color: #f8fafc; font-size: 16px; font-weight: 700; outline: none; transition: border-color 0.15s ease, box-shadow 0.15s ease; box-sizing: border-box; } .ds-input:focus { border-color: #fc4c02; box-shadow: 0 0 0 3px rgba(252, 76, 2, 0.2); }"
+    },
+    {
+      "name": "Navigation Tab Item",
+      "kind": "nav",
+      "refersTo": "nav-item",
+      "description": "Fixed bottom bar item with active ignition glow indicator.",
+      "html": "<div class=\"ds-nav-dock\"><button class=\"ds-nav-item active\"><svg class=\"ds-nav-icon\" viewBox=\"0 0 24 24\" fill=\"currentColor\"><path d=\"M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z\"></path></svg><span class=\"ds-nav-label\">Feed</span><span class=\"ds-nav-dot\"></span></button><button class=\"ds-nav-item\"><svg class=\"ds-nav-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><polygon points=\"13 2 3 14 12 14 11 22 21 10 12 10 13 2\"></polygon></svg><span class=\"ds-nav-label\">Workout</span></button></div>",
+      "css": ".ds-nav-dock { display: flex; justify-content: space-around; align-items: center; width: 100%; max-width: 512px; background: rgba(15, 23, 42, 0.95); border-top: 1px solid #1e293b; padding: 8px 12px; border-radius: 20px; font-family: system-ui, -apple-system, sans-serif; } .ds-nav-item { display: flex; flex-direction: column; align-items: center; gap: 4px; background: transparent; border: none; color: #94a3b8; font-size: 10px; font-weight: 700; cursor: pointer; position: relative; padding: 4px 12px; } .ds-nav-item.active { color: #fc4c02; } .ds-nav-icon { width: 22px; height: 22px; } .ds-nav-dot { width: 4px; height: 4px; background: #fc4c02; border-radius: 9999px; position: absolute; bottom: -2px; }"
+    },
+    {
+      "name": "Countdown Ring Indicator",
+      "kind": "custom",
+      "refersTo": "countdown-ring",
+      "description": "Signature dynamic SVG timer ring alternating between Ignition Orange for work and Shield Emerald for rest.",
+      "html": "<div class=\"ds-ring-box\"><svg class=\"ds-ring-svg\" viewBox=\"0 0 192 192\"><circle class=\"ds-ring-bg\" cx=\"96\" cy=\"96\" r=\"80\"></circle><circle class=\"ds-ring-fg\" cx=\"96\" cy=\"96\" r=\"80\"></circle></svg><div class=\"ds-ring-content\"><span class=\"ds-ring-time\">28</span><span class=\"ds-ring-status\">DETIK</span></div></div>",
+      "css": ".ds-ring-box { position: relative; width: 192px; height: 192px; margin: 0 auto; display: flex; align-items: center; justify-content: center; font-family: system-ui, -apple-system, sans-serif; } .ds-ring-svg { width: 100%; height: 100%; transform: rotate(-90deg); } .ds-ring-bg { fill: none; stroke: #1e293b; stroke-width: 12px; } .ds-ring-fg { fill: none; stroke: #fc4c02; stroke-width: 12px; stroke-dasharray: 502; stroke-dashoffset: 120; stroke-linecap: round; transition: stroke-dashoffset 0.5s ease; } .ds-ring-content { position: absolute; display: flex; flex-direction: column; align-items: center; } .ds-ring-time { font-size: 56px; font-weight: 900; color: #f8fafc; line-height: 1; letter-spacing: -0.03em; } .ds-ring-status { font-size: 11px; font-weight: 800; color: #94a3b8; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 4px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Minimalist Trackbook",
+    "overview": "Tahes mengusung estetika buku catatan atletik digital (trackbook) yang ultra-minimalis, presisi, dan bebas dari ornamen palsu. Desainnya lahir dari kebutuhan nyata seorang atlet yang sedang berolahraga di bawah terik matahari atau saat tangan basah oleh keringat: informasi harus terbaca dalam sepersekian detik, tanpa keraguan, dan tanpa tombol kecil yang sulit disentuh.\n\nSecara filosofis, visual Tahes tidak meniru aplikasi media sosial yang bising dengan dekorasi gradien berlebihan atau animasi kosmetik yang lambat. Sebaliknya, antarmukanya memanfaatkan kanvas gelap pekat (deep nocturnal slate) sebagai latar tenang, di mana angka-angka metrik olahraga dan garis rute GPS oranye menyala tampil dengan kontras murni seperti instrumen kokpit pesawat performa tinggi.",
+    "keyCharacteristics": [
+      "Extreme Contrast at Rest: Teks dan angka utama berwarna putih salju tajam di atas lapisan slate hitam, menjamin keterbacaan tinggi di luar ruangan.",
+      "Selective Ignition: Warna oranye Strava (#FC4C02) hanya dinyalakan untuk aksi utama, rute gerak aktif, dan metrik penting; warna tidak dihamburkan ke seluruh penjuru layar.",
+      "Generous Touch Targets: Sudut membulat organik (tactile curvature 16px – 24px) dengan area tekan besar yang memberikan rasa percaya diri saat tombol dipicu saat bergerak."
+    ],
+    "rules": [
+      {
+        "name": "The 10% Ignition Rule",
+        "body": "Warna oranye primer hanya boleh menempati maksimal 10% dari total area visual pada satu layar. Kelangkaan warna oranye adalah alasan mengapa ia begitu kuat memandu mata pengguna.",
+        "section": "colors"
+      },
+      {
+        "name": "The Number-First Rule",
+        "body": "Dalam setiap kartu metrik olahraga, angka kuantitatif selalu berukuran minimal 2 kali lebih besar daripada label teks penjelasnya.",
+        "section": "typography"
+      },
+      {
+        "name": "The Flat-At-Rest Rule",
+        "body": "Seluruh kartu dan container bersikap datar pada kondisi diam. Bayangan dan efek glow oranye hanya diizinkan muncul sebagai respons terhadap interaksi sentuh atau status sesi yang sedang merekam aktif.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do gunakan rasio kontras minimal 4.5:1 untuk semua teks instruksi dan 7:1 untuk angka metrik kecepatan/jarak.",
+      "Do beri ruang sentuh minimal 44x44px untuk setiap elemen yang dapat diklik di smartphone.",
+      "Do sertakan satuan metrik (km, kkal, /km, detik) dalam format ukuran yang lebih kecil dan warna muted tepat di samping atau di bawah angka utama.",
+      "Do pertahankan palet oranye #FC4C02 khusus untuk hal-hal yang berkaitan dengan aksi, energi gerak, dan pencapaian."
+    ],
+    "donts": [
+      "Don't menggunakan warna merah menyala untuk pesan umum; gunakan amber untuk peringatan kehati-hatian lutut dan oranye untuk identitas brand.",
+      "Don't memasang animasi dekoratif yang memperlambat transisi layar saat pengguna sedang berolahraga.",
+      "Don't menyembunyikan metrik kritis (jarak tempuh dan waktu berjalan) di balik menu atau gestur geser tambahan.",
+      "Don't menggunakan huruf berukuran di bawah 10px pada antarmuka smartphone."
+    ]
+  }
+}
