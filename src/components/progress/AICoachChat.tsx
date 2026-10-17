@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { sendAICoachMessage } from '../../services/ai';
 import { getUserProfile } from '../../db/index';
-import { Bot, Send, User, Sparkles, AlertCircle } from 'lucide-react';
+import { Bot, Send, User, Sparkles } from 'lucide-react';
 
 interface ChatMessage {
   id: string;

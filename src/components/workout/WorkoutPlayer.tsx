@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { WorkoutRoutine, Activity } from '../../types/index';
 import { getExerciseById } from '../../data/exercises';
-import { calculateRoutineEstimate } from '../../data/programs';
 import { ExerciseCard } from './ExerciseCard';
 import { soundService } from '../../utils/audio';
 import { wakeLockService } from '../../utils/wakeLock';
 import { getUserProfile, db } from '../../db/index';
-import { Play, Pause, SkipForward, X, CheckCircle2, Flame, Clock } from 'lucide-react';
+import { Play, Pause, SkipForward, X, CheckCircle2 } from 'lucide-react';
 
 interface WorkoutPlayerProps {
   routine: WorkoutRoutine;

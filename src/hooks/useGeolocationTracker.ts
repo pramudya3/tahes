@@ -58,7 +58,7 @@ export function useGeolocationTracker(): UseGeolocationTrackerReturn {
 
   // Calories update when duration or weight changes
   const updateCalories = useCallback(
-    (seconds: number, dist: number, type: ActivityType) => {
+    (seconds: number, _dist: number, type: ActivityType) => {
       const profile = getUserProfile();
       // Brisk walk: MET 4.3. Run: MET 7.0
       const met = type === 'run' ? 7.0 : 4.3;

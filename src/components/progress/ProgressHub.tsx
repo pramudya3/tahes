@@ -8,8 +8,6 @@ import { AICoachChat } from './AICoachChat';
 import {
   TrendingDown,
   Scale,
-  Flame,
-  Activity as ActivityIcon,
   Plus,
   MessageSquare,
   LineChart,

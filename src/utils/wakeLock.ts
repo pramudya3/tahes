@@ -15,8 +15,7 @@ class WakeLockService {
     }
 
     try {
-      // @ts-expect-error WakeLock API standard
-      this.sentinel = await navigator.wakeLock.request('screen');
+      this.sentinel = await (navigator as unknown as { wakeLock: { request: (type: string) => Promise<WakeLockSentinelLike> } }).wakeLock.request('screen');
       if (this.sentinel) {
         this.sentinel.addEventListener('release', () => {
           this.sentinel = null;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Play, Pause, Square, AlertCircle, Sparkles } from 'lucide-react';
 import { useGeolocationTracker } from '../../hooks/useGeolocationTracker';
 import { Activity } from '../../types/index';
@@ -12,10 +12,8 @@ export const OutdoorTracker: React.FC<OutdoorTrackerProps> = ({ onActivitySaved 
   const {
     isTracking,
     isPaused,
-    activityType,
     distanceKm,
     durationSeconds,
-    currentPace,
     avgPace,
     calories,
     route,
@@ -29,13 +27,6 @@ export const OutdoorTracker: React.FC<OutdoorTrackerProps> = ({ onActivitySaved 
 
   const [selectedType, setSelectedType] = useState<'brisk_walk' | 'run'>('brisk_walk');
   const [completedActivity, setCompletedActivity] = useState<Activity | null>(null);
-  const [mapCenter, setMapCenter] = useState<[number, number]>([-6.2088, 106.8456]); // Default Jakarta
-
-  useEffect(() => {
-    if (currentPosition) {
-      setMapCenter([currentPosition.lat, currentPosition.lng]);
-    }
-  }, [currentPosition]);
 
   const formatTime = (secs: number) => {
     const hrs = Math.floor(secs / 3600);
