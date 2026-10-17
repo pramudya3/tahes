@@ -49,16 +49,23 @@ export const FeedDashboard: React.FC<FeedDashboardProps> = ({
     <div className="w-full max-w-lg mx-auto bg-slate-950 text-white min-h-[calc(100vh-5rem)] pb-20">
       {/* Top Header */}
       <div className="p-4 border-b border-[#27272A] bg-[#121214]/95 backdrop-blur sticky top-0 z-10 flex items-center justify-between">
-        <div>
-          <div className="flex items-center gap-1.5">
-            <span className="w-2 h-2 rounded-sm bg-white" />
-            <span className="text-[10px] font-black text-zinc-400 uppercase tracking-widest block">
-              {isIndoor ? 'INDOOR BASE // ATHLETE CONSOLE' : 'STAGE TELEMETRY // ATHLETE CONSOLE'}
-            </span>
+        <div className="flex items-center gap-3">
+          <img
+            src="/icon-192.png"
+            alt="Tahes Logo"
+            className="w-10 h-10 rounded-xl border border-zinc-700 shadow-md shrink-0 object-cover"
+          />
+          <div>
+            <div className="flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-sm bg-white" />
+              <span className="text-[10px] font-black text-zinc-400 uppercase tracking-widest block">
+                {isIndoor ? 'INDOOR BASE // CONSOLE' : 'TELEMETRY // CONSOLE'}
+              </span>
+            </div>
+            <h1 className="text-base font-black tracking-tight text-white mt-0.5 font-mono">
+              {profile.name} // {profile.currentWeightKg}KG ➔ {profile.targetWeightKg}KG
+            </h1>
           </div>
-          <h1 className="text-xl font-black tracking-tight text-white mt-0.5 font-mono">
-            {profile.name} // {profile.currentWeightKg}KG ➔ {profile.targetWeightKg}KG
-          </h1>
         </div>
 
         {/* Streak Pill */}

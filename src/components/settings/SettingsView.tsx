@@ -102,16 +102,23 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onProfileUpdated }) 
     <div className="w-full max-w-lg mx-auto bg-[#09090B] text-white min-h-[calc(100vh-5rem)] pb-20">
       {/* Header */}
       <div className="p-4 border-b border-[#27272A] bg-[#121214]/95 backdrop-blur sticky top-0 z-10 flex items-center justify-between">
-        <div>
-          <div className="flex items-center gap-1.5">
-            <span className="w-2 h-2 rounded-sm bg-white" />
-            <span className="text-[10px] font-black text-zinc-400 uppercase tracking-wider block">
-              STAGE CONFIG // ATHLETE SETTINGS
-            </span>
+        <div className="flex items-center gap-3">
+          <img
+            src="/icon-192.png"
+            alt="Tahes Logo"
+            className="w-10 h-10 rounded-xl border border-zinc-700 shadow-md shrink-0 object-cover"
+          />
+          <div>
+            <div className="flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-sm bg-white" />
+              <span className="text-[10px] font-black text-zinc-400 uppercase tracking-wider block">
+                TAHES v1.0 // ATHLETE CONFIG
+              </span>
+            </div>
+            <h1 className="text-base font-black tracking-tight text-white mt-0.5">
+              Pengaturan & Backup
+            </h1>
           </div>
-          <h1 className="text-lg font-black tracking-tight text-white mt-0.5">
-            Pengaturan & Backup
-          </h1>
         </div>
       </div>
 
