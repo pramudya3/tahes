@@ -13,11 +13,17 @@ import {
 
 interface FeedDashboardProps {
   onNavigateTab: (tab: 'record' | 'workout' | 'progress') => void;
+  indoorOnlyMode?: boolean;
 }
 
-export const FeedDashboard: React.FC<FeedDashboardProps> = ({ onNavigateTab }) => {
+export const FeedDashboard: React.FC<FeedDashboardProps> = ({
+  onNavigateTab,
+  indoorOnlyMode,
+}) => {
   const [activities, setActivities] = useState<Activity[]>([]);
   const [profile, setProfile] = useState(getUserProfile());
+
+  const isIndoor = indoorOnlyMode !== undefined ? indoorOnlyMode : (profile.indoorOnlyMode ?? false);
 
   const loadActivities = async () => {
     const list = await db.activities.toArray();
@@ -29,7 +35,7 @@ export const FeedDashboard: React.FC<FeedDashboardProps> = ({ onNavigateTab }) =
 
   useEffect(() => {
     loadActivities();
-  }, []);
+  }, [indoorOnlyMode]);
 
   const handleDeleteActivity = async (id: string) => {
     await db.activities.delete(id);
@@ -47,7 +53,7 @@ export const FeedDashboard: React.FC<FeedDashboardProps> = ({ onNavigateTab }) =
           <div className="flex items-center gap-1.5">
             <span className="w-2 h-2 rounded-sm bg-rally-orange" />
             <span className="text-[10px] font-black text-rally-orange uppercase tracking-widest block">
-              STAGE TELEMETRY // ATHLETE CONSOLE
+              {isIndoor ? 'INDOOR BASE // ATHLETE CONSOLE' : 'STAGE TELEMETRY // ATHLETE CONSOLE'}
             </span>
           </div>
           <h1 className="text-xl font-black tracking-tight text-white mt-0.5">
@@ -70,71 +76,103 @@ export const FeedDashboard: React.FC<FeedDashboardProps> = ({ onNavigateTab }) =
               <TrendingUp className="w-3.5 h-3.5 text-rally-orange" /> 7-DAY STAGE RECAP
             </span>
             <span className="text-slate-400 font-mono font-bold bg-[#0B0F19] px-2 py-0.5 rounded-md border border-[#24334A]">
-              {weekly.totalWorkouts} SESI TERCATAT
+              {isIndoor ? 'FOKUS RUMAHAN' : `${weekly.totalWorkouts} SESI TERCATAT`}
             </span>
           </div>
 
-          <div className="grid grid-cols-3 gap-2 text-center">
+          <div className="grid grid-cols-3 gap-2 text-center font-mono">
             <div className="bg-[#0B0F19] p-3 rounded-xl border border-[#24334A]">
               <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">
-                STAGE KM
+                {isIndoor ? 'SESI WORKOUT' : 'STAGE KM'}
               </span>
-              <div className="text-2xl font-black font-mono text-white mt-0.5">
-                {weekly.totalDistanceKm}
+              <div className="text-2xl font-black text-white mt-0.5">
+                {isIndoor ? weekly.totalWorkouts : weekly.totalDistanceKm}
               </div>
-              <span className="text-[9px] text-slate-500 font-mono uppercase">km total</span>
+              <span className="text-[9px] text-slate-500 uppercase">
+                {isIndoor ? 'sesi rumah' : 'km total'}
+              </span>
             </div>
 
             <div className="bg-[#0B0F19] p-3 rounded-xl border border-[#24334A]">
               <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">
                 TOTAL WAKTU
               </span>
-              <div className="text-2xl font-black font-mono text-white mt-0.5">
+              <div className="text-2xl font-black text-white mt-0.5">
                 {Math.round(weekly.totalDurationSeconds / 60)}
               </div>
-              <span className="text-[9px] text-slate-500 font-mono uppercase">menit</span>
+              <span className="text-[9px] text-slate-500 uppercase">menit</span>
             </div>
 
             <div className="bg-[#0B0F19] p-3 rounded-xl border border-[#24334A]">
               <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">
                 KALORI
               </span>
-              <div className="text-2xl font-black font-mono text-amber-400 mt-0.5">
+              <div className="text-2xl font-black text-amber-400 mt-0.5">
                 {weekly.totalCalories}
               </div>
-              <span className="text-[9px] text-slate-500 font-mono uppercase">kcal</span>
+              <span className="text-[9px] text-slate-500 uppercase">kcal</span>
             </div>
           </div>
         </div>
 
-        {/* Quick Stage Launchers with Chamfered Mechanical Push Feel */}
-        <div className="grid grid-cols-2 gap-3">
-          <button
-            onClick={() => onNavigateTab('record')}
-            className="p-4 bg-[#111827] border border-[#24334A] hover:border-rally-orange rounded-2xl shadow-lg transition text-left space-y-2 group active:scale-[0.98] cursor-pointer"
-          >
-            <div className="w-10 h-10 rounded-xl bg-rally-orange/15 text-rally-orange flex items-center justify-center border border-rally-orange/30 group-hover:bg-rally-orange group-hover:text-white transition">
-              <Footprints className="w-5 h-5" />
-            </div>
-            <div>
-              <span className="text-sm font-black text-white block tracking-tight">STAGE 01 // GPS</span>
-              <span className="text-[11px] text-slate-400">Jalan Cepat & Lari</span>
-            </div>
-          </button>
+        {/* Quick Stage Launchers */}
+        {isIndoor ? (
+          <div className="grid grid-cols-2 gap-3">
+            <button
+              onClick={() => onNavigateTab('workout')}
+              className="p-4 bg-[#111827] border border-rally-orange/60 hover:border-rally-orange rounded-2xl shadow-lg transition text-left space-y-2 group active:scale-[0.98] cursor-pointer"
+            >
+              <div className="w-10 h-10 rounded-xl bg-rally-orange/15 text-rally-orange flex items-center justify-center border border-rally-orange/30 group-hover:bg-rally-orange group-hover:text-white transition">
+                <Dumbbell className="w-5 h-5" />
+              </div>
+              <div>
+                <span className="text-sm font-black text-white block tracking-tight">STAGE // WORKOUT</span>
+                <span className="text-[11px] text-slate-400">Kalistenik Tanpa Alat</span>
+              </div>
+            </button>
 
-          <button
-            onClick={() => onNavigateTab('workout')}
-            className="p-4 bg-[#111827] border border-[#24334A] hover:border-amber-500 rounded-2xl shadow-lg transition text-left space-y-2 group active:scale-[0.98] cursor-pointer"
-          >
-            <div className="w-10 h-10 rounded-xl bg-amber-500/15 text-amber-400 flex items-center justify-center border border-amber-500/30 group-hover:bg-amber-500 group-hover:text-white transition">
-              <Dumbbell className="w-5 h-5" />
-            </div>
-            <div>
-              <span className="text-sm font-black text-white block tracking-tight">STAGE 02 // CIRCUIT</span>
-              <span className="text-[11px] text-slate-400">Kalistenik Ramah Sendi</span>
-            </div>
-          </button>
-        </div>
+            <button
+              onClick={() => onNavigateTab('progress')}
+              className="p-4 bg-[#111827] border border-[#24334A] hover:border-emerald-500 rounded-2xl shadow-lg transition text-left space-y-2 group active:scale-[0.98] cursor-pointer"
+            >
+              <div className="w-10 h-10 rounded-xl bg-emerald-500/15 text-emerald-400 flex items-center justify-center border border-emerald-500/30 group-hover:bg-emerald-500 group-hover:text-white transition">
+                <TrendingUp className="w-5 h-5" />
+              </div>
+              <div>
+                <span className="text-sm font-black text-white block tracking-tight">STAGE // PROGRES</span>
+                <span className="text-[11px] text-slate-400">Catat Berat & Etape</span>
+              </div>
+            </button>
+          </div>
+        ) : (
+          <div className="grid grid-cols-2 gap-3">
+            <button
+              onClick={() => onNavigateTab('record')}
+              className="p-4 bg-[#111827] border border-[#24334A] hover:border-rally-orange rounded-2xl shadow-lg transition text-left space-y-2 group active:scale-[0.98] cursor-pointer"
+            >
+              <div className="w-10 h-10 rounded-xl bg-rally-orange/15 text-rally-orange flex items-center justify-center border border-rally-orange/30 group-hover:bg-rally-orange group-hover:text-white transition">
+                <Footprints className="w-5 h-5" />
+              </div>
+              <div>
+                <span className="text-sm font-black text-white block tracking-tight">STAGE 01 // GPS</span>
+                <span className="text-[11px] text-slate-400">Jalan Cepat & Lari</span>
+              </div>
+            </button>
+
+            <button
+              onClick={() => onNavigateTab('workout')}
+              className="p-4 bg-[#111827] border border-[#24334A] hover:border-amber-500 rounded-2xl shadow-lg transition text-left space-y-2 group active:scale-[0.98] cursor-pointer"
+            >
+              <div className="w-10 h-10 rounded-xl bg-amber-500/15 text-amber-400 flex items-center justify-center border border-amber-500/30 group-hover:bg-amber-500 group-hover:text-white transition">
+                <Dumbbell className="w-5 h-5" />
+              </div>
+              <div>
+                <span className="text-sm font-black text-white block tracking-tight">STAGE 02 // CIRCUIT</span>
+                <span className="text-[11px] text-slate-400">Kalistenik Ramah Sendi</span>
+              </div>
+            </button>
+          </div>
+        )}
 
         {/* Activity Feed Section */}
         <div className="space-y-3">

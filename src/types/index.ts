@@ -48,6 +48,7 @@ export interface UserProfile {
   geminiApiKey?: string;
   soundEnabled: boolean;
   voiceAlertsEnabled: boolean;
+  indoorOnlyMode?: boolean;
 }
 
 export interface WeightEntry {

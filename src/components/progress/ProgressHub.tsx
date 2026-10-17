@@ -37,9 +37,11 @@ export const ProgressHub: React.FC = () => {
     loadData();
   }, []);
 
+  const isIndoorOnly = profile.indoorOnlyMode ?? false;
+  const activityMultiplier = isIndoorOnly ? 1.2 : 1.375;
   const { bmi, category } = calculateBMI(profile.currentWeightKg, profile.heightCm);
   const bmr = calculateBMR(profile.currentWeightKg, profile.heightCm, profile.age, 'male');
-  const tdee = calculateTDEE(bmr, 1.375);
+  const tdee = calculateTDEE(bmr, activityMultiplier);
   const deficitCalorieTarget = Math.round(tdee - 450); // Safe 450 kcal deficit
 
   const initialWeight = 83.0;
@@ -226,7 +228,9 @@ export const ProgressHub: React.FC = () => {
               <span className="font-bold text-slate-200">~{bmr} kcal</span>
             </div>
             <div className="bg-[#0B0F19] p-2.5 rounded-xl border border-[#24334A]">
-              <span className="text-[9px] text-slate-500 block uppercase font-bold">TDEE</span>
+              <span className="text-[9px] text-slate-500 block uppercase font-bold">
+                {isIndoorOnly ? 'TDEE (RUMAH)' : 'TDEE'}
+              </span>
               <span className="font-bold text-slate-200">~{tdee} kcal</span>
             </div>
             <div className="bg-[#0B0F19] p-2.5 rounded-xl border border-rally-orange/50">
@@ -234,6 +238,13 @@ export const ProgressHub: React.FC = () => {
               <span className="font-black text-white">~{deficitCalorieTarget} kcal</span>
             </div>
           </div>
+
+          {isIndoorOnly && (
+            <div className="text-[10px] text-slate-400 bg-[#0B0F19] p-2.5 rounded-xl border border-[#24334A] flex items-center justify-between font-mono">
+              <span className="font-sans">🏠 Target kalori disesuaikan untuk aktivitas dominan dalam rumah (1.2× BMR)</span>
+              <span className="text-rally-orange font-bold shrink-0 ml-1">SEDENTARY</span>
+            </div>
+          )}
         </div>
 
         {/* Sub-tab Navigation: Chart vs AI Mentor */}

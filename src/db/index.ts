@@ -26,6 +26,7 @@ export const DEFAULT_PROFILE: UserProfile = {
   targetWeightKg: 65.0,
   soundEnabled: true,
   voiceAlertsEnabled: true,
+  indoorOnlyMode: false,
 };
 
 export function getUserProfile(): UserProfile {

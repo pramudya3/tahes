@@ -6,19 +6,25 @@ export type TabType = 'feed' | 'record' | 'workout' | 'progress' | 'settings';
 interface BottomNavbarProps {
   activeTab: TabType;
   onChangeTab: (tab: TabType) => void;
+  indoorOnlyMode?: boolean;
 }
 
 export const BottomNavbar: React.FC<BottomNavbarProps> = ({
   activeTab,
   onChangeTab,
+  indoorOnlyMode = false,
 }) => {
-  const tabs = [
+  const allTabs = [
     { id: 'feed' as TabType, label: 'Feed', icon: Home },
-    { id: 'record' as TabType, label: 'GPS Lari', icon: Footprints },
-    { id: 'workout' as TabType, label: 'Workout', icon: Dumbbell },
+    { id: 'record' as TabType, label: 'GPS Lari', icon: Footprints, outdoorOnly: true },
+    { id: 'workout' as TabType, label: 'Latihan', icon: Dumbbell },
     { id: 'progress' as TabType, label: 'Progres', icon: TrendingDown },
     { id: 'settings' as TabType, label: 'Akun', icon: Settings },
   ];
+
+  const tabs = indoorOnlyMode
+    ? allTabs.filter((t) => !t.outdoorOnly)
+    : allTabs;
 
   return (
     <div className="fixed bottom-0 left-0 right-0 z-40 bg-[#0B0F19]/95 backdrop-blur-md border-t border-[#24334A] px-2 py-1.5 safe-bottom">

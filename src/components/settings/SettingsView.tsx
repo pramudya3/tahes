@@ -14,9 +14,14 @@ import {
   Upload,
   CheckCircle2,
   AlertCircle,
+  Home,
 } from 'lucide-react';
 
-export const SettingsView: React.FC = () => {
+interface SettingsViewProps {
+  onProfileUpdated?: () => void;
+}
+
+export const SettingsView: React.FC<SettingsViewProps> = ({ onProfileUpdated }) => {
   const [profile, setProfile] = useState(getUserProfile());
   const [name, setName] = useState(profile.name);
   const [age, setAge] = useState(profile.age.toString());
@@ -29,6 +34,7 @@ export const SettingsView: React.FC = () => {
   );
   const [geminiApiKey, setGeminiApiKey] = useState(profile.geminiApiKey || '');
   const [soundEnabled, setSoundEnabled] = useState(profile.soundEnabled);
+  const [indoorOnlyMode, setIndoorOnlyMode] = useState(profile.indoorOnlyMode ?? false);
 
   const [notification, setNotification] = useState<{
     type: 'success' | 'error';
@@ -50,9 +56,11 @@ export const SettingsView: React.FC = () => {
       targetWeightKg: parseFloat(targetWeightKg) || 65,
       geminiApiKey: geminiApiKey.trim() || undefined,
       soundEnabled,
+      indoorOnlyMode,
     });
     setProfile(updated);
-    showNotification('success', 'Profil dan pengaturan berhasil disimpan!');
+    onProfileUpdated?.();
+    showNotification('success', 'Profil dan mode latihan berhasil disimpan!');
   };
 
   const handleExport = async () => {
@@ -124,6 +132,78 @@ export const SettingsView: React.FC = () => {
             <span>{notification.text}</span>
           </div>
         )}
+
+        {/* Workout Environment Mode Selector */}
+        <div className="p-5 bg-[#111827] border border-[#24334A] rounded-2xl shadow-xl space-y-3 font-mono">
+          <div className="flex items-center justify-between text-xs">
+            <span className="font-black text-rally-orange uppercase tracking-wider flex items-center gap-1.5">
+              <Home className="w-4 h-4" /> MODE LATIHAN (ENVIRONMENT)
+            </span>
+            <span
+              className={`text-[10px] font-black px-2 py-0.5 rounded-md border ${
+                indoorOnlyMode
+                  ? 'bg-rally-orange/15 text-rally-orange border-rally-orange/30'
+                  : 'bg-slate-800 text-slate-400 border-slate-700'
+              }`}
+            >
+              {indoorOnlyMode ? 'FOKUS RUMAHAN' : 'MODE LENGKAP'}
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 gap-2 pt-1 font-sans">
+            {/* Option 1: Indoor Only */}
+            <div
+              onClick={() => setIndoorOnlyMode(true)}
+              className={`p-3.5 rounded-xl border transition-all cursor-pointer flex items-start gap-3 ${
+                indoorOnlyMode
+                  ? 'bg-[#0B0F19] border-rally-orange shadow-sm'
+                  : 'bg-[#0B0F19]/40 border-[#24334A] hover:border-slate-600'
+              }`}
+            >
+              <div
+                className={`w-4 h-4 rounded-full mt-0.5 border flex items-center justify-center shrink-0 ${
+                  indoorOnlyMode ? 'border-rally-orange bg-rally-orange' : 'border-slate-600'
+                }`}
+              >
+                {indoorOnlyMode && <span className="w-1.5 h-1.5 rounded-full bg-white block" />}
+              </div>
+              <div className="space-y-0.5">
+                <span className="text-xs font-black text-white block">
+                  🏠 Mode Fokus Rumahan (Indoor-Only)
+                </span>
+                <p className="text-[11px] text-slate-400 leading-relaxed">
+                  Hanya latihan bodyweight tanpa alat di rumah. GPS outdoor disembunyikan, perhitungan kalori harian disesuaikan ke basis rumahan (1.2× BMR), dan dashboard difokuskan pada sesi latihan rumah.
+                </p>
+              </div>
+            </div>
+
+            {/* Option 2: Full Mode */}
+            <div
+              onClick={() => setIndoorOnlyMode(false)}
+              className={`p-3.5 rounded-xl border transition-all cursor-pointer flex items-start gap-3 ${
+                !indoorOnlyMode
+                  ? 'bg-[#0B0F19] border-rally-orange shadow-sm'
+                  : 'bg-[#0B0F19]/40 border-[#24334A] hover:border-slate-600'
+              }`}
+            >
+              <div
+                className={`w-4 h-4 rounded-full mt-0.5 border flex items-center justify-center shrink-0 ${
+                  !indoorOnlyMode ? 'border-rally-orange bg-rally-orange' : 'border-slate-600'
+                }`}
+              >
+                {!indoorOnlyMode && <span className="w-1.5 h-1.5 rounded-full bg-white block" />}
+              </div>
+              <div className="space-y-0.5">
+                <span className="text-xs font-black text-white block">
+                  🏃 Mode Lengkap (Indoor + Outdoor GPS)
+                </span>
+                <p className="text-[11px] text-slate-400 leading-relaxed">
+                  Menampilkan semua modul termasuk pelacak rute GPS outdoor untuk jalan cepat atau lari di luar ruangan.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
 
         {/* Profile Settings Form */}
         <form

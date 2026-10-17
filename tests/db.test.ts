@@ -23,13 +23,15 @@ describe('Database Layer & Local Storage', () => {
       expect(profile.currentWeightKg).toBe(83);
       expect(profile.age).toBe(26);
       expect(profile.targetWeightKg).toBe(65);
+      expect(profile.indoorOnlyMode).toBe(false);
     });
 
     it('updates and persists profile modifications', () => {
-      saveUserProfile({ currentWeightKg: 82.2, soundEnabled: false });
+      saveUserProfile({ currentWeightKg: 82.2, soundEnabled: false, indoorOnlyMode: true });
       const updated = getUserProfile();
       expect(updated.currentWeightKg).toBe(82.2);
       expect(updated.soundEnabled).toBe(false);
+      expect(updated.indoorOnlyMode).toBe(true);
       expect(updated.heightCm).toBe(165); // preserved
     });
   });
