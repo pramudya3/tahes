@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { calculateWeeklyStats, calculateStreak } from '../src/utils/feedStats';
+import { calculateWeeklyStats, calculateStreak, toLocalDateString } from '../src/utils/feedStats';
 import { Activity } from '../src/types/index';
 
 describe('Activity Feed & Weekly Stats Calculations', () => {
@@ -72,4 +72,12 @@ describe('Activity Feed & Weekly Stats Calculations', () => {
     const streak = calculateStreak([], now);
     expect(streak).toBe(0);
   });
+
+  it('correctly maps morning timestamps to local date without UTC shift', () => {
+    // 2026-10-18 at 06:30:00 local time
+    const d = new Date(2026, 9, 18, 6, 30, 0);
+    const dateStr = toLocalDateString(d.getTime());
+    expect(dateStr).toBe('2026-10-18');
+  });
 });
+

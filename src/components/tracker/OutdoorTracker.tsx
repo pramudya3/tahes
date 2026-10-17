@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { Play, Pause, Square, AlertCircle, Sparkles } from 'lucide-react';
+import { Play, Pause, Square, AlertCircle } from 'lucide-react';
 import { useGeolocationTracker } from '../../hooks/useGeolocationTracker';
 import { Activity } from '../../types/index';
 import { ActivitySummaryModal } from './ActivitySummaryModal';
+import { LeafletRouteMap } from './LeafletRouteMap';
+import { soundService } from '../../utils/audio';
 
 interface OutdoorTrackerProps {
   onActivitySaved?: (activity: Activity) => void;
@@ -115,64 +117,34 @@ export const OutdoorTracker: React.FC<OutdoorTrackerProps> = ({ onActivitySaved 
         </div>
       )}
 
-      {/* Map Canvas / Visualizer */}
+      {/* Leaflet OpenStreetMap Container */}
       <div className="relative flex-1 w-full bg-slate-900 overflow-hidden">
-        {/* Simple Leaflet Map Container */}
-        {typeof window !== 'undefined' && (
-          <div id="tracker-map-placeholder" className="absolute inset-0 flex items-center justify-center bg-slate-950">
-            {/* Realtime route svg canvas visualization */}
-            <div className="relative w-full h-full flex flex-col items-center justify-center p-6 text-center">
-              {route.length > 1 ? (
-                <div className="w-full h-full flex items-center justify-center">
-                  <svg className="w-full h-4/5 stroke-strava-orange fill-none drop-shadow-[0_0_12px_rgba(252,76,2,0.6)]">
-                    <polyline
-                      points={route
-                        .map((pt, i) => `${(i * 15) % 280 + 20},${180 - ((pt.lat * 1000) % 120)}`)
-                        .join(' ')}
-                      strokeWidth="5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </div>
-              ) : (
-                <div className="space-y-3 opacity-60">
-                  <div className="w-16 h-16 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center mx-auto text-strava-orange animate-pulse">
-                    <Sparkles className="w-7 h-7" />
-                  </div>
-                  <div className="text-sm font-medium text-slate-400">
-                    {isTracking ? 'GPS Aktif, mencari koordinat rute...' : 'Tekan Mulai untuk mencatat rute GPS'}
-                  </div>
-                </div>
-              )}
+        <LeafletRouteMap route={route} currentPosition={currentPosition} />
 
-              {/* Status pill on map */}
-              <div className="absolute top-4 left-4 bg-slate-900/90 border border-slate-800/80 backdrop-blur px-3 py-1.5 rounded-full text-xs font-semibold flex items-center gap-2">
-                <span
-                  className={`w-2.5 h-2.5 rounded-full ${
-                    isTracking && !isPaused
-                      ? 'bg-emerald-500 animate-ping'
-                      : isPaused
-                      ? 'bg-amber-500'
-                      : 'bg-slate-600'
-                  }`}
-                />
-                <span>
-                  {isTracking
-                    ? isPaused
-                      ? 'Sesi Dijeda'
-                      : 'Merekam GPS...'
-                    : 'GPS Siap'}
-                </span>
-                {currentPosition?.accuracy && (
-                  <span className="text-[10px] text-slate-500">
-                    (±{Math.round(currentPosition.accuracy)}m)
-                  </span>
-                )}
-              </div>
-            </div>
-          </div>
-        )}
+        {/* Status pill overlay */}
+        <div className="absolute top-4 left-4 z-20 bg-slate-900/90 border border-slate-800/80 backdrop-blur px-3 py-1.5 rounded-full text-xs font-semibold flex items-center gap-2 shadow-lg">
+          <span
+            className={`w-2.5 h-2.5 rounded-full ${
+              isTracking && !isPaused
+                ? 'bg-emerald-500 animate-ping'
+                : isPaused
+                ? 'bg-amber-500'
+                : 'bg-slate-600'
+            }`}
+          />
+          <span>
+            {isTracking
+              ? isPaused
+                ? 'Sesi Dijeda'
+                : 'Merekam GPS...'
+              : 'GPS Siap'}
+          </span>
+          {currentPosition?.accuracy && (
+            <span className="text-[10px] text-slate-400">
+              (±{Math.round(currentPosition.accuracy)}m)
+            </span>
+          )}
+        </div>
       </div>
 
       {/* Primary Metrics HUD (Strava Style) */}
@@ -215,7 +187,10 @@ export const OutdoorTracker: React.FC<OutdoorTrackerProps> = ({ onActivitySaved 
         <div className="pt-1">
           {!isTracking ? (
             <button
-              onClick={() => startTracking(selectedType)}
+              onClick={() => {
+                soundService.unlockAudio();
+                startTracking(selectedType);
+              }}
               className="w-full py-4 rounded-2xl bg-strava-orange hover:bg-strava-hover text-white font-black text-base shadow-xl shadow-strava-orange/25 active:scale-[0.98] transition flex items-center justify-center gap-2 uppercase tracking-wide"
             >
               <Play className="w-5 h-5 fill-white" />
@@ -225,7 +200,10 @@ export const OutdoorTracker: React.FC<OutdoorTrackerProps> = ({ onActivitySaved 
             <div className="flex gap-3">
               {isPaused ? (
                 <button
-                  onClick={resumeTracking}
+                  onClick={() => {
+                    soundService.unlockAudio();
+                    resumeTracking();
+                  }}
                   className="flex-1 py-4 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white font-black text-sm active:scale-[0.98] transition flex items-center justify-center gap-2"
                 >
                   <Play className="w-5 h-5 fill-white" />

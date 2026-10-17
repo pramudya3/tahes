@@ -5,6 +5,7 @@ import { WorkoutRoutine, Activity } from '../../types/index';
 import { getUserProfile } from '../../db/index';
 import { WorkoutPlayer } from './WorkoutPlayer';
 import { ExerciseCard } from './ExerciseCard';
+import { soundService } from '../../utils/audio';
 import { Flame, Clock, Play, Dumbbell, ShieldCheck, ChevronRight } from 'lucide-react';
 
 interface WorkoutHubProps {
@@ -120,7 +121,10 @@ export const WorkoutHub: React.FC<WorkoutHubProps> = ({ onActivitySaved }) => {
                     </div>
 
                     <button
-                      onClick={() => setActiveRoutine(routine)}
+                      onClick={() => {
+                        soundService.unlockAudio();
+                        setActiveRoutine(routine);
+                      }}
                       className="w-full py-3.5 rounded-2xl bg-strava-orange hover:bg-strava-hover text-white font-bold text-sm shadow-lg shadow-strava-orange/20 active:scale-[0.98] transition flex items-center justify-center gap-2"
                     >
                       <Play className="w-4 h-4 fill-white" />

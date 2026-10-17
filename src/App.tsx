@@ -16,19 +16,23 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans selection:bg-strava-orange selection:text-white">
-      {/* Active Tab Screen */}
+      {/* Persistent Tab Screens (prevents in-flight GPS / workout interruption) */}
       <main className="flex-1 w-full max-w-lg mx-auto overflow-y-auto">
-        {activeTab === 'feed' && (
+        <div className={activeTab === 'feed' ? 'block' : 'hidden'}>
           <FeedDashboard onNavigateTab={(tab) => setActiveTab(tab)} />
-        )}
-        {activeTab === 'record' && (
+        </div>
+        <div className={activeTab === 'record' ? 'block' : 'hidden'}>
           <OutdoorTracker onActivitySaved={handleActivitySaved} />
-        )}
-        {activeTab === 'workout' && (
+        </div>
+        <div className={activeTab === 'workout' ? 'block' : 'hidden'}>
           <WorkoutHub onActivitySaved={handleActivitySaved} />
-        )}
-        {activeTab === 'progress' && <ProgressHub />}
-        {activeTab === 'settings' && <SettingsView />}
+        </div>
+        <div className={activeTab === 'progress' ? 'block' : 'hidden'}>
+          <ProgressHub />
+        </div>
+        <div className={activeTab === 'settings' ? 'block' : 'hidden'}>
+          <SettingsView />
+        </div>
       </main>
 
       {/* Persistent Bottom Navbar */}

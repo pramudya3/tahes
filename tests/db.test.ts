@@ -144,5 +144,30 @@ describe('Database Layer & Local Storage', () => {
       const success = await importAllData('not-valid-json');
       expect(success).toBe(false);
     });
+
+    it('rejects corrupt activity records and preserves existing profile untouched', async () => {
+      const originalProfile = getUserProfile();
+      const corruptBackup = {
+        version: 1,
+        exportedAt: new Date().toISOString(),
+        profile: {
+          name: 'Hacked Name',
+          currentWeightKg: 50,
+        },
+        activities: [
+          // Missing required id and title
+          { invalidKey: 123 },
+        ],
+        weightLogs: [],
+      };
+
+      const success = await importAllData(JSON.stringify(corruptBackup));
+      expect(success).toBe(false);
+
+      const profileAfter = getUserProfile();
+      expect(profileAfter.name).toBe(originalProfile.name);
+      expect(profileAfter.currentWeightKg).toBe(originalProfile.currentWeightKg);
+    });
   });
 });
+

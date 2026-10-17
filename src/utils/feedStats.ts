@@ -7,6 +7,17 @@ export interface WeeklyStats {
   totalWorkouts: number;
 }
 
+/**
+ * Converts timestamp to local date string (YYYY-MM-DD) avoiding UTC timezone shifts.
+ */
+export function toLocalDateString(timestamp: number): string {
+  const d = new Date(timestamp);
+  const year = d.getFullYear();
+  const month = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
 export function calculateWeeklyStats(
   activities: Activity[],
   referenceTimestamp = Date.now()
@@ -41,18 +52,15 @@ export function calculateStreak(
 ): number {
   if (activities.length === 0) return 0;
 
-  // Get unique sorted dates (YYYY-MM-DD)
+  // Use local date string to accurately group morning/evening workouts
   const dateSet = new Set<string>();
   for (const act of activities) {
-    const d = new Date(act.startTime).toISOString().split('T')[0];
-    dateSet.add(d);
+    dateSet.add(toLocalDateString(act.startTime));
   }
 
   const sortedDates = Array.from(dateSet).sort().reverse();
-  const todayStr = new Date(referenceTimestamp).toISOString().split('T')[0];
-  const yesterdayStr = new Date(referenceTimestamp - 24 * 60 * 60 * 1000)
-    .toISOString()
-    .split('T')[0];
+  const todayStr = toLocalDateString(referenceTimestamp);
+  const yesterdayStr = toLocalDateString(referenceTimestamp - 24 * 60 * 60 * 1000);
 
   // If user hasn't worked out today or yesterday, streak is broken
   if (!sortedDates.includes(todayStr) && !sortedDates.includes(yesterdayStr)) {
@@ -65,11 +73,11 @@ export function calculateStreak(
   );
 
   while (true) {
-    const dateStr = checkDate.toISOString().split('T')[0];
+    const dateStr = toLocalDateString(checkDate.getTime());
     if (sortedDates.includes(dateStr)) {
       streak++;
-      // Move 1 day back
-      checkDate = new Date(checkDate.getTime() - 24 * 60 * 60 * 1000);
+      // Move 1 day back in local calendar
+      checkDate.setDate(checkDate.getDate() - 1);
     } else {
       break;
     }

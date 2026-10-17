@@ -76,8 +76,17 @@ export async function importAllData(jsonString: string): Promise<boolean> {
       return false;
     }
 
-    if (data.profile) {
-      saveUserProfile(data.profile);
+    // Validate activities and weight logs entity integrity
+    for (const act of data.activities) {
+      if (!act || typeof act.id !== 'string' || typeof act.title !== 'string') {
+        return false;
+      }
+    }
+
+    for (const wl of data.weightLogs) {
+      if (!wl || typeof wl.id !== 'string' || typeof wl.date !== 'string') {
+        return false;
+      }
     }
 
     await db.transaction('rw', db.activities, db.weight_logs, async () => {
@@ -91,8 +100,13 @@ export async function importAllData(jsonString: string): Promise<boolean> {
       }
     });
 
+    if (data.profile) {
+      saveUserProfile(data.profile);
+    }
+
     return true;
   } catch {
     return false;
   }
 }
+

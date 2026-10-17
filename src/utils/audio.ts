@@ -19,6 +19,17 @@ class SoundService {
     return this.audioCtx;
   }
 
+  unlockAudio(): void {
+    try {
+      const ctx = this.getContext();
+      if (ctx && ctx.state === 'suspended') {
+        ctx.resume();
+      }
+    } catch {
+      // ignore
+    }
+  }
+
   playCountdownBeep(isFinal = false): void {
     const profile = getUserProfile();
     if (!profile.soundEnabled) return;
