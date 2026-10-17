@@ -36,37 +36,36 @@ body {
 .btn-rally-primary {
   background: #ff3b00;
   color: #ffffff;
-  border-bottom: 4px solid #b82a00;
+  box-shadow: 0 3px 0 0 #b82a00;
   border-radius: 14px;
   font-weight: 900;
   transition: all 0.08s ease;
 }
 
 .btn-rally-primary:hover {
-  background: #e03400;
+  background: #d63200;
 }
 
 .btn-rally-primary:active {
-  border-bottom-width: 0px;
-  transform: translateY(4px);
+  box-shadow: 0 0 0 0 #b82a00;
+  transform: translateY(3px);
 }
 
 .btn-rally-secondary {
   background: #1a2436;
   color: #f8fafc;
   border: 1px solid #24334a;
-  border-bottom: 3px solid #0f1622;
+  box-shadow: 0 3px 0 0 #0b0f19;
   border-radius: 14px;
   font-weight: 700;
   transition: all 0.08s ease;
 }
 
 .btn-rally-secondary:hover {
-  background: #223049;
-  border-color: #3b4e6d;
+  background: #24334a;
 }
 
 .btn-rally-secondary:active {
-  border-bottom-width: 0px;
+  box-shadow: 0 0 0 0 #0b0f19;
   transform: translateY(3px);
 }

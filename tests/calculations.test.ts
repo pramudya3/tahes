@@ -6,6 +6,8 @@ import {
   calculateBMR,
   calculateTDEE,
   calculateBMI,
+  calculateSmoothedWeights,
+  calculateRallyStages,
 } from '../src/utils/calculations';
 
 describe('Calculations Engine', () => {
@@ -87,6 +89,64 @@ describe('Calculations Engine', () => {
       const { bmi, category } = calculateBMI(65, 165);
       expect(bmi).toBe(23.9);
       expect(category).toBe('Normal');
+    });
+  });
+
+  describe('calculateSmoothedWeights', () => {
+    it('returns empty array when entries are empty', () => {
+      expect(calculateSmoothedWeights([])).toEqual([]);
+    });
+
+    it('returns single entry with smoothed value equal to actual weight', () => {
+      const entries = [{ date: '2026-10-01', weightKg: 83.0 }];
+      const result = calculateSmoothedWeights(entries);
+      expect(result).toHaveLength(1);
+      expect(result[0].smoothedWeightKg).toBe(83.0);
+    });
+
+    it('smooths out sudden daily spikes using Exponential Moving Average', () => {
+      const entries = [
+        { date: '2026-10-01', weightKg: 83.0 },
+        { date: '2026-10-02', weightKg: 82.5 },
+        { date: '2026-10-03', weightKg: 83.2 }, // sudden water spike!
+        { date: '2026-10-04', weightKg: 82.2 },
+      ];
+      const result = calculateSmoothedWeights(entries, 0.3);
+      expect(result).toHaveLength(4);
+      // EMA formula:
+      // Day 1: 83.0
+      // Day 2: 0.3 * 82.5 + 0.7 * 83.0 = 24.75 + 58.1 = 82.85 -> 82.9
+      // Day 3: 0.3 * 83.2 + 0.7 * 82.85 = 24.96 + 57.995 = 82.955 -> 83.0
+      // Day 4: 0.3 * 82.2 + 0.7 * 82.955 = 24.66 + 58.0685 = 82.7285 -> 82.7
+      expect(result[0].smoothedWeightKg).toBe(83.0);
+      expect(result[1].smoothedWeightKg).toBe(82.9);
+      expect(result[2].smoothedWeightKg).toBe(83.0); // smoothed down from 83.2 spike!
+      expect(result[3].smoothedWeightKg).toBe(82.7);
+    });
+  });
+
+  describe('calculateRallyStages', () => {
+    it('initializes Stage 1 as active at 83.0 kg baseline', () => {
+      const overview = calculateRallyStages(83.0, 83.0, 65.0);
+      expect(overview.activeStage.id).toBe('stage1');
+      expect(overview.stages[0].status).toBe('active');
+      expect(overview.stages[0].progressPercent).toBe(0);
+      expect(overview.totalProgressPercent).toBe(0);
+    });
+
+    it('marks Stage 1 completed and Stage 2 active when weight reaches 79.5 kg', () => {
+      const overview = calculateRallyStages(79.5, 83.0, 65.0);
+      expect(overview.stages[0].status).toBe('completed');
+      expect(overview.stages[0].progressPercent).toBe(100);
+      expect(overview.activeStage.id).toBe('stage2');
+      expect(overview.stages[1].status).toBe('active');
+      expect(overview.stages[1].progressPercent).toBe(10); // (80 - 79.5) / 5 * 100 = 10%
+    });
+
+    it('marks all stages completed when reaching 65.0 kg', () => {
+      const overview = calculateRallyStages(65.0, 83.0, 65.0);
+      expect(overview.totalProgressPercent).toBe(100);
+      expect(overview.stages.every((s) => s.status === 'completed')).toBe(true);
     });
   });
 });

@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { db, getUserProfile } from '../../db/index';
 import { WeightEntry } from '../../types/index';
-import { calculateBMI, calculateBMR, calculateTDEE } from '../../utils/calculations';
+import {
+  calculateBMI,
+  calculateBMR,
+  calculateTDEE,
+  calculateRallyStages,
+} from '../../utils/calculations';
 import { WeightChart } from './WeightChart';
 import { WeightLogModal } from './WeightLogModal';
 import { AICoachChat } from './AICoachChat';
@@ -11,6 +16,9 @@ import {
   Plus,
   MessageSquare,
   LineChart,
+  CheckCircle2,
+  Lock,
+  Target,
 } from 'lucide-react';
 
 export const ProgressHub: React.FC = () => {
@@ -38,6 +46,8 @@ export const ProgressHub: React.FC = () => {
   const lostKg = Math.max(0, Math.round((initialWeight - profile.currentWeightKg) * 10) / 10);
   const remainingKg = Math.max(0, Math.round((profile.currentWeightKg - profile.targetWeightKg) * 10) / 10);
 
+  const rallyStages = calculateRallyStages(profile.currentWeightKg, initialWeight, profile.targetWeightKg);
+
   return (
     <div className="w-full max-w-lg mx-auto bg-slate-950 text-white min-h-[calc(100vh-5rem)] pb-20">
       {/* Header */}
@@ -64,6 +74,96 @@ export const ProgressHub: React.FC = () => {
       </div>
 
       <div className="p-4 space-y-4">
+        {/* Rally Stage Milestones Card */}
+        <div className="p-4 bg-[#111827] border border-[#24334A] rounded-2xl shadow-xl space-y-3.5 font-mono">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-sm bg-rally-orange" />
+              <span className="text-[10px] font-black text-slate-300 uppercase tracking-wider">
+                RALLY STAGE MILESTONES
+              </span>
+            </div>
+            <span className="text-[10px] font-bold text-rally-orange">
+              TOTAL {rallyStages.totalProgressPercent}% SELESAI
+            </span>
+          </div>
+
+          {/* Active Stage Spotlight Card */}
+          <div className="bg-[#0B0F19] border border-rally-orange/40 rounded-xl p-3.5 space-y-2.5">
+            <div className="flex items-start justify-between gap-2">
+              <div>
+                <span className="text-[9px] font-black text-rally-orange uppercase tracking-wider block">
+                  STAGE AKTIF ({rallyStages.activeStage.stageNumber}/4)
+                </span>
+                <h3 className="text-sm font-black text-white mt-0.5">
+                  {rallyStages.activeStage.title}
+                </h3>
+                <p className="text-[11px] text-slate-400 font-sans mt-0.5">
+                  {rallyStages.activeStage.subtitle}
+                </p>
+              </div>
+              <span className="px-2 py-0.5 bg-rally-orange/15 text-rally-orange border border-rally-orange/30 text-[10px] font-black rounded-md shrink-0">
+                {rallyStages.activeStage.progressPercent}%
+              </span>
+            </div>
+
+            {/* Progress bar */}
+            <div className="space-y-1">
+              <div className="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
+                <div
+                  className="h-full bg-gradient-to-r from-rally-orange to-emerald-400 rounded-full transition-all duration-500"
+                  style={{ width: `${rallyStages.activeStage.progressPercent}%` }}
+                />
+              </div>
+              <div className="flex items-center justify-between text-[10px] text-slate-400 font-mono">
+                <span>Mulai: {rallyStages.activeStage.startWeightKg} kg</span>
+                <span className="text-white font-bold">
+                  Sisa {rallyStages.activeStage.remainingKg} kg menuju {rallyStages.activeStage.targetWeightKg} kg
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* 4 Stages Stepper List */}
+          <div className="grid grid-cols-2 gap-2 text-xs">
+            {rallyStages.stages.map((st) => {
+              const isCompleted = st.status === 'completed';
+              const isActive = st.status === 'active';
+              return (
+                <div
+                  key={st.id}
+                  className={`p-2.5 rounded-xl border transition-all ${
+                    isCompleted
+                      ? 'bg-emerald-950/20 border-emerald-500/30 text-slate-300'
+                      : isActive
+                      ? 'bg-[#0B0F19] border-rally-orange/60 text-white shadow-sm'
+                      : 'bg-[#0B0F19]/40 border-[#24334A] text-slate-500'
+                  }`}
+                >
+                  <div className="flex items-center justify-between mb-1">
+                    <span className="text-[9px] font-black uppercase tracking-wider">
+                      STAGE 0{st.stageNumber}
+                    </span>
+                    {isCompleted ? (
+                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+                    ) : isActive ? (
+                      <Target className="w-3.5 h-3.5 text-rally-orange animate-pulse" />
+                    ) : (
+                      <Lock className="w-3.5 h-3.5 text-slate-600" />
+                    )}
+                  </div>
+                  <div className="text-xs font-black font-mono">
+                    {st.startWeightKg} → {st.targetWeightKg} kg
+                  </div>
+                  <div className="text-[10px] text-slate-400 font-sans truncate mt-0.5">
+                    {st.subtitle.split('(')[0]}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
         {/* Main Weight Metric Grid */}
         <div className="grid grid-cols-3 gap-2 p-4 bg-[#111827] border border-[#24334A] rounded-2xl shadow-xl font-mono">
           <div className="text-center bg-[#0B0F19] p-3 rounded-xl border border-[#24334A]">

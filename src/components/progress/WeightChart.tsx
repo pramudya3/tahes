@@ -1,5 +1,6 @@
 import React from 'react';
 import { WeightEntry } from '../../types/index';
+import { calculateSmoothedWeights } from '../../utils/calculations';
 
 interface WeightChartProps {
   entries: WeightEntry[];
@@ -26,9 +27,12 @@ export const WeightChart: React.FC<WeightChartProps> = ({
     (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
   );
 
-  const weights = sorted.map((e) => e.weightKg);
-  const minWeight = Math.min(...weights, targetWeightKg) - 2;
-  const maxWeight = Math.max(...weights, 83) + 2;
+  const smoothedData = calculateSmoothedWeights(sorted, 0.25);
+
+  const rawWeights = sorted.map((e) => e.weightKg);
+  const smoothedWeights = smoothedData.map((e) => e.smoothedWeightKg);
+  const minWeight = Math.min(...rawWeights, ...smoothedWeights, targetWeightKg) - 2;
+  const maxWeight = Math.max(...rawWeights, ...smoothedWeights, 83) + 2;
   const range = maxWeight - minWeight || 1;
 
   const width = 360;
@@ -48,28 +52,56 @@ export const WeightChart: React.FC<WeightChartProps> = ({
 
   const targetY = getY(targetWeightKg);
 
-  const points = sorted.map((entry, idx) => ({
+  const rawPoints = sorted.map((entry, idx) => ({
     x: getX(idx),
     y: getY(entry.weightKg),
     date: entry.date,
     weight: entry.weightKg,
   }));
 
-  const polylineStr = points.map((p) => `${p.x},${p.y}`).join(' ');
+  const smoothedPoints = smoothedData.map((entry, idx) => ({
+    x: getX(idx),
+    y: getY(entry.smoothedWeightKg),
+    date: entry.date,
+    smoothedWeight: entry.smoothedWeightKg,
+  }));
+
+  const rawPolylineStr = rawPoints.map((p) => `${p.x},${p.y}`).join(' ');
+  const smoothedPolylineStr = smoothedPoints.map((p) => `${p.x},${p.y}`).join(' ');
+
+  const latestSmoothed = smoothedData[smoothedData.length - 1]?.smoothedWeightKg;
+  const latestRaw = sorted[sorted.length - 1]?.weightKg;
 
   return (
     <div className="w-full bg-[#111827] border border-[#24334A] rounded-2xl p-5 shadow-xl space-y-3">
-      <div className="flex items-center justify-between text-xs">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 text-xs">
         <div>
-          <span className="font-black text-white block uppercase tracking-wider text-[11px]">Tren Stage Penurunan Berat Badan</span>
-          <span className="text-[11px] text-slate-400 font-mono">TARGET FINISH: {targetWeightKg} KG</span>
+          <span className="font-black text-white block uppercase tracking-wider text-[11px]">
+            Tren Stage Penurunan Berat Badan
+          </span>
+          <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 text-[11px] text-slate-400 font-mono">
+            <span>TARGET: {targetWeightKg} KG</span>
+            {latestRaw !== undefined && (
+              <span className="text-slate-400">
+                • AKTUAL: {latestRaw} KG
+              </span>
+            )}
+            {latestSmoothed !== undefined && (
+              <span className="text-rally-orange font-bold">
+                • TREN LEMAK: {latestSmoothed} KG
+              </span>
+            )}
+          </div>
         </div>
-        <div className="flex items-center gap-3 text-[10px] font-mono">
+        <div className="flex flex-wrap items-center gap-3 text-[10px] font-mono">
+          <span className="flex items-center gap-1 text-slate-400 font-medium">
+            <span className="w-2.5 h-0.5 bg-slate-400 border-b border-dashed inline-block" /> Harian
+          </span>
           <span className="flex items-center gap-1 text-rally-orange font-bold">
-            <span className="w-2.5 h-1 bg-rally-orange rounded-sm inline-block" /> AKTUAL
+            <span className="w-2.5 h-1 bg-rally-orange rounded-sm inline-block" /> Tren Lemak
           </span>
           <span className="flex items-center gap-1 text-emerald-400 font-bold">
-            <span className="w-2.5 h-1 bg-emerald-400 border-b border-dashed inline-block" /> TARGET
+            <span className="w-2.5 h-0.5 bg-emerald-400 border-b border-dashed inline-block" /> Target
           </span>
         </div>
       </div>
@@ -101,19 +133,43 @@ export const WeightChart: React.FC<WeightChartProps> = ({
             {targetWeightKg}kg
           </text>
 
-          {/* Actual Weight Line in Rally Orange */}
+          {/* Raw Actual Scale Line (faded dashed) */}
           <polyline
-            points={polylineStr}
+            points={rawPolylineStr}
+            fill="none"
+            stroke="#64748B"
+            strokeWidth="1.5"
+            strokeDasharray="3 3"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            opacity="0.6"
+          />
+
+          {/* Raw Dots (small) */}
+          {rawPoints.map((p, idx) => (
+            <circle
+              key={`raw-${idx}`}
+              cx={p.x}
+              cy={p.y}
+              r="2.5"
+              className="fill-slate-500"
+              opacity="0.7"
+            />
+          ))}
+
+          {/* Smoothed Fat Loss Curve in bold Rally Orange */}
+          <polyline
+            points={smoothedPolylineStr}
             fill="none"
             stroke="#FF3B00"
-            strokeWidth="2.5"
+            strokeWidth="3"
             strokeLinecap="round"
             strokeLinejoin="round"
           />
 
-          {/* Dots */}
-          {points.map((p, idx) => (
-            <g key={idx} className="group">
+          {/* Smoothed Dots and Dates */}
+          {smoothedPoints.map((p, idx) => (
+            <g key={`smooth-${idx}`} className="group">
               <circle
                 cx={p.x}
                 cy={p.y}
@@ -127,8 +183,9 @@ export const WeightChart: React.FC<WeightChartProps> = ({
                 fill="#FFFFFF"
                 fontSize="9"
                 fontWeight="bold"
+                className="font-mono"
               >
-                {p.weight}
+                {p.smoothedWeight}
               </text>
               <text
                 x={p.x}
@@ -142,6 +199,15 @@ export const WeightChart: React.FC<WeightChartProps> = ({
             </g>
           ))}
         </svg>
+      </div>
+
+      {/* Behavioral Psychology Tip */}
+      <div className="bg-[#0B0F19] border border-[#24334A] rounded-xl p-3 flex items-start gap-2 text-[11px] text-slate-400 leading-relaxed">
+        <span className="text-rally-orange text-sm shrink-0 leading-none">⚡</span>
+        <div>
+          <span className="text-white font-bold block mb-0.5">Smoothing Trend (EMA Filter)</span>
+          Timbangan harian bisa naik-turun 0.5–1.5 kg akibat retensi air dan natrium. Garis oranye mulus menyaring gangguan ini untuk menampilkan laju pembakaran lemak murni Anda.
+        </div>
       </div>
     </div>
   );
