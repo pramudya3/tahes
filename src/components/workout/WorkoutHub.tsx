@@ -6,7 +6,7 @@ import { getUserProfile } from '../../db/index';
 import { WorkoutPlayer } from './WorkoutPlayer';
 import { ExerciseCard } from './ExerciseCard';
 import { soundService } from '../../utils/audio';
-import { Flame, Clock, Play, Dumbbell, ShieldCheck, ChevronRight } from 'lucide-react';
+import { Flame, Clock, Play, ShieldCheck, ChevronRight } from 'lucide-react';
 
 interface WorkoutHubProps {
   onActivitySaved?: (activity: Activity) => void;
@@ -27,25 +27,30 @@ export const WorkoutHub: React.FC<WorkoutHubProps> = ({ onActivitySaved }) => {
   return (
     <div className="w-full max-w-lg mx-auto bg-slate-950 text-white min-h-[calc(100vh-5rem)] pb-20">
       {/* Header */}
-      <div className="p-4 border-b border-slate-800 bg-slate-900/90 backdrop-blur sticky top-0 z-10">
+      <div className="p-4 border-b border-[#24334A] bg-[#111827]/95 backdrop-blur sticky top-0 z-10">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-xl font-black tracking-tight text-white flex items-center gap-2">
-              <Dumbbell className="w-5 h-5 text-strava-orange" />
-              <span>WORKOUT HUB</span>
+            <div className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-sm bg-rally-orange" />
+              <span className="text-[10px] font-black tracking-widest text-rally-orange uppercase">
+                CIRCUIT // BODYWEIGHT HUB
+              </span>
+            </div>
+            <h1 className="text-lg font-black tracking-tight text-white mt-0.5">
+              Latihan Tanpa Alat
             </h1>
-            <p className="text-xs text-slate-400">
-              Latihan Tanpa Alat &bull; Ramah Sendi (BB 83 kg)
+            <p className="text-xs text-slate-400 font-mono">
+              Ramah Sendi &bull; Basis BB {profile.currentWeightKg} kg
             </p>
           </div>
 
           {/* Sub Tab switcher */}
-          <div className="flex bg-slate-950 p-1 rounded-xl border border-slate-800 text-xs">
+          <div className="flex bg-[#0B0F19] p-1 rounded-xl border border-[#24334A] text-xs">
             <button
               onClick={() => setSelectedTab('programs')}
-              className={`px-3 py-1.5 rounded-lg font-bold transition ${
+              className={`px-3 py-1.5 rounded-lg font-black transition ${
                 selectedTab === 'programs'
-                  ? 'bg-strava-orange text-white'
+                  ? 'bg-rally-orange text-white'
                   : 'text-slate-400 hover:text-white'
               }`}
             >
@@ -53,13 +58,13 @@ export const WorkoutHub: React.FC<WorkoutHubProps> = ({ onActivitySaved }) => {
             </button>
             <button
               onClick={() => setSelectedTab('exercises')}
-              className={`px-3 py-1.5 rounded-lg font-bold transition ${
-                selectedTab === 'exercises'
-                  ? 'bg-strava-orange text-white'
-                  : 'text-slate-400 hover:text-white'
+              className={`px-3 py-1.5 rounded-lg font-black transition ${
+                selectedTab === 'programs'
+                  ? 'text-slate-400 hover:text-white'
+                  : 'bg-rally-orange text-white'
               }`}
             >
-              Gerakan
+              Katalog
             </button>
           </div>
         </div>
@@ -114,9 +119,9 @@ export const WorkoutHub: React.FC<WorkoutHubProps> = ({ onActivitySaved }) => {
                         <Clock className="w-3.5 h-3.5 text-blue-400" />
                         <span>~{totalDurationMinutes} Menit</span>
                       </div>
-                      <div className="flex items-center gap-1.5 bg-slate-950 px-3 py-1.5 rounded-xl border border-slate-800 text-slate-300">
+                      <div className="flex items-center gap-1.5 bg-[#0B0F19] px-3 py-1.5 rounded-xl border border-[#24334A] text-slate-300 font-mono">
                         <Flame className="w-3.5 h-3.5 text-amber-500" />
-                        <span>~{estimatedCalories} kkal (83kg)</span>
+                        <span>~{estimatedCalories} kkal ({profile.currentWeightKg}kg)</span>
                       </div>
                     </div>
 
@@ -125,7 +130,7 @@ export const WorkoutHub: React.FC<WorkoutHubProps> = ({ onActivitySaved }) => {
                         soundService.unlockAudio();
                         setActiveRoutine(routine);
                       }}
-                      className="w-full py-3.5 rounded-2xl bg-strava-orange hover:bg-strava-hover text-white font-bold text-sm shadow-lg shadow-strava-orange/20 active:scale-[0.98] transition flex items-center justify-center gap-2"
+                      className="w-full py-3.5 btn-rally-primary text-white text-sm font-black flex items-center justify-center gap-2 cursor-pointer"
                     >
                       <Play className="w-4 h-4 fill-white" />
                       Mulai Sesi Latihan

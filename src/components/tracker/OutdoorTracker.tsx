@@ -5,12 +5,14 @@ import { Activity } from '../../types/index';
 import { ActivitySummaryModal } from './ActivitySummaryModal';
 import { LeafletRouteMap } from './LeafletRouteMap';
 import { soundService } from '../../utils/audio';
+import { getUserProfile } from '../../db/index';
 
 interface OutdoorTrackerProps {
   onActivitySaved?: (activity: Activity) => void;
 }
 
 export const OutdoorTracker: React.FC<OutdoorTrackerProps> = ({ onActivitySaved }) => {
+  const profile = getUserProfile();
   const {
     isTracking,
     isPaused,
@@ -217,7 +219,9 @@ export const OutdoorTracker: React.FC<OutdoorTrackerProps> = ({ onActivitySaved 
           </div>
 
           <div className="bg-[#0B0F19] p-3 rounded-xl border border-[#24334A]">
-            <div className="text-[10px] text-slate-400 font-bold tracking-wider uppercase">CALORIES (83KG)</div>
+            <div className="text-[10px] text-slate-400 font-bold tracking-wider uppercase font-mono">
+              KALORI ({profile.currentWeightKg}KG)
+            </div>
             <div className="text-lg font-black font-mono text-amber-400 mt-0.5">
               {calories} <span className="text-[10px] font-normal text-slate-500">kcal</span>
             </div>
@@ -265,6 +269,7 @@ export const OutdoorTracker: React.FC<OutdoorTrackerProps> = ({ onActivitySaved 
                 onPointerDown={startHold}
                 onPointerUp={cancelHold}
                 onPointerLeave={cancelHold}
+                onPointerCancel={cancelHold}
                 onContextMenu={(e) => e.preventDefault()}
                 className="flex-1 relative overflow-hidden py-3.5 rounded-xl bg-rally-orange text-white font-black text-sm flex items-center justify-center gap-2 cursor-pointer select-none active:scale-[0.98] transition shadow-md touch-none"
               >

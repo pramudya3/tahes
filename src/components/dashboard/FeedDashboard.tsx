@@ -56,8 +56,8 @@ export const FeedDashboard: React.FC<FeedDashboardProps> = ({
               {isIndoor ? 'INDOOR BASE // ATHLETE CONSOLE' : 'STAGE TELEMETRY // ATHLETE CONSOLE'}
             </span>
           </div>
-          <h1 className="text-xl font-black tracking-tight text-white mt-0.5">
-            {profile.name} // 83KG ➔ 65KG
+          <h1 className="text-xl font-black tracking-tight text-white mt-0.5 font-mono">
+            {profile.name} // {profile.currentWeightKg}KG ➔ {profile.targetWeightKg}KG
           </h1>
         </div>
 
