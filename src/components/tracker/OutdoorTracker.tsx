@@ -84,11 +84,34 @@ export const OutdoorTracker: React.FC<OutdoorTrackerProps> = ({ onActivitySaved 
         )}
       </div>
 
-      {/* GPS Warning if any */}
+      {/* GPS Warning if any with Manual Log CTA */}
       {error && (
-        <div className="mx-4 mt-2 p-3 bg-red-950/80 border border-red-800 text-red-200 rounded-xl text-xs flex items-center gap-2 z-20">
-          <AlertCircle className="w-4 h-4 shrink-0 text-red-400" />
-          <span>{error}</span>
+        <div className="mx-4 mt-2 p-3 bg-red-950/80 border border-red-800 text-red-200 rounded-xl text-xs flex items-center justify-between gap-2 z-20">
+          <div className="flex items-center gap-2">
+            <AlertCircle className="w-4 h-4 shrink-0 text-red-400" />
+            <span>{error}</span>
+          </div>
+          <button
+            onClick={() => {
+              const now = Date.now();
+              setCompletedActivity({
+                id: `act_manual_${now}`,
+                type: selectedType,
+                title: selectedType === 'run' ? 'Lari Outdoor (Manual)' : 'Jalan Cepat Outdoor (Manual)',
+                startTime: now - 1800000,
+                endTime: now,
+                durationSeconds: 1800,
+                distanceKm: 3.0,
+                avgPaceSecondsPerKm: 600,
+                avgPaceString: '10:00 /km',
+                caloriesBurned: selectedType === 'run' ? 305 : 187,
+                notes: 'Dicatat manual',
+              });
+            }}
+            className="px-2.5 py-1 bg-slate-900 hover:bg-slate-800 border border-red-700/60 rounded-lg text-white font-bold whitespace-nowrap active:scale-95"
+          >
+            Catat Manual
+          </button>
         </div>
       )}
 

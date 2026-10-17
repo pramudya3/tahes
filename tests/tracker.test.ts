@@ -130,4 +130,17 @@ describe('useGeolocationTracker hook', () => {
     expect(result.current.distanceKm).toBeGreaterThan(2.0);
     expect(chimeSpy).toHaveBeenCalled();
   });
+
+  it('cleans up geolocation watch on unmount', () => {
+    watchPositionMock.mockReturnValue(999);
+    const { result, unmount } = renderHook(() => useGeolocationTracker());
+
+    act(() => {
+      result.current.startTracking('brisk_walk');
+    });
+
+    unmount();
+    expect(clearWatchMock).toHaveBeenCalledWith(999);
+  });
 });
+

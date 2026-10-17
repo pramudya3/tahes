@@ -266,6 +266,7 @@ export function useGeolocationTracker(): UseGeolocationTrackerReturn {
       if (timerIdRef.current) clearInterval(timerIdRef.current);
       if (watchIdRef.current !== null && typeof navigator !== 'undefined') {
         navigator.geolocation.clearWatch(watchIdRef.current);
+        watchIdRef.current = null;
       }
       wakeLockService.release();
     };
