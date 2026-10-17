@@ -83,11 +83,10 @@ Aplikasi dibangun dengan arsitektur **Local-First & Offline-Capable PWA** tanpa 
    - Fitur Split Audio Lap: Bunyi nada khusus setiap kelipatan 1.0 km.
    - Kartu Ringkasan Aktivitas (*Summary Card*) yang menampilkan statistik lengkap dan rute peta mini.
 
-### 3.2. Modul Indoor Bodyweight & Faceless Animation Player
-1. **Animasi Orang Faceless:**
-   - Dibuat menggunakan komponen SVG murni dengan animasi CSS keyframe yang halus (vektor siluet faceless atletis, proporsional, berputar secara loop).
-   - Bekerja 100% offline tanpa unduhan aset eksternal yang rentan rusak.
-   - Dilengkapi container modular yang juga mendukung format animasi Lottie JSON jika pengguna ingin memasukkan file animasi khusus.
+### 3.2. Modul Indoor Bodyweight & Workout Player (Clean Posture Guide)
+1. **Panduan Visual & Gerakan Minimalis:**
+   - Menggunakan kartu panduan bersih (*Clean Posture & Cue Cards*) dengan ikon anatomi/kategori gerakan (Lucide React) dan petunjuk postur bertahap (Form Cues, Otot Sasaran, dan Kesalahan Umum).
+   - Fokus pada fungsionalitas timer, repetisi, dan instruksi teknis yang mudah dibaca saat berolahraga tanpa distraksi animasi berat.
 2. **Katalog Gerakan Terkurasi (Ramah Sendi untuk BB 83 kg):**
    - **Incline Push-Up:** Mengurangi beban pergelangan tangan & dada dengan tumpuan meja/dinding.
    - **Box / Chair Squat:** Gerakan squat bertumpu pada kursi untuk menjaga sudut lutut tidak melewati batas aman.
