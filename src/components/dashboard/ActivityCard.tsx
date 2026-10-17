@@ -21,6 +21,8 @@ export const ActivityCard: React.FC<ActivityCardProps> = ({
   userName = 'Athlete',
   onDelete,
 }) => {
+  const [isConfirmingDelete, setIsConfirmingDelete] = React.useState(false);
+
   const formatTime = (secs: number) => {
     const hrs = Math.floor(secs / 3600);
     const mins = Math.floor((secs % 3600) / 60);
@@ -44,40 +46,67 @@ export const ActivityCard: React.FC<ActivityCardProps> = ({
 
   return (
     <div className="w-full bg-[#111827] border border-[#24334A] rounded-2xl p-5 shadow-xl space-y-4 transition hover:border-rally-orange/60">
-      {/* Header: User & Type */}
+      {/* Header: Activity Type & Timestamp */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-rally-orange flex items-center justify-center font-black text-white text-sm shadow-md shadow-rally-orange/20">
-            {userName.charAt(0).toUpperCase()}
+          {/* Functional Activity Icon Badge (replaces redundant social avatar bubble) */}
+          <div
+            className={`w-10 h-10 rounded-xl flex items-center justify-center border shadow-md ${
+              isOutdoor
+                ? 'bg-rally-orange/15 border-rally-orange/40 text-rally-orange'
+                : 'bg-amber-500/15 border-amber-500/40 text-amber-400'
+            }`}
+          >
+            {isOutdoor ? (
+              <Footprints className="w-5 h-5" />
+            ) : (
+              <Dumbbell className="w-5 h-5" />
+            )}
           </div>
           <div>
             <div className="flex items-center gap-2">
               <span className="font-bold text-sm text-white">{userName}</span>
-              <span className="text-[10px] px-2.5 py-0.5 rounded-md font-black uppercase tracking-wider bg-[#0B0F19] text-slate-300 border border-[#24334A] flex items-center gap-1.5">
-                {isOutdoor ? (
-                  <Footprints className="w-3 h-3 text-rally-orange" />
-                ) : (
-                  <Dumbbell className="w-3 h-3 text-amber-400" />
-                )}
+              <span className="text-[10px] px-2 py-0.5 rounded-md font-black uppercase tracking-wider bg-[#0B0F19] text-slate-300 border border-[#24334A] flex items-center gap-1.5">
                 {activity.type === 'brisk_walk'
-                  ? 'STAGE // JALAN CEPAT'
+                  ? 'OUTDOOR // JALAN CEPAT'
                   : activity.type === 'run'
-                  ? 'STAGE // LARI OUTDOOR'
-                  : 'CIRCUIT // BODYWEIGHT'}
+                  ? 'OUTDOOR // LARI'
+                  : 'INDOOR // BODYWEIGHT'}
               </span>
             </div>
             <span className="text-[11px] text-slate-400 font-mono">{formatDate(activity.startTime)}</span>
           </div>
         </div>
 
+        {/* Delete Action with In-Flight Confirmation Guard */}
         {onDelete && (
-          <button
-            onClick={() => onDelete(activity.id)}
-            className="p-1.5 text-slate-500 hover:text-red-400 rounded-lg hover:bg-[#0B0F19] transition"
-            title="Hapus Aktivitas"
-          >
-            <Trash2 className="w-4 h-4" />
-          </button>
+          <div>
+            {!isConfirmingDelete ? (
+              <button
+                onClick={() => setIsConfirmingDelete(true)}
+                className="p-2 text-slate-500 hover:text-red-400 rounded-lg hover:bg-[#0B0F19] transition cursor-pointer"
+                title="Hapus Aktivitas"
+              >
+                <Trash2 className="w-4 h-4" />
+              </button>
+            ) : (
+              <div className="flex items-center gap-1.5 bg-[#0B0F19] p-1 rounded-xl border border-red-500/40 animate-fade-in text-[10px] font-mono">
+                <span className="text-red-400 font-bold px-1.5">Hapus?</span>
+                <button
+                  onClick={() => setIsConfirmingDelete(false)}
+                  className="px-2 py-1 rounded-lg bg-slate-800 text-slate-300 hover:text-white font-bold cursor-pointer"
+                >
+                  Batal
+                </button>
+                <button
+                  onClick={() => onDelete(activity.id)}
+                  className="px-2 py-1 rounded-lg bg-red-600 hover:bg-red-500 text-white font-black cursor-pointer"
+                >
+                  Ya
+                </button>
+              </div>
+            )}
+          </div>
         )}
       </div>
 

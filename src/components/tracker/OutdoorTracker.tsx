@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Play, Pause, Square, AlertCircle } from 'lucide-react';
 import { useGeolocationTracker } from '../../hooks/useGeolocationTracker';
 import { Activity } from '../../types/index';
@@ -29,6 +29,14 @@ export const OutdoorTracker: React.FC<OutdoorTrackerProps> = ({ onActivitySaved 
 
   const [selectedType, setSelectedType] = useState<'brisk_walk' | 'run'>('brisk_walk');
   const [completedActivity, setCompletedActivity] = useState<Activity | null>(null);
+  const [holdProgress, setHoldProgress] = useState(0);
+  const holdIntervalRef = useRef<any>(null);
+
+  useEffect(() => {
+    return () => {
+      if (holdIntervalRef.current) clearInterval(holdIntervalRef.current);
+    };
+  }, []);
 
   const formatTime = (secs: number) => {
     const hrs = Math.floor(secs / 3600);
@@ -49,6 +57,34 @@ export const OutdoorTracker: React.FC<OutdoorTrackerProps> = ({ onActivitySaved 
     setCompletedActivity(act);
   };
 
+  const startHold = () => {
+    if (holdIntervalRef.current) clearInterval(holdIntervalRef.current);
+    const holdDurationMs = 1200;
+    const intervalMs = 25;
+    const increment = (intervalMs / holdDurationMs) * 100;
+
+    let current = 0;
+    holdIntervalRef.current = setInterval(() => {
+      current += increment;
+      if (current >= 100) {
+        clearInterval(holdIntervalRef.current);
+        holdIntervalRef.current = null;
+        setHoldProgress(0);
+        handleFinish();
+      } else {
+        setHoldProgress(current);
+      }
+    }, intervalMs);
+  };
+
+  const cancelHold = () => {
+    if (holdIntervalRef.current) {
+      clearInterval(holdIntervalRef.current);
+      holdIntervalRef.current = null;
+    }
+    setHoldProgress(0);
+  };
+
   return (
     <div className="relative flex flex-col h-[calc(100vh-5rem)] w-full max-w-lg mx-auto bg-slate-950 text-white overflow-hidden pb-16">
       {/* Top Header & Type Switcher */}
@@ -57,7 +93,7 @@ export const OutdoorTracker: React.FC<OutdoorTrackerProps> = ({ onActivitySaved 
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-sm bg-rally-orange" />
             <span className="text-[10px] font-black tracking-widest text-rally-orange uppercase">
-              STAGE 01 // OUTDOOR PACER
+              PACER // OUTDOOR GPS
             </span>
           </div>
           <h1 className="text-base font-black tracking-tight text-white mt-0.5">
@@ -188,7 +224,7 @@ export const OutdoorTracker: React.FC<OutdoorTrackerProps> = ({ onActivitySaved 
           </div>
         </div>
 
-        {/* Action Controls with Mechanical Push Feel */}
+        {/* Action Controls with Mechanical Push Feel & Hold-to-Finish Protection */}
         <div className="pt-1">
           {!isTracking ? (
             <button
@@ -199,7 +235,7 @@ export const OutdoorTracker: React.FC<OutdoorTrackerProps> = ({ onActivitySaved 
               className="w-full py-4 btn-rally-primary text-white font-black text-base flex items-center justify-center gap-2 uppercase tracking-wide cursor-pointer"
             >
               <Play className="w-5 h-5 fill-white" />
-              START STAGE // {selectedType === 'run' ? 'LARI' : 'JALAN CEPAT'}
+              MULAI // {selectedType === 'run' ? 'LARI OUTDOOR' : 'JALAN CEPAT'}
             </button>
           ) : (
             <div className="flex gap-3">
@@ -209,28 +245,41 @@ export const OutdoorTracker: React.FC<OutdoorTrackerProps> = ({ onActivitySaved 
                     soundService.unlockAudio();
                     resumeTracking();
                   }}
-                  className="flex-1 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-black text-sm active:translate-y-1 transition flex items-center justify-center gap-2"
+                  className="flex-1 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-black text-sm active:translate-y-1 transition flex items-center justify-center gap-2 cursor-pointer"
                 >
                   <Play className="w-5 h-5 fill-white" />
-                  LANJUT STAGE
+                  LANJUTKAN
                 </button>
               ) : (
                 <button
                   onClick={pauseTracking}
-                  className="flex-1 py-3.5 btn-rally-secondary text-white font-black text-sm flex items-center justify-center gap-2"
+                  className="flex-1 py-3.5 btn-rally-secondary text-white font-black text-sm flex items-center justify-center gap-2 cursor-pointer"
                 >
                   <Pause className="w-5 h-5 fill-white" />
                   JEDA
                 </button>
               )}
 
-              <button
-                onClick={handleFinish}
-                className="flex-1 py-3.5 btn-rally-primary text-white font-black text-sm flex items-center justify-center gap-2"
+              {/* Hold-to-Finish Button (Guards against sweaty hands and pocket taps) */}
+              <div
+                onPointerDown={startHold}
+                onPointerUp={cancelHold}
+                onPointerLeave={cancelHold}
+                onContextMenu={(e) => e.preventDefault()}
+                className="flex-1 relative overflow-hidden py-3.5 rounded-xl bg-rally-orange text-white font-black text-sm flex items-center justify-center gap-2 cursor-pointer select-none active:scale-[0.98] transition shadow-md touch-none"
               >
-                <Square className="w-4 h-4 fill-white" />
-                SELESAI STAGE
-              </button>
+                {/* Hold Progress Fill */}
+                <div
+                  className="absolute inset-y-0 left-0 bg-[#b82a00] transition-all"
+                  style={{ width: `${holdProgress}%` }}
+                />
+                <span className="relative z-10 flex items-center gap-2">
+                  <Square className="w-4 h-4 fill-white" />
+                  {holdProgress > 0
+                    ? `TAHAN... ${Math.round(holdProgress)}%`
+                    : 'TAHAN SELESAI'}
+                </span>
+              </div>
             </div>
           )}
         </div>

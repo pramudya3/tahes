@@ -115,7 +115,7 @@ export const FeedDashboard: React.FC<FeedDashboardProps> = ({
           </div>
         </div>
 
-        {/* Quick Stage Launchers */}
+        {/* Quick Launchers */}
         {isIndoor ? (
           <div className="grid grid-cols-2 gap-3">
             <button
@@ -126,7 +126,7 @@ export const FeedDashboard: React.FC<FeedDashboardProps> = ({
                 <Dumbbell className="w-5 h-5" />
               </div>
               <div>
-                <span className="text-sm font-black text-white block tracking-tight">STAGE // WORKOUT</span>
+                <span className="text-sm font-black text-white block tracking-tight">LATIHAN // WORKOUT RUMAH</span>
                 <span className="text-[11px] text-slate-400">Kalistenik Tanpa Alat</span>
               </div>
             </button>
@@ -139,7 +139,7 @@ export const FeedDashboard: React.FC<FeedDashboardProps> = ({
                 <TrendingUp className="w-5 h-5" />
               </div>
               <div>
-                <span className="text-sm font-black text-white block tracking-tight">STAGE // PROGRES</span>
+                <span className="text-sm font-black text-white block tracking-tight">PROGRES // TIMBANGAN</span>
                 <span className="text-[11px] text-slate-400">Catat Berat & Etape</span>
               </div>
             </button>
@@ -154,7 +154,7 @@ export const FeedDashboard: React.FC<FeedDashboardProps> = ({
                 <Footprints className="w-5 h-5" />
               </div>
               <div>
-                <span className="text-sm font-black text-white block tracking-tight">STAGE 01 // GPS</span>
+                <span className="text-sm font-black text-white block tracking-tight">OUTDOOR // JALAN & LARI</span>
                 <span className="text-[11px] text-slate-400">Jalan Cepat & Lari</span>
               </div>
             </button>
@@ -167,7 +167,7 @@ export const FeedDashboard: React.FC<FeedDashboardProps> = ({
                 <Dumbbell className="w-5 h-5" />
               </div>
               <div>
-                <span className="text-sm font-black text-white block tracking-tight">STAGE 02 // CIRCUIT</span>
+                <span className="text-sm font-black text-white block tracking-tight">INDOOR // WORKOUT RUMAH</span>
                 <span className="text-[11px] text-slate-400">Kalistenik Ramah Sendi</span>
               </div>
             </button>
@@ -195,10 +195,10 @@ export const FeedDashboard: React.FC<FeedDashboardProps> = ({
                 </p>
               </div>
               <button
-                onClick={() => onNavigateTab('record')}
-                className="px-4 py-2 bg-strava-orange text-white text-xs font-bold rounded-xl shadow"
+                onClick={() => onNavigateTab(isIndoor ? 'workout' : 'record')}
+                className="px-5 py-2.5 btn-rally-primary text-white text-xs font-black cursor-pointer uppercase tracking-wider"
               >
-                Mulai Olahraga Sekarang
+                Mulai Latihan Sekarang
               </button>
             </div>
           ) : (

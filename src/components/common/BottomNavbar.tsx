@@ -16,7 +16,7 @@ export const BottomNavbar: React.FC<BottomNavbarProps> = ({
 }) => {
   const allTabs = [
     { id: 'feed' as TabType, label: 'Feed', icon: Home },
-    { id: 'record' as TabType, label: 'GPS Lari', icon: Footprints, outdoorOnly: true },
+    { id: 'record' as TabType, label: 'Outdoor', icon: Footprints, outdoorOnly: true },
     { id: 'workout' as TabType, label: 'Latihan', icon: Dumbbell },
     { id: 'progress' as TabType, label: 'Progres', icon: TrendingDown },
     { id: 'settings' as TabType, label: 'Akun', icon: Settings },

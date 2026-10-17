@@ -173,6 +173,8 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
     Math.max(0, ((currentTotalDuration - secondsRemaining) / currentTotalDuration) * 100)
   );
 
+  const [isConfirmingExit, setIsConfirmingExit] = useState(false);
+
   return (
     <div className="fixed inset-0 z-50 flex flex-col bg-slate-950 text-white overflow-y-auto">
       {/* Top Header */}
@@ -181,7 +183,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
           <div className="flex items-center gap-1.5">
             <span className="w-2 h-2 rounded-sm bg-rally-orange" />
             <span className="text-[10px] font-black text-rally-orange uppercase tracking-wider block">
-              STAGE 02 // CIRCUIT INTERVAL PLAYER
+              CIRCUIT // INTERVAL PLAYER
             </span>
           </div>
           <h2 className="text-sm font-black text-white mt-0.5">
@@ -192,12 +194,53 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
           </span>
         </div>
         <button
-          onClick={onClose}
-          className="p-2 rounded-xl bg-[#0B0F19] border border-[#24334A] text-slate-400 hover:text-white"
+          onClick={() => {
+            setIsPaused(true);
+            setIsConfirmingExit(true);
+          }}
+          className="p-2 rounded-xl bg-[#0B0F19] border border-[#24334A] text-slate-400 hover:text-white cursor-pointer"
+          title="Tutup Latihan"
         >
           <X className="w-5 h-5" />
         </button>
       </div>
+
+      {/* Exit Confirmation Dialog */}
+      {isConfirmingExit && (
+        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-[#111827] border border-[#24334A] rounded-2xl p-5 max-w-sm w-full space-y-4 shadow-2xl animate-fade-in font-sans">
+            <div className="space-y-1">
+              <span className="text-[10px] font-black text-rally-orange uppercase tracking-wider block font-mono">
+                KONFIRMASI // KELUAR LATIHAN
+              </span>
+              <h3 className="text-base font-black text-white">
+                Hentikan Sesi Latihan?
+              </h3>
+              <p className="text-xs text-slate-400 leading-relaxed">
+                Sesi latihan Anda belum selesai. Jika keluar sekarang, progres gerakan saat ini tidak akan tercatat ke logbook.
+              </p>
+            </div>
+
+            <div className="flex gap-2 pt-1 font-mono">
+              <button
+                onClick={() => {
+                  setIsConfirmingExit(false);
+                  setIsPaused(false);
+                }}
+                className="flex-1 py-3 btn-rally-primary text-white text-xs font-black cursor-pointer"
+              >
+                LANJUTKAN
+              </button>
+              <button
+                onClick={onClose}
+                className="py-3 px-4 btn-rally-secondary text-slate-300 hover:text-red-400 text-xs font-black cursor-pointer"
+              >
+                KELUAR
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col max-w-lg w-full mx-auto p-4 space-y-5">
