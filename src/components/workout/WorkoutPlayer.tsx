@@ -176,18 +176,24 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
   return (
     <div className="fixed inset-0 z-50 flex flex-col bg-slate-950 text-white overflow-y-auto">
       {/* Top Header */}
-      <div className="p-4 flex items-center justify-between border-b border-slate-800 bg-slate-900/90 backdrop-blur">
+      <div className="p-4 flex items-center justify-between border-b border-[#24334A] bg-[#111827]/95 backdrop-blur">
         <div>
-          <span className="text-[10px] font-bold text-strava-orange uppercase tracking-wider block">
+          <div className="flex items-center gap-1.5">
+            <span className="w-2 h-2 rounded-sm bg-rally-orange" />
+            <span className="text-[10px] font-black text-rally-orange uppercase tracking-wider block">
+              STAGE 02 // CIRCUIT INTERVAL PLAYER
+            </span>
+          </div>
+          <h2 className="text-sm font-black text-white mt-0.5">
             {routine.title}
-          </span>
-          <span className="text-xs text-slate-400">
-            Gerakan {exerciseIndex + 1} dari {routine.exercises.length}
+          </h2>
+          <span className="text-xs text-slate-400 font-mono">
+            GERAKAN {exerciseIndex + 1} / {routine.exercises.length}
           </span>
         </div>
         <button
           onClick={onClose}
-          className="p-2 rounded-xl bg-slate-800 text-slate-400 hover:text-white"
+          className="p-2 rounded-xl bg-[#0B0F19] border border-[#24334A] text-slate-400 hover:text-white"
         >
           <X className="w-5 h-5" />
         </button>
@@ -204,7 +210,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                 cx="96"
                 cy="96"
                 r="86"
-                className="stroke-slate-800"
+                className="stroke-[#1A2436]"
                 strokeWidth="12"
                 fill="none"
               />
@@ -213,7 +219,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                 cy="96"
                 r="86"
                 className={`transition-all duration-300 ${
-                  phase === 'work' ? 'stroke-strava-orange' : 'stroke-emerald-400'
+                  phase === 'work' ? 'stroke-[#FF3B00]' : 'stroke-emerald-400'
                 }`}
                 strokeWidth="12"
                 strokeDasharray="540.35"
@@ -226,25 +232,25 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
             {/* Center Display */}
             <div className="absolute text-center space-y-1">
               <span
-                className={`text-[11px] font-black uppercase tracking-widest px-2.5 py-0.5 rounded-full ${
+                className={`text-[10px] font-black uppercase tracking-widest px-2.5 py-0.5 rounded-md ${
                   phase === 'work'
-                    ? 'bg-strava-orange/20 text-strava-orange'
-                    : 'bg-emerald-500/20 text-emerald-400'
+                    ? 'bg-rally-orange/20 text-rally-orange border border-rally-orange/30'
+                    : 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
                 }`}
               >
-                {phase === 'work' ? 'Latihan' : 'Istirahat'}
+                {phase === 'work' ? 'WORK SET' : 'REST INTERVAL'}
               </span>
-              <div className="text-5xl font-black tracking-tight text-white">
+              <div className="text-5xl font-black font-mono tracking-tight text-white">
                 {secondsRemaining}
               </div>
-              <span className="text-xs text-slate-400 font-semibold block">detik</span>
+              <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">detik tersisa</span>
             </div>
           </div>
 
           {/* Quick Reps target indicator if work phase */}
           {phase === 'work' && currentItem.targetReps && (
-            <div className="mt-2 text-xs font-bold text-slate-300 bg-slate-900 border border-slate-800 px-3 py-1 rounded-full">
-              Target: ~{currentItem.targetReps} Repetisi Terkontrol
+            <div className="mt-2 text-xs font-mono font-bold text-slate-300 bg-[#111827] border border-[#24334A] px-3.5 py-1 rounded-lg">
+              TARGET: ~{currentItem.targetReps} REPETISI TERKONTROL
             </div>
           )}
         </div>
@@ -259,39 +265,39 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
         </div>
 
         {/* Bottom Floating Action Bar */}
-        <div className="sticky bottom-4 pt-2 flex items-center gap-3">
+        <div className="sticky bottom-4 pt-2 flex items-center gap-2.5">
           <button
             onClick={() => setIsPaused(!isPaused)}
-            className={`flex-1 py-4 rounded-2xl font-black text-sm flex items-center justify-center gap-2 shadow-lg transition active:scale-[0.98] ${
+            className={`flex-1 py-3.5 rounded-xl font-black text-sm flex items-center justify-center gap-2 shadow-lg transition active:scale-[0.98] ${
               isPaused
-                ? 'bg-emerald-600 hover:bg-emerald-500 text-white'
-                : 'bg-slate-800 hover:bg-slate-700 text-white border border-slate-700'
+                ? 'bg-emerald-600 hover:bg-emerald-500 text-white border-b-4 border-emerald-800'
+                : 'btn-rally-secondary text-white'
             }`}
           >
             {isPaused ? (
               <>
-                <Play className="w-5 h-5 fill-white" /> Lanjut
+                <Play className="w-5 h-5 fill-white" /> LANJUT
               </>
             ) : (
               <>
-                <Pause className="w-5 h-5 fill-white" /> Jeda
+                <Pause className="w-5 h-5 fill-white" /> JEDA
               </>
             )}
           </button>
 
           <button
             onClick={handleSkip}
-            className="px-5 py-4 rounded-2xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700 flex items-center justify-center gap-1.5 text-sm font-bold active:scale-[0.98] transition"
+            className="px-4 py-3.5 btn-rally-secondary text-slate-300 hover:text-white flex items-center justify-center gap-1.5 text-xs font-black cursor-pointer"
           >
             <SkipForward className="w-4 h-4" />
-            <span>Lewati</span>
+            <span>LEWATI</span>
           </button>
 
           <button
             onClick={finishWorkout}
-            className="px-5 py-4 rounded-2xl bg-strava-orange hover:bg-strava-hover text-white text-sm font-black shadow-lg shadow-strava-orange/25 active:scale-[0.98] transition"
+            className="px-5 py-3.5 btn-rally-primary text-white text-xs font-black cursor-pointer"
           >
-            Selesai
+            SELESAI
           </button>
         </div>
       </div>

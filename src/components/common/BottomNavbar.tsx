@@ -21,7 +21,7 @@ export const BottomNavbar: React.FC<BottomNavbarProps> = ({
   ];
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-40 bg-slate-900/95 backdrop-blur-md border-t border-slate-800/80 px-2 py-1.5 safe-bottom">
+    <div className="fixed bottom-0 left-0 right-0 z-40 bg-[#0B0F19]/95 backdrop-blur-md border-t border-[#24334A] px-2 py-1.5 safe-bottom">
       <div className="max-w-lg mx-auto flex items-center justify-around">
         {tabs.map((tab) => {
           const Icon = tab.icon;
@@ -32,26 +32,28 @@ export const BottomNavbar: React.FC<BottomNavbarProps> = ({
             <button
               key={tab.id}
               onClick={() => onChangeTab(tab.id)}
-              className={`flex flex-col items-center justify-center py-1 px-3 rounded-2xl transition relative ${
-                isActive ? 'text-strava-orange' : 'text-slate-400 hover:text-slate-200'
+              className={`flex flex-col items-center justify-center py-1 px-3 rounded-xl transition relative group ${
+                isActive ? 'text-rally-orange' : 'text-slate-400 hover:text-slate-200'
               }`}
             >
               <div
-                className={`p-1.5 rounded-xl transition ${
+                className={`p-1.5 rounded-xl transition duration-75 ${
                   isRecord && !isActive
-                    ? 'bg-strava-orange/15 text-strava-orange'
+                    ? 'bg-rally-orange/15 text-rally-orange border border-rally-orange/30'
                     : isRecord && isActive
-                    ? 'bg-strava-orange text-white shadow-lg shadow-strava-orange/30'
+                    ? 'bg-rally-orange text-white shadow-lg shadow-rally-orange/30 border-b-2 border-orange-800'
+                    : isActive
+                    ? 'bg-rally-slateSoft text-rally-orange'
                     : ''
                 }`}
               >
-                <Icon className={`w-5 h-5 ${isRecord && isActive ? 'fill-white' : ''}`} />
+                <Icon className={`w-5 h-5 ${isRecord && isActive ? 'fill-white stroke-white' : ''}`} />
               </div>
-              <span className={`text-[10px] font-bold tracking-tight mt-0.5 ${isActive ? 'text-strava-orange' : 'text-slate-400'}`}>
+              <span className={`text-[10px] font-black tracking-tight mt-0.5 ${isActive ? 'text-rally-orange' : 'text-slate-400'}`}>
                 {tab.label}
               </span>
               {isActive && !isRecord && (
-                <span className="absolute bottom-0 w-1.5 h-1.5 rounded-full bg-strava-orange" />
+                <span className="absolute bottom-0 w-2 h-1 rounded-full bg-rally-orange" />
               )}
             </button>
           );

@@ -41,122 +41,124 @@ export const ProgressHub: React.FC = () => {
   return (
     <div className="w-full max-w-lg mx-auto bg-slate-950 text-white min-h-[calc(100vh-5rem)] pb-20">
       {/* Header */}
-      <div className="p-4 border-b border-slate-800 bg-slate-900/90 backdrop-blur sticky top-0 z-10 flex items-center justify-between">
+      <div className="p-4 border-b border-[#24334A] bg-[#111827]/95 backdrop-blur sticky top-0 z-10 flex items-center justify-between">
         <div>
-          <h1 className="text-xl font-black tracking-tight text-white flex items-center gap-2">
-            <TrendingDown className="w-5 h-5 text-strava-orange" />
-            <span>PROGRESS & MENTOR</span>
+          <div className="flex items-center gap-1.5">
+            <span className="w-2 h-2 rounded-sm bg-rally-orange" />
+            <span className="text-[10px] font-black text-rally-orange uppercase tracking-wider block">
+              STAGE 03 // WEIGHT TELEMETRY
+            </span>
+          </div>
+          <h1 className="text-lg font-black tracking-tight text-white mt-0.5">
+            Progress Menuju {profile.targetWeightKg} kg
           </h1>
-          <p className="text-xs text-slate-400">
-            Perjalanan Menuju {profile.targetWeightKg} kg (TB {profile.heightCm} cm)
-          </p>
         </div>
 
         <button
           onClick={() => setIsModalOpen(true)}
-          className="px-3.5 py-2 rounded-xl bg-strava-orange hover:bg-strava-hover text-white text-xs font-bold shadow-md shadow-strava-orange/20 flex items-center gap-1.5 transition active:scale-95"
+          className="px-3.5 py-2 btn-rally-primary text-white text-xs font-black flex items-center gap-1.5 cursor-pointer"
         >
           <Plus className="w-4 h-4" />
-          <span>Timbang</span>
+          <span>TIMBANG</span>
         </button>
       </div>
 
       <div className="p-4 space-y-4">
         {/* Main Weight Metric Grid */}
-        <div className="grid grid-cols-3 gap-3 p-4 bg-slate-900 border border-slate-800 rounded-3xl shadow-xl">
-          <div className="text-center">
-            <div className="text-[11px] text-slate-400 font-semibold uppercase flex items-center justify-center gap-1">
-              <Scale className="w-3.5 h-3.5 text-strava-orange" /> Saat Ini
+        <div className="grid grid-cols-3 gap-2 p-4 bg-[#111827] border border-[#24334A] rounded-2xl shadow-xl font-mono">
+          <div className="text-center bg-[#0B0F19] p-3 rounded-xl border border-[#24334A]">
+            <div className="text-[9px] text-slate-400 font-bold uppercase flex items-center justify-center gap-1">
+              <Scale className="w-3 h-3 text-rally-orange" /> SAAT INI
             </div>
             <div className="text-2xl font-black text-white mt-1">
               {profile.currentWeightKg}
             </div>
-            <div className="text-[10px] text-slate-500">kg</div>
+            <div className="text-[9px] text-slate-500 uppercase">kg</div>
           </div>
 
-          <div className="text-center border-x border-slate-800">
-            <div className="text-[11px] text-slate-400 font-semibold uppercase flex items-center justify-center gap-1">
-              <TrendingDown className="w-3.5 h-3.5 text-emerald-400" /> Turun
+          <div className="text-center bg-[#0B0F19] p-3 rounded-xl border border-[#24334A]">
+            <div className="text-[9px] text-slate-400 font-bold uppercase flex items-center justify-center gap-1">
+              <TrendingDown className="w-3 h-3 text-emerald-400" /> TURUN
             </div>
             <div className="text-2xl font-black text-emerald-400 mt-1">
               -{lostKg}
             </div>
-            <div className="text-[10px] text-slate-500">kg dari awal</div>
+            <div className="text-[9px] text-slate-500 uppercase">kg</div>
           </div>
 
-          <div className="text-center">
-            <div className="text-[11px] text-slate-400 font-semibold uppercase">
-              Target
+          <div className="text-center bg-[#0B0F19] p-3 rounded-xl border border-[#24334A]">
+            <div className="text-[9px] text-slate-400 font-bold uppercase">
+              TARGET
             </div>
             <div className="text-2xl font-black text-white mt-1">
               {profile.targetWeightKg}
             </div>
-            <div className="text-[10px] text-slate-500">sisa {remainingKg} kg</div>
+            <div className="text-[9px] text-slate-500 uppercase">sisa {remainingKg}kg</div>
           </div>
         </div>
 
         {/* BMI & Metabolic Row */}
-        <div className="p-4 bg-slate-900 border border-slate-800 rounded-3xl space-y-3 shadow-xl">
+        <div className="p-4 bg-[#111827] border border-[#24334A] rounded-2xl space-y-3 shadow-xl">
           <div className="flex items-center justify-between">
             <div>
-              <span className="text-[11px] text-slate-400 font-bold uppercase block">
-                Indeks Massa Tubuh (BMI)
+              <span className="text-[10px] text-slate-400 font-black uppercase tracking-wider block">
+                INDEKS MASSA TUBUH (BMI)
               </span>
-              <div className="flex items-center gap-2 mt-0.5">
-                <span className="text-2xl font-black text-white">{bmi}</span>
-                <span className="text-[10px] px-2.5 py-0.5 rounded-full bg-amber-500/15 text-amber-400 border border-amber-500/30 font-bold">
+              <div className="flex items-center gap-2 mt-1">
+                <span className="text-2xl font-black font-mono text-white">{bmi}</span>
+                <span className="text-[10px] px-2 py-0.5 rounded-md bg-amber-500/15 text-amber-400 border border-amber-500/30 font-black">
                   {category}
                 </span>
               </div>
             </div>
             <div className="text-right">
-              <span className="text-[11px] text-slate-400 font-bold uppercase block">
-                Target Sehat
+              <span className="text-[10px] text-slate-400 font-black uppercase tracking-wider block">
+                ZONA TARGET SEHAT
               </span>
-              <span className="text-sm font-bold text-emerald-400">18.5 - 24.9</span>
+              <span className="text-sm font-mono font-black text-emerald-400">18.5 - 24.9</span>
             </div>
           </div>
 
           {/* Calorie Targets Banner */}
-          <div className="grid grid-cols-3 gap-2 pt-2 border-t border-slate-800 text-center text-xs">
-            <div className="bg-slate-950/60 p-2.5 rounded-xl border border-slate-800/80">
-              <span className="text-[10px] text-slate-500 block uppercase font-medium">BMR</span>
-              <span className="font-bold text-slate-200">~{bmr} kkal</span>
+          <div className="grid grid-cols-3 gap-2 pt-2 border-t border-[#24334A] text-center text-xs font-mono">
+            <div className="bg-[#0B0F19] p-2.5 rounded-xl border border-[#24334A]">
+              <span className="text-[9px] text-slate-500 block uppercase font-bold">BMR</span>
+              <span className="font-bold text-slate-200">~{bmr} kcal</span>
             </div>
-            <div className="bg-slate-950/60 p-2.5 rounded-xl border border-slate-800/80">
-              <span className="text-[10px] text-slate-500 block uppercase font-medium">TDEE</span>
-              <span className="font-bold text-slate-200">~{tdee} kkal</span>
+            <div className="bg-[#0B0F19] p-2.5 rounded-xl border border-[#24334A]">
+              <span className="text-[9px] text-slate-500 block uppercase font-bold">TDEE</span>
+              <span className="font-bold text-slate-200">~{tdee} kcal</span>
             </div>
-            <div className="bg-slate-950/60 p-2.5 rounded-xl border border-strava-orange/40">
-              <span className="text-[10px] text-strava-orange block uppercase font-bold">Defisit</span>
-              <span className="font-bold text-white">~{deficitCalorieTarget} kkal</span>
+            <div className="bg-[#0B0F19] p-2.5 rounded-xl border border-rally-orange/50">
+              <span className="text-[9px] text-rally-orange block uppercase font-black">DEFISIT</span>
+              <span className="font-black text-white">~{deficitCalorieTarget} kcal</span>
             </div>
           </div>
         </div>
 
         {/* Sub-tab Navigation: Chart vs AI Mentor */}
-        <div className="flex bg-slate-900 p-1 rounded-2xl border border-slate-800 text-xs">
+        <div className="flex bg-[#111827] p-1 rounded-xl border border-[#24334A] text-xs">
           <button
             onClick={() => setSubTab('chart')}
-            className={`flex-1 py-2.5 rounded-xl font-bold transition flex items-center justify-center gap-1.5 ${
+            className={`flex-1 py-2.5 rounded-lg font-black transition flex items-center justify-center gap-1.5 ${
               subTab === 'chart'
-                ? 'bg-strava-orange text-white shadow'
+                ? 'bg-rally-orange text-white shadow-sm'
                 : 'text-slate-400 hover:text-white'
             }`}
           >
             <LineChart className="w-4 h-4" />
-            <span>Grafik & Riwayat</span>
+            <span>GRAFIK & LOG</span>
           </button>
           <button
             onClick={() => setSubTab('chat')}
-            className={`flex-1 py-2.5 rounded-xl font-bold transition flex items-center justify-center gap-1.5 ${
+            className={`flex-1 py-2.5 rounded-lg font-black transition flex items-center justify-center gap-1.5 ${
               subTab === 'chat'
-                ? 'bg-strava-orange text-white shadow'
+                ? 'bg-rally-orange text-white shadow-sm'
                 : 'text-slate-400 hover:text-white'
             }`}
           >
             <MessageSquare className="w-4 h-4" />
-            <span>Tanya AI Mentor</span>
+            <span>AI MENTOR</span>
           </button>
         </div>
 
@@ -166,7 +168,7 @@ export const ProgressHub: React.FC = () => {
             <WeightChart entries={weightLogs} targetWeightKg={profile.targetWeightKg} />
 
             {/* Weight Logs History List */}
-            <div className="bg-slate-900 border border-slate-800 rounded-3xl p-4 shadow-xl space-y-3">
+            <div className="bg-[#111827] border border-[#24334A] rounded-2xl p-4 shadow-xl space-y-3">
               <div className="flex items-center justify-between text-xs">
                 <span className="font-bold text-white uppercase tracking-wider">
                   Riwayat Timbangan

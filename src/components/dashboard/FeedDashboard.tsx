@@ -42,91 +42,96 @@ export const FeedDashboard: React.FC<FeedDashboardProps> = ({ onNavigateTab }) =
   return (
     <div className="w-full max-w-lg mx-auto bg-slate-950 text-white min-h-[calc(100vh-5rem)] pb-20">
       {/* Top Header */}
-      <div className="p-4 border-b border-slate-800 bg-slate-900/90 backdrop-blur sticky top-0 z-10 flex items-center justify-between">
+      <div className="p-4 border-b border-[#24334A] bg-[#111827]/95 backdrop-blur sticky top-0 z-10 flex items-center justify-between">
         <div>
-          <span className="text-[10px] font-black text-strava-orange uppercase tracking-widest block">
-            PERSONAL STRAVA
-          </span>
-          <h1 className="text-xl font-black tracking-tight text-white">
-            Halo, {profile.name}! 👋
+          <div className="flex items-center gap-1.5">
+            <span className="w-2 h-2 rounded-sm bg-rally-orange" />
+            <span className="text-[10px] font-black text-rally-orange uppercase tracking-widest block">
+              STAGE TELEMETRY // ATHLETE CONSOLE
+            </span>
+          </div>
+          <h1 className="text-xl font-black tracking-tight text-white mt-0.5">
+            {profile.name} // 83KG ➔ 65KG
           </h1>
         </div>
 
         {/* Streak Pill */}
-        <div className="flex items-center gap-1.5 px-3 py-1.5 bg-amber-500/15 border border-amber-500/30 rounded-2xl text-amber-400">
+        <div className="flex items-center gap-1.5 px-3 py-1.5 bg-amber-500/15 border border-amber-500/40 rounded-xl text-amber-400 shadow-sm">
           <Zap className="w-4 h-4 fill-amber-400" />
-          <span className="text-xs font-black">{streak} Hari Streak</span>
+          <span className="text-xs font-black font-mono">{streak} HARI STREAK</span>
         </div>
       </div>
 
-      <div className="p-4 space-y-5">
-        {/* Weekly Progress Card (Athletic Ring Style) */}
-        <div className="p-5 bg-gradient-to-br from-slate-900 via-slate-900 to-slate-950 border border-slate-800 rounded-3xl shadow-xl space-y-4">
+      <div className="p-4 space-y-4">
+        {/* Weekly Progress Card (Rally Telemetry) */}
+        <div className="p-5 bg-[#111827] border border-[#24334A] rounded-2xl shadow-xl space-y-4">
           <div className="flex items-center justify-between text-xs">
-            <span className="font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
-              <TrendingUp className="w-3.5 h-3.5 text-strava-orange" /> Statistik 7 Hari Terakhir
+            <span className="font-black uppercase tracking-wider text-slate-300 flex items-center gap-1.5">
+              <TrendingUp className="w-3.5 h-3.5 text-rally-orange" /> 7-DAY STAGE RECAP
             </span>
-            <span className="text-slate-500 font-semibold">{weekly.totalWorkouts} Sesi</span>
+            <span className="text-slate-400 font-mono font-bold bg-[#0B0F19] px-2 py-0.5 rounded-md border border-[#24334A]">
+              {weekly.totalWorkouts} SESI TERCATAT
+            </span>
           </div>
 
-          <div className="grid grid-cols-3 gap-3 text-center">
-            <div className="bg-slate-950/70 p-3 rounded-2xl border border-slate-800">
-              <span className="text-[10px] text-slate-400 font-medium uppercase block">
-                Total Jarak
+          <div className="grid grid-cols-3 gap-2 text-center">
+            <div className="bg-[#0B0F19] p-3 rounded-xl border border-[#24334A]">
+              <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">
+                STAGE KM
               </span>
-              <div className="text-xl font-black text-white mt-0.5">
+              <div className="text-2xl font-black font-mono text-white mt-0.5">
                 {weekly.totalDistanceKm}
               </div>
-              <span className="text-[10px] text-slate-500 font-bold uppercase">km</span>
+              <span className="text-[9px] text-slate-500 font-mono uppercase">km total</span>
             </div>
 
-            <div className="bg-slate-950/70 p-3 rounded-2xl border border-slate-800">
-              <span className="text-[10px] text-slate-400 font-medium uppercase block">
-                Total Waktu
+            <div className="bg-[#0B0F19] p-3 rounded-xl border border-[#24334A]">
+              <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">
+                TOTAL WAKTU
               </span>
-              <div className="text-xl font-black text-white mt-0.5">
+              <div className="text-2xl font-black font-mono text-white mt-0.5">
                 {Math.round(weekly.totalDurationSeconds / 60)}
               </div>
-              <span className="text-[10px] text-slate-500 font-bold uppercase">menit</span>
+              <span className="text-[9px] text-slate-500 font-mono uppercase">menit</span>
             </div>
 
-            <div className="bg-slate-950/70 p-3 rounded-2xl border border-slate-800">
-              <span className="text-[10px] text-slate-400 font-medium uppercase block">
-                Total Kalori
+            <div className="bg-[#0B0F19] p-3 rounded-xl border border-[#24334A]">
+              <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">
+                KALORI
               </span>
-              <div className="text-xl font-black text-amber-400 mt-0.5">
+              <div className="text-2xl font-black font-mono text-amber-400 mt-0.5">
                 {weekly.totalCalories}
               </div>
-              <span className="text-[10px] text-slate-500 font-bold uppercase">kkal</span>
+              <span className="text-[9px] text-slate-500 font-mono uppercase">kcal</span>
             </div>
           </div>
         </div>
 
-        {/* Quick Launch CTA Buttons */}
+        {/* Quick Stage Launchers with Chamfered Mechanical Push Feel */}
         <div className="grid grid-cols-2 gap-3">
           <button
             onClick={() => onNavigateTab('record')}
-            className="p-4 bg-slate-900 border border-slate-800 hover:border-strava-orange rounded-3xl shadow-lg transition text-left space-y-2 group active:scale-[0.98]"
+            className="p-4 bg-[#111827] border border-[#24334A] hover:border-rally-orange rounded-2xl shadow-lg transition text-left space-y-2 group active:scale-[0.98] cursor-pointer"
           >
-            <div className="w-10 h-10 rounded-2xl bg-strava-orange/20 text-strava-orange flex items-center justify-center group-hover:bg-strava-orange group-hover:text-white transition">
+            <div className="w-10 h-10 rounded-xl bg-rally-orange/15 text-rally-orange flex items-center justify-center border border-rally-orange/30 group-hover:bg-rally-orange group-hover:text-white transition">
               <Footprints className="w-5 h-5" />
             </div>
             <div>
-              <span className="text-sm font-black text-white block">GPS Outdoor</span>
+              <span className="text-sm font-black text-white block tracking-tight">STAGE 01 // GPS</span>
               <span className="text-[11px] text-slate-400">Jalan Cepat & Lari</span>
             </div>
           </button>
 
           <button
             onClick={() => onNavigateTab('workout')}
-            className="p-4 bg-slate-900 border border-slate-800 hover:border-amber-500 rounded-3xl shadow-lg transition text-left space-y-2 group active:scale-[0.98]"
+            className="p-4 bg-[#111827] border border-[#24334A] hover:border-amber-500 rounded-2xl shadow-lg transition text-left space-y-2 group active:scale-[0.98] cursor-pointer"
           >
-            <div className="w-10 h-10 rounded-2xl bg-amber-500/20 text-amber-400 flex items-center justify-center group-hover:bg-amber-500 group-hover:text-white transition">
+            <div className="w-10 h-10 rounded-xl bg-amber-500/15 text-amber-400 flex items-center justify-center border border-amber-500/30 group-hover:bg-amber-500 group-hover:text-white transition">
               <Dumbbell className="w-5 h-5" />
             </div>
             <div>
-              <span className="text-sm font-black text-white block">Sirkuit Indoor</span>
-              <span className="text-[11px] text-slate-400">Kalistenik Ramah Lutut</span>
+              <span className="text-sm font-black text-white block tracking-tight">STAGE 02 // CIRCUIT</span>
+              <span className="text-[11px] text-slate-400">Kalistenik Ramah Sendi</span>
             </div>
           </button>
         </div>
@@ -134,10 +139,10 @@ export const FeedDashboard: React.FC<FeedDashboardProps> = ({ onNavigateTab }) =
         {/* Activity Feed Section */}
         <div className="space-y-3">
           <div className="flex items-center justify-between text-xs px-1">
-            <h3 className="font-bold text-white uppercase tracking-wider">
-              Aktivitas Terbaru
+            <h3 className="font-black text-white uppercase tracking-wider flex items-center gap-1.5">
+              <span>LOGBOOK AKTIVITAS</span>
             </h3>
-            <span className="text-slate-500">{activities.length} Total</span>
+            <span className="text-slate-500 font-mono font-bold">{activities.length} TOTAL ENTRY</span>
           </div>
 
           {activities.length === 0 ? (

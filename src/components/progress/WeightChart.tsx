@@ -58,18 +58,18 @@ export const WeightChart: React.FC<WeightChartProps> = ({
   const polylineStr = points.map((p) => `${p.x},${p.y}`).join(' ');
 
   return (
-    <div className="w-full bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-xl space-y-3">
+    <div className="w-full bg-[#111827] border border-[#24334A] rounded-2xl p-5 shadow-xl space-y-3">
       <div className="flex items-center justify-between text-xs">
         <div>
-          <span className="font-bold text-white block">Tren Penurunan Berat Badan</span>
-          <span className="text-[11px] text-slate-400">Target Ideal: {targetWeightKg} kg</span>
+          <span className="font-black text-white block uppercase tracking-wider text-[11px]">Tren Stage Penurunan Berat Badan</span>
+          <span className="text-[11px] text-slate-400 font-mono">TARGET FINISH: {targetWeightKg} KG</span>
         </div>
-        <div className="flex items-center gap-3 text-[10px]">
-          <span className="flex items-center gap-1 text-strava-orange font-semibold">
-            <span className="w-2.5 h-0.5 bg-strava-orange rounded-full inline-block" /> Aktual
+        <div className="flex items-center gap-3 text-[10px] font-mono">
+          <span className="flex items-center gap-1 text-rally-orange font-bold">
+            <span className="w-2.5 h-1 bg-rally-orange rounded-sm inline-block" /> AKTUAL
           </span>
-          <span className="flex items-center gap-1 text-emerald-400 font-semibold">
-            <span className="w-2.5 h-0.5 bg-emerald-400 border-b border-dashed inline-block" /> Target
+          <span className="flex items-center gap-1 text-emerald-400 font-bold">
+            <span className="w-2.5 h-1 bg-emerald-400 border-b border-dashed inline-block" /> TARGET
           </span>
         </div>
       </div>
@@ -96,15 +96,16 @@ export const WeightChart: React.FC<WeightChartProps> = ({
             fill="#10B981"
             fontSize="9"
             fontWeight="bold"
+            className="font-mono"
           >
             {targetWeightKg}kg
           </text>
 
-          {/* Actual Weight Line */}
+          {/* Actual Weight Line in Rally Orange */}
           <polyline
             points={polylineStr}
             fill="none"
-            stroke="#FC4C02"
+            stroke="#FF3B00"
             strokeWidth="2.5"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -117,7 +118,7 @@ export const WeightChart: React.FC<WeightChartProps> = ({
                 cx={p.x}
                 cy={p.y}
                 r="4.5"
-                className="fill-slate-950 stroke-strava-orange stroke-2 transition-all hover:r-6"
+                className="fill-[#0B0F19] stroke-rally-orange stroke-2 transition-all hover:r-6"
               />
               <text
                 x={p.x}

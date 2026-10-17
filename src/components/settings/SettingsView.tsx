@@ -6,7 +6,6 @@ import {
   importAllData,
 } from '../../db/index';
 import {
-  Settings,
   User,
   Volume2,
   VolumeX,
@@ -94,23 +93,27 @@ export const SettingsView: React.FC = () => {
   return (
     <div className="w-full max-w-lg mx-auto bg-slate-950 text-white min-h-[calc(100vh-5rem)] pb-20">
       {/* Header */}
-      <div className="p-4 border-b border-slate-800 bg-slate-900/90 backdrop-blur sticky top-0 z-10 flex items-center justify-between">
+      <div className="p-4 border-b border-[#24334A] bg-[#111827]/95 backdrop-blur sticky top-0 z-10 flex items-center justify-between">
         <div>
-          <h1 className="text-xl font-black tracking-tight text-white flex items-center gap-2">
-            <Settings className="w-5 h-5 text-strava-orange" />
-            <span>PENGATURAN</span>
+          <div className="flex items-center gap-1.5">
+            <span className="w-2 h-2 rounded-sm bg-rally-orange" />
+            <span className="text-[10px] font-black text-rally-orange uppercase tracking-wider block">
+              STAGE CONFIG // ATHLETE SETTINGS
+            </span>
+          </div>
+          <h1 className="text-lg font-black tracking-tight text-white mt-0.5">
+            Pengaturan & Backup
           </h1>
-          <p className="text-xs text-slate-400">Profil Atlet & Penyimpanan Lokal</p>
         </div>
       </div>
 
-      <div className="p-4 space-y-5">
+      <div className="p-4 space-y-4">
         {notification && (
           <div
-            className={`p-3.5 rounded-2xl border text-xs flex items-center gap-2 animate-fade-in ${
+            className={`p-3.5 rounded-xl border text-xs flex items-center gap-2 animate-fade-in ${
               notification.type === 'success'
-                ? 'bg-emerald-950/80 border-emerald-800 text-emerald-200'
-                : 'bg-red-950/80 border-red-800 text-red-200'
+                ? 'bg-emerald-950/80 border-emerald-700 text-emerald-200'
+                : 'bg-red-950/80 border-red-700 text-red-200'
             }`}
           >
             {notification.type === 'success' ? (
@@ -125,53 +128,53 @@ export const SettingsView: React.FC = () => {
         {/* Profile Settings Form */}
         <form
           onSubmit={handleSaveProfile}
-          className="p-5 bg-slate-900 border border-slate-800 rounded-3xl shadow-xl space-y-4"
+          className="p-5 bg-[#111827] border border-[#24334A] rounded-2xl shadow-xl space-y-4"
         >
-          <div className="flex items-center gap-2 text-xs font-bold text-strava-orange uppercase tracking-wider">
-            <User className="w-4 h-4" /> Profil Fisik Anda
+          <div className="flex items-center gap-2 text-xs font-black text-rally-orange uppercase tracking-wider">
+            <User className="w-4 h-4" /> PARAMETER FISIK ATLET
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">
+            <label className="block text-xs font-black text-slate-400 uppercase tracking-wider mb-1">
               Nama Panggilan
             </label>
             <input
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full px-4 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-white text-sm focus:outline-none focus:border-strava-orange"
+              className="w-full px-4 py-2.5 bg-[#0B0F19] border border-[#24334A] rounded-xl text-white text-sm focus:outline-none focus:border-rally-orange font-bold"
             />
           </div>
 
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-3 font-mono">
             <div>
-              <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">
+              <label className="block text-[11px] font-black text-slate-400 uppercase tracking-wider mb-1">
                 Tinggi (cm)
               </label>
               <input
                 type="number"
                 value={heightCm}
                 onChange={(e) => setHeightCm(e.target.value)}
-                className="w-full px-4 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-white text-sm focus:outline-none focus:border-strava-orange"
+                className="w-full px-4 py-2.5 bg-[#0B0F19] border border-[#24334A] rounded-xl text-white text-sm focus:outline-none focus:border-rally-orange font-bold"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">
-                Usia (tahun)
+              <label className="block text-[11px] font-black text-slate-400 uppercase tracking-wider mb-1">
+                Usia (thn)
               </label>
               <input
                 type="number"
                 value={age}
                 onChange={(e) => setAge(e.target.value)}
-                className="w-full px-4 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-white text-sm focus:outline-none focus:border-strava-orange"
+                className="w-full px-4 py-2.5 bg-[#0B0F19] border border-[#24334A] rounded-xl text-white text-sm focus:outline-none focus:border-rally-orange font-bold"
               />
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-3 font-mono">
             <div>
-              <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">
+              <label className="block text-[11px] font-black text-slate-400 uppercase tracking-wider mb-1">
                 Berat Sekarang (kg)
               </label>
               <input
@@ -179,12 +182,12 @@ export const SettingsView: React.FC = () => {
                 step="0.1"
                 value={currentWeightKg}
                 onChange={(e) => setCurrentWeightKg(e.target.value)}
-                className="w-full px-4 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-white text-sm focus:outline-none focus:border-strava-orange font-bold text-strava-orange"
+                className="w-full px-4 py-2.5 bg-[#0B0F19] border border-[#24334A] rounded-xl text-rally-orange text-base focus:outline-none focus:border-rally-orange font-black"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">
+              <label className="block text-[11px] font-black text-slate-400 uppercase tracking-wider mb-1">
                 Target Berat (kg)
               </label>
               <input
@@ -192,13 +195,13 @@ export const SettingsView: React.FC = () => {
                 step="0.1"
                 value={targetWeightKg}
                 onChange={(e) => setTargetWeightKg(e.target.value)}
-                className="w-full px-4 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-white text-sm focus:outline-none focus:border-strava-orange font-bold text-emerald-400"
+                className="w-full px-4 py-2.5 bg-[#0B0F19] border border-[#24334A] rounded-xl text-emerald-400 text-base focus:outline-none focus:border-rally-orange font-black"
               />
             </div>
           </div>
 
           {/* Sound Toggle */}
-          <div className="pt-2 border-t border-slate-800 flex items-center justify-between">
+          <div className="pt-2 border-t border-[#24334A] flex items-center justify-between">
             <div className="flex items-center gap-2">
               {soundEnabled ? (
                 <Volume2 className="w-4 h-4 text-emerald-400" />
@@ -206,48 +209,48 @@ export const SettingsView: React.FC = () => {
                 <VolumeX className="w-4 h-4 text-slate-500" />
               )}
               <div>
-                <span className="text-xs font-bold text-white block">Suara Beep & Lap Audio</span>
-                <span className="text-[11px] text-slate-400">Bunyi countdown timer & penanda kilometer</span>
+                <span className="text-xs font-black text-white block">Suara Beep & Audio Lap 1KM</span>
+                <span className="text-[11px] text-slate-400">Audio countdown Web Audio API</span>
               </div>
             </div>
             <input
               type="checkbox"
               checked={soundEnabled}
               onChange={(e) => setSoundEnabled(e.target.checked)}
-              className="w-5 h-5 accent-strava-orange rounded cursor-pointer"
+              className="w-5 h-5 accent-rally-orange rounded cursor-pointer"
             />
           </div>
 
           {/* Gemini AI Key */}
-          <div className="pt-2 border-t border-slate-800 space-y-1.5">
-            <div className="flex items-center gap-2 text-xs font-bold text-white">
-              <Key className="w-4 h-4 text-amber-400" />
+          <div className="pt-2 border-t border-[#24334A] space-y-1.5">
+            <div className="flex items-center gap-2 text-xs font-black text-white">
+              <Key className="w-4 h-4 text-rally-orange" />
               <span>Google Gemini API Key (Opsional)</span>
             </div>
             <input
               type="password"
               value={geminiApiKey}
               onChange={(e) => setGeminiApiKey(e.target.value)}
-              placeholder="Masukkan API key gratis untuk fitur AI chat penuh..."
-              className="w-full px-4 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-white text-xs placeholder-slate-600 focus:outline-none focus:border-strava-orange font-mono"
+              placeholder="Masukkan API key gratis untuk fitur AI chat..."
+              className="w-full px-4 py-2.5 bg-[#0B0F19] border border-[#24334A] rounded-xl text-white text-xs placeholder-slate-600 focus:outline-none focus:border-rally-orange font-mono"
             />
-            <p className="text-[10px] text-slate-500 leading-relaxed">
-              Jika dikosongkan, asisten mentor tetap bekerja 100% menggunakan algoritma bawaan *offline*. Kunci Anda disimpan aman hanya di browser Anda sendiri.
+            <p className="text-[10px] text-slate-400 leading-relaxed">
+              Jika dikosongkan, asisten mentor tetap bekerja 100% menggunakan algoritma bawaan *offline*.
             </p>
           </div>
 
           <button
             type="submit"
-            className="w-full py-3.5 bg-strava-orange hover:bg-strava-hover text-white text-sm font-bold rounded-2xl shadow-lg shadow-strava-orange/20 transition active:scale-[0.98]"
+            className="w-full py-3.5 btn-rally-primary text-white text-xs font-black uppercase tracking-wider cursor-pointer"
           >
-            Simpan Perubahan Profil
+            SIMPAN PERUBAHAN PROFIL
           </button>
         </form>
 
         {/* Data Backup & Restore Section */}
-        <div className="p-5 bg-slate-900 border border-slate-800 rounded-3xl shadow-xl space-y-3">
-          <div className="flex items-center gap-2 text-xs font-bold text-slate-400 uppercase tracking-wider">
-            <Download className="w-4 h-4 text-blue-400" /> Cadangkan & Pulihkan Data
+        <div className="p-5 bg-[#111827] border border-[#24334A] rounded-2xl shadow-xl space-y-3">
+          <div className="flex items-center gap-2 text-xs font-black text-slate-300 uppercase tracking-wider">
+            <Download className="w-4 h-4 text-rally-orange" /> CADANGKAN & PULIHKAN DATA
           </div>
           <p className="text-xs text-slate-400">
             Aplikasi ini menyimpan data di browser Anda (IndexedDB). Anda dapat mengekspor seluruh catatan olahraga & berat badan ke file JSON kapan saja agar tidak hilang.
@@ -256,15 +259,15 @@ export const SettingsView: React.FC = () => {
           <div className="flex gap-3 pt-1">
             <button
               onClick={handleExport}
-              className="flex-1 py-3 px-3 bg-slate-950 border border-slate-800 hover:border-slate-700 rounded-xl text-xs font-bold text-white flex items-center justify-center gap-1.5 transition active:scale-95"
+              className="flex-1 py-3 px-3 btn-rally-secondary text-white text-xs font-black flex items-center justify-center gap-1.5 cursor-pointer"
             >
               <Download className="w-4 h-4 text-emerald-400" />
-              <span>Ekspor JSON</span>
+              <span>EKSPOR JSON</span>
             </button>
 
-            <label className="flex-1 py-3 px-3 bg-slate-950 border border-slate-800 hover:border-slate-700 rounded-xl text-xs font-bold text-white flex items-center justify-center gap-1.5 transition active:scale-95 cursor-pointer">
+            <label className="flex-1 py-3 px-3 btn-rally-secondary text-white text-xs font-black flex items-center justify-center gap-1.5 cursor-pointer">
               <Upload className="w-4 h-4 text-amber-400" />
-              <span>Impor Backup</span>
+              <span>IMPOR BACKUP</span>
               <input
                 type="file"
                 accept=".json"

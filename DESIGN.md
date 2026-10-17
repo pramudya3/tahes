@@ -1,15 +1,15 @@
 ---
 name: Tahes
-description: Personal Strava & Zero-Equipment Bodyweight Tracker
+description: Tactical Rally Pacebook & Zero-Equipment Bodyweight Tracker
 colors:
-  primary: "#FC4C02"
-  primary-hover: "#E34402"
-  neutral-bg: "#020617"
-  neutral-card: "#0F172A"
-  neutral-card-soft: "#1E293B"
-  neutral-border: "#334155"
+  primary: "#FF3B00"
+  primary-hover: "#D63200"
+  neutral-bg: "#0B0F19"
+  neutral-card: "#111827"
+  neutral-card-soft: "#1A2436"
+  neutral-border: "#24334A"
   neutral-text: "#F8FAFC"
-  neutral-text-muted: "#94A3B8"
+  neutral-text-muted: "#8292A8"
   accent-success: "#10B981"
   accent-warning: "#F59E0B"
 typography:
@@ -28,7 +28,7 @@ typography:
   title:
     fontFamily: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
     fontSize: "1.125rem"
-    fontWeight: 800
+    fontWeight: 900
     lineHeight: 1.3
     letterSpacing: "-0.01em"
   body:
@@ -37,165 +37,179 @@ typography:
     fontWeight: 400
     lineHeight: 1.5
     letterSpacing: "normal"
+  caption:
+    fontFamily: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
+    fontSize: "11px"
+    fontWeight: 700
+    lineHeight: 1.3
   label:
     fontFamily: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
-    fontSize: "0.6875rem"
-    fontWeight: 700
+    fontSize: "10px"
+    fontWeight: 800
     lineHeight: 1.2
     letterSpacing: "0.08em"
+  micro:
+    fontFamily: "monospace"
+    fontSize: "9px"
+    fontWeight: 800
+    lineHeight: 1.1
+  nano:
+    fontFamily: "monospace"
+    fontSize: "8px"
+    fontWeight: 700
+    lineHeight: 1.1
 rounded:
-  sm: "8px"
-  md: "12px"
-  lg: "16px"
-  xl: "24px"
+  sm: "6px"
+  md: "10px"
+  lg: "14px"
+  xl: "16px"
+  "2xl": "24px"
   full: "9999px"
 spacing:
   xs: "4px"
   sm: "8px"
-  md: "16px"
-  lg: "24px"
-  xl: "32px"
+  md: "12px"
+  lg: "16px"
+  xl: "24px"
 components:
   button-primary:
     backgroundColor: "{colors.primary}"
     textColor: "{colors.neutral-text}"
     rounded: "{rounded.lg}"
-    padding: "16px 24px"
+    padding: "14px 20px"
   button-primary-hover:
     backgroundColor: "{colors.primary-hover}"
   button-secondary:
     backgroundColor: "{colors.neutral-card-soft}"
     textColor: "{colors.neutral-text}"
     rounded: "{rounded.lg}"
-    padding: "14px 20px"
+    padding: "12px 18px"
   card-surface:
     backgroundColor: "{colors.neutral-card}"
     rounded: "{rounded.xl}"
     padding: "20px"
   chip-badge:
-    backgroundColor: "{colors.neutral-card-soft}"
+    backgroundColor: "{colors.neutral-bg}"
     textColor: "{colors.neutral-text-muted}"
-    rounded: "{rounded.full}"
-    padding: "4px 10px"
+    rounded: "{rounded.sm}"
+    padding: "2px 8px"
 ---
 
 # Design System: Tahes
 
 ## Overview
 
-**Creative North Star: "The Minimalist Trackbook"**
+**Creative North Star: "The Tactical Rally Pacebook"**
 
-Tahes mengusung estetika buku catatan atletik digital (*trackbook*) yang ultra-minimalis, presisi, dan bebas dari ornamen palsu. Desainnya lahir dari kebutuhan nyata seorang atlet yang sedang berolahraga di bawah terik matahari atau saat tangan basah oleh keringat: informasi harus terbaca dalam sepersekian detik, tanpa keraguan, dan tanpa tombol kecil yang sulit disentuh.
+Tahes lahir dari disiplin reli ketahanan (*endurance rally*): kecepatan, presisi navigasi co-driver, dan toleransi nol terhadap kegagalan instrumen. Pada kecepatan tinggi di bawah sengatan sinar matahari tropis atau saat jemari basah oleh keringat, atlet tidak membutuhkan ornamen palsu, kartu bergradasi pastel, atau animasi kosmetik yang lambat. Mereka membutuhkan telemetri panggung (*stage telemetry*) yang terbaca instan dan tombol pemicu fisik yang memberikan konfirmasi sentuhan nyata.
 
-Secara filosofis, visual Tahes tidak meniru aplikasi media sosial yang bising dengan dekorasi gradien berlebihan atau animasi kosmetik yang lambat. Sebaliknya, antarmukanya memanfaatkan kanvas gelap pekat (*deep nocturnal slate*) sebagai latar tenang, di mana angka-angka metrik olahraga dan garis rute GPS oranye menyala tampil dengan kontras murni seperti instrumen kokpit pesawat performa tinggi.
+Secara filosofis, Tahes memperlakukan setiap sesi olahraga sebagai etape reli (*rally stage*). Latar belakang aspal pekat (*asphalt black* `#0B0F19`) dipadukan dengan garis batas teknis `#24334A`, angka telemetri putih salju monospaced/tabular, dan aksen oranye reli berdaya pendar tinggi (*Rally Orange* `#FF3B00`) yang hanya dinyalakan pada metrik kritis dan pemicu aksi utama.
 
 **Key Characteristics:**
-- **Extreme Contrast at Rest:** Teks dan angka utama berwarna putih salju tajam di atas lapisan slate hitam, menjamin keterbacaan tinggi di luar ruangan.
-- **Selective Ignition:** Warna oranye Strava (`#FC4C02`) hanya dinyalakan untuk aksi utama, rute gerak aktif, dan metrik penting; warna tidak dihamburkan ke seluruh penjuru layar.
-- **Generous Touch Targets:** Sudut membulat organik (*tactile curvature* 16px – 24px) dengan area tekan besar yang memberikan rasa percaya diri saat tombol dipicu saat bergerak.
+- **Mechanical Cockpit Tactility:** Tombol aksi utama mengusung konstruksi mekanis taktil dengan border bawah tebal 4px yang menekan turun saat disentuh (*mechanical push feel*), memberikan kepastian responsif saat bergerak.
+- **Rally Tripmeter Layout:** Metrik jarak, waktu elapsed, dan split pace tersusun dalam format tripmeter kokpit bergaris batas presisi dengan angka numerik proporsional tebal (*font-mono 900*).
+- **Joint Shield Protocols:** Indikator ramah sendi (*zero impact*) dan zona keselamatan lutut ditandai dengan warna hijau emerald pelindung (`#10B981`) dan amber kewaspadaan (`#F59E0B`), menjaga keselamatan atlet berbobot 83kg secara non-kompromistis.
 
 ## Colors
 
-Palet warna Tahes didasarkan pada prinsip instrumen monokrom gelap dengan aksen kinetik tunggal yang bertenaga.
+Palet warna Tahes dirancang berdasarkan standar visibilitas instrumen kokpit reli malam dan siang hari.
 
 ### Primary
-- **Ignition Orange** (`#FC4C02`): Representasi energi, tekad pembakaran kalori, dan identitas atletik lari. Digunakan secara eksklusif untuk tombol CTA utama, polyline rute GPS real-time, badge aktif, dan highlight data kecepatan (pace).
-- **Ignition Orange Deep** (`#E34402`): Warna transisi saat tombol primer disentuh atau ditekan (*active state*).
+- **Rally Orange** (`#FF3B00`): Warna energi kinetik, pemicu start etape (*stage trigger*), dan jalur polyline rute GPS real-time.
+- **Rally Orange Deep** (`#D63200`): Warna dasar saat tombol primer ditekan penuh.
 
 ### Secondary
-- **Kinetic Amber** (`#F59E0B`): Digunakan khusus untuk kalori terbakar, penanda *streak* konsistensi harian, dan peringatan keselamatan lutut.
-- **Joint Shield Emerald** (`#10B981`): Digunakan untuk penanda gerakan ramah sendi, target berat badan ideal, dan status keberhasilan sesi latihan.
+- **Joint Shield Emerald** (`#10B981`): Menandai kepatuhan gerakan ramah sendi, target berat badan ideal, dan status etape selesai.
+- **Caution Amber** (`#F59E0B`): Peringatan keselamatan lutut, indikator kalori terbakar, dan pencapaian streak harian.
 
 ### Neutral
-- **Nocturnal Base** (`#020617`): Kanvas terdalam layar; menghemat konsumsi daya layar OLED di smartphone dan meniadakan silau saat dipakai subuh atau malam hari.
-- **Card Slate Layer** (`#0F172A`): Lapisan permukaan kartu konten utama yang memberikan batas visual lembut tanpa memerlukan garis tepi tebal.
-- **Card Surface Soft** (`#1E293B`): Lapisan untuk kartu bersarang (*nested slot*), kolom input, dan latar tombol sekunder.
-- **Subtle Border** (`#334155`): Garis pembatas 1px yang halus, memisahkan hirarki informasi secara bersih.
-- **Pure White** (`#F8FAFC`): Nilai metrik utama, judul, dan angka besar.
-- **Slate Muted** (`#94A3B8`): Label keterangan, satuan (`km`, `kkal`, `/km`), dan teks instruksi sekunder.
+- **Deep Asphalt** (`#0B0F19`): Kanvas terdalam kokpit; menghemat konsumsi baterai OLED ponsel low-end dan meniadakan silau outdoor.
+- **Stage Slate** (`#111827`): Lapisan kontainer kartu etape dan instrumen telemetri utama.
+- **Cockpit Soft** (`#1A2436`): Slot tombol sekunder dan wadah isian formulir.
+- **Technical Border** (`#24334A`): Garis kisi instrumen teknis berketebalan 1px.
+- **Pure White** (`#F8FAFC`): Angka telemetri utama dan teks pembacaan langsung.
+- **Slate Technical Muted** (`#8292A8`): Satuan metrik (`km`, `kcal`, `min`) dan deskriptor etape.
 
 ### Named Rules
-**The 10% Ignition Rule.** Warna oranye primer hanya boleh menempati maksimal 10% dari total area visual pada satu layar. Kelangkaan warna oranye adalah alasan mengapa ia begitu kuat memandu mata pengguna.
+**The Stage Ignition Rule.** Warna oranye reli `#FF3B00` dibatasi khusus untuk aksi aktif dan data pace split real-time. Tidak boleh digunakan sebagai latar belakang teks pasif atau dekorasi non-fungsional.
 
 ## Typography
 
-**Display & Headline Font:** System Athletic Sans-Serif (`system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif`)  
-**Data & Numbers Font:** Bold Proportional Numerical Weighting  
-**Label Font:** Uppercase Tracked Sans-Serif  
+**Display & Headline Font:** Athletic Grotesque Sans (`system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif`)  
+**Telemetry & Numbers Font:** Tabular Monospace Numerical Stack (`font-mono, monospace, tabular-nums`)  
+**Stage Label Font:** Uppercase Heavy Condensed Sans  
 
-**Character:** Tipografi Tahes lugas, fungsional, dan maskulin tanpa terkesan kaku. Berat huruf meloncat dramatis antara angka raksasa yang sangat tebal (*black 900*) dan label mikro yang renggang (*tracked uppercase 700*).
+**Character:** Tipografi Tahes bertenaga, kaku, dan presisi tinggi. Angka-angka numerik menggunakan font tabular monospaced agar tidak bergeser atau bergetar saat digit bertambah secara real-time.
 
 ### Hierarchy
-- **Display** (weight: 900, size: `clamp(2.5rem, 5vw, 3.75rem)`, line-height: 1): Digunakan khusus untuk metrik pahlawan seperti kilometer total pada layar pelacak (`0.00`) dan hitung mundur timer detik (`30`).
-- **Headline** (weight: 900, size: `1.5rem` / 24px, line-height: 1.2): Judul halaman utama, kartu ucapan beranda, dan modal selesai latihan.
-- **Title** (weight: 800, size: `1.125rem` / 18px, line-height: 1.3): Judul program latihan, nama gerakan kalistenik, dan sub-header kartu.
-- **Body** (weight: 400, size: `0.875rem` / 14px, line-height: 1.5): Teks petunjuk postur, deskripsi sirkuit latihan, dan pesan obrolan AI Coach.
-- **Label** (weight: 700, size: `0.6875rem` / 11px, letter-spacing: `0.08em`, text-transform: uppercase): Keterangan metrik (`JARAK`, `WAKTU`, `AVG PACE`, `KALORI`).
+- **Display** (weight: 900, size: `clamp(2.5rem, 5vw, 3.75rem)`, line-height: 1): Digunakan khusus untuk jarak etape tripmeter (`3.25`) dan timer mundur interval detik.
+- **Headline** (weight: 900, size: `1.5rem` / 24px, line-height: 1.2): Judul etape dan modal ringkasan aktivitas.
+- **Title** (weight: 900, size: `1.125rem` / 18px, line-height: 1.3): Judul sirkuit latihan dan nama gerakan kalistenik.
+- **Body** (weight: 400, size: `0.875rem` / 14px, line-height: 1.5): Teks petunjuk postur dan catatan panduan AI coach.
+- **Label** (weight: 800, size: `0.625rem` / 10px, letter-spacing: `0.08em`, text-transform: uppercase): Keterangan etape (`STAGE DISTANCE`, `ELAPSED`, `SPLIT PACE`, `CALORIES`).
 
 ### Named Rules
-**The Number-First Rule.** Dalam setiap kartu metrik olahraga, angka kuantitatif selalu berukuran minimal 2 kali lebih besar daripada label teks penjelasnya.
+**The Tripmeter Primacy Rule.** Pada setiap kartu instrumen, angka numerik berbobot tebal minimal 2.5 kali lipat lebih besar dibanding teks label deskriptor di atasnya.
 
 ## Layout
 
-Aplikasi dirancang dengan pendekatan **Mobile-First Track Layout** yang dibatasi pada lebar maksimal (`max-w-lg` atau 512px) di desktop agar tetap menjaga proporsi ergonomis genggaman tangan satu jempol (*thumb zone*).
+Aplikasi mengadopsi tata letak **Rally Stage Console** yang dioptimalkan untuk genggaman satu tangan pada smartphone (`max-w-lg` 512px).
 
-- **Grid Spasial:** Kelipatan ritme 4px dan 8px (`gap-2`, `gap-3`, `gap-4`).
-- **Bottom Navigation Dock:** Mengambang permanen di bagian bawah layar dengan efek kaca buram (*backdrop-blur-md*) dan padding area aman perangkat (`safe-area-inset-bottom`).
-- **HUD (Heads-Up Display) Panel:** Bagian bawah pelacak GPS mengunci 3 kolom metrik terpenting dalam rasio horizontal 1:1:1.
+- **Grid Spasial:** Kelipatan ritme 4px, 8px, 12px, 16px.
+- **Heads-Up Display (HUD):** Panel bawah pelacak GPS mengunci jarak utama di tengah dengan 3 slot sekunder bergaris batas presisi di bawahnya.
+- **Pacer Bottom Dock:** Bar navigasi bawah berlatar `#0B0F19`/95 dengan tombol tengah lari berkarakter pemicu panggung (*stage ignition button*).
 
 ## Elevation & Depth
 
-Tahes menganut filosofi **Tonal Layering** murni. Permukaan antarmuka berwujud datar pada kondisi diam (*flat at rest*). Ilusi kedalaman tidak diciptakan oleh bayangan tebal yang keruh, melainkan melalui perbedaan kontras alami antar tingkat warna abu-abu gelap:
-1. Lapisan 0: Dasar Layar (`#020617`)
-2. Lapisan 1: Kartu Utama (`#0F172A`)
-3. Lapisan 2: Slot Metrik & Tombol (`#020617` transparan atau `#1E293B`)
+Tahes menggunakan pendekatan **Mechanical Depth & Beveled Edges**. Kedalaman tidak dibangun lewat bayangan kabur yang berat (*drop shadow blur*), melainkan melalui ketebalan garis batas bawah mekanis (*physical beveled borders*):
+- Tombol Primer: `border-b-4 border-[#B82A00]` yang menekan turun `translateY(4px)` saat disentuh.
+- Tombol Sekunder: `border-b-3 border-[#0F1622]` yang menekan turun `translateY(3px)` saat disentuh.
+- Kartu Etape: Datar pada posisi diam (*flat at rest*) dengan garis tepi teknis `#24334A`.
 
 ### Shadow Vocabulary
-- **Ignition Pulse** (`box-shadow: 0 10px 25px -5px rgba(252, 76, 2, 0.25)`): Diberikan eksklusif pada tombol aksi utama oranye dan marker posisi GPS untuk memberi kesan bertenaga.
-- **Dock Glass Shadow** (`box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.5)`): Memberikan batas apung bagi navigasi bawah terhadap konten yang digulir.
+- **Rally Beacon Pulse** (`box-shadow: 0 8px 20px -4px rgba(255, 59, 0, 0.3)`): Menyorot tombol utama mulai etape dan beacon posisi GPS aktif.
 
 ### Named Rules
-**The Flat-At-Rest Rule.** Seluruh kartu dan container bersikap datar pada kondisi diam. Bayangan dan efek glow oranye hanya diizinkan muncul sebagai respons terhadap interaksi sentuh atau status sesi yang sedang merekam aktif.
+**The Mechanical Confirmation Rule.** Setiap tombol kontrol aksi harus memiliki transisi penekanan fisik nyata (*tactile push response*) saat disentuh untuk mengonfirmasi eksekusi instruksi.
 
 ## Shapes
 
-Bahasa bentuk Tahes memadukan geometri fungsional dengan kelengkungan organik yang ramah jempol tangan:
-- **Pill Containers** (`rounded-3xl` / 24px): Kartu feed, modal timbangan, dan dialog latihan. Sudut lengkung yang lebar memberikan kesan modern, ramah, dan tidak menusuk mata.
-- **Action Buttons & Input** (`rounded-2xl` / 16px): Tombol pemicu sesi olahraga dan bidang isian form.
-- **Pill Badges** (`rounded-full` / 9999px): Indikator status kategori (misal *Ramah Sendi*, *Streak*, *Pace Split*).
+- **Stage Cards & Containers** (`rounded-2xl` / 16px): Kontainer instrumen dengan sudut membulat terkontrol yang kokoh dan efisien secara ruang.
+- **Mechanical Buttons** (`rounded-xl` / 14px): Tombol pemicu dengan sudut tegas.
+- **Telemetry Chips** (`rounded-md` / 6px): Badge kategori dan penanda status etape.
 
 ## Components
 
 ### Buttons
-- **Shape:** Rounded-2xl (16px radius), tinggi minimal 48px – 56px.
-- **Primary:** Latar belakang Ignition Orange (`#FC4C02`), teks putih bold tebal, bayangan lembut oranye, transisi sentuh mengecil halus (`active:scale-[0.98]`).
-- **Secondary / Ghost:** Latar belakang Slate (`#1E293B`), garis batas halus 1px (`#334155`), teks slate terang.
+- **Shape:** Rounded-xl (14px), tinggi minimal 48px – 54px.
+- **Primary:** Latar Rally Orange (`#FF3B00`), border bawah 4px `#B82A00`, teks putih tebal 900, efek tekan mekanis `active:translate-y-1`.
+- **Secondary:** Latar Cockpit Soft (`#1A2436`), border teknis `#24334A`, border bawah 3px `#0F1622`, teks putih tebal 700.
 
 ### Cards / Containers
-- **Corner Style:** Rounded-3xl (24px radius).
-- **Background:** Slate 900 (`#0F172A`) dengan border tipis 1px (`#1E293B`).
+- **Corner Style:** Rounded-2xl (16px).
+- **Background:** Stage Slate (`#111827`) dengan border teknis 1px (`#24334A`).
 - **Internal Padding:** 16px hingga 20px (`p-4` atau `p-5`).
 
 ### Inputs / Fields
-- **Style:** Latar gelap Slate 950 (`#020617`), border Slate 800, teks putih tajam, radius 12px – 16px.
-- **Focus State:** Garis batas berubah tegas menjadi Ignition Orange (`#FC4C02`) tanpa outline bawaan browser.
+- **Style:** Latar gelap Deep Asphalt (`#0B0F19`), border teknis `#24334A`, teks putih tajam, radius 12px.
+- **Focus State:** Garis batas menyala menjadi Rally Orange (`#FF3B00`) tanpa cincin pendar kabur berlebih.
 
 ### Navigation
-- **Bottom Dock:** Bar navigasi 5 tab dengan ikon Lucide React berukuran 20px. Tab aktif ditandai dengan ikon dan teks oranye menyala serta titik aksen di bawahnya. Tombol tengah lari/jalan (*Record*) memiliki bingkai aksen bulat yang sedikit lebih menonjol.
+- **Pacer Console Dock:** Bar navigasi 5 tab dengan ikon monoline Lucide React. Tab aktif disorot dengan warna Rally Orange dan pill penanda dasar.
 
-### Signature Component: The Workout Countdown Ring
-- Cincin lingkaran SVG 192px yang berputar hitung mundur dengan garis tepi 12px. Warna cincin berubah dinamis: **Oranye** saat fase kerja/latihan berlangsung, dan seketika berubah menjadi **Hijau Emerald** yang menenangkan saat waktu istirahat antar set dimulai.
+### Signature Component: The Rally Tripmeter Display
+- Modul pembacaan jarak panggung terintegrasi dengan angka kilometer raksasa font-mono 900 di atas latar asphalt, diapit oleh tiga pembacaan telemetry split pace, waktu elapsed, dan kalori terhitung untuk berat badan 83kg.
 
 ## Do's and Don'ts
 
 ### Do:
-- **Do** gunakan rasio kontras minimal 4.5:1 untuk semua teks instruksi dan 7:1 untuk angka metrik kecepatan/jarak.
-- **Do** beri ruang sentuh minimal 44x44px untuk setiap elemen yang dapat diklik di smartphone.
-- **Do** sertakan satuan metrik (`km`, `kkal`, `/km`, `detik`) dalam format ukuran yang lebih kecil dan warna muted tepat di samping atau di bawah angka utama.
-- **Do** pertahankan palet oranye `#FC4C02` khusus untuk hal-hal yang berkaitan dengan aksi, energi gerak, dan pencapaian.
+- **Do** gunakan font tabular monospaced untuk angka metrik kecepatan, jarak, dan countdown timer agar tidak bergetar saat digit berubah.
+- **Do** berikan tombol aksi ruang sentuh minimal 48x48px dengan umpan balik penekanan mekanis.
+- **Do** utamakan kontras tinggi minimal 7:1 untuk teks instruksi dan angka metrik di bawah terik matahari.
+- **Do** pertahankan label ramah sendi (*zero impact*) pada setiap gerakan yang melibatkan lutut untuk atlet 83kg.
 
 ### Don't:
-- **Don't** menggunakan warna merah menyala untuk pesan umum; gunakan amber untuk peringatan kehati-hatian lutut dan oranye untuk identitas brand.
-- **Don't** memasang animasi dekoratif yang memperlambat transisi layar saat pengguna sedang berolahraga.
-- **Don't** menyembunyikan metrik kritis (jarak tempuh dan waktu berjalan) di balik menu atau gestur geser tambahan.
-- **Don't** menggunakan huruf berukuran di bawah 10px pada antarmuka smartphone.
+- **Don't** menggunakan gradasi warna pastel atau bayangan blur tebal yang mengurangi keterbacaan di luar ruangan.
+- **Don't** mengubah posisi tombol saat transisi status latihan sedang berlangsung.
+- **Don't** menyembunyikan metrik split pace dan jarak tempuh di balik menu tambahan.
+- **Don't** menggunakan huruf berukuran di bawah 10px pada smartphone.

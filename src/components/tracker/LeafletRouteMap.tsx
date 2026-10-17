@@ -64,38 +64,38 @@ export const LeafletRouteMap: React.FC<LeafletRouteMapProps> = ({
           />
         )}
 
-        {/* Strava Orange Polyline */}
+        {/* Rally Orange Polyline */}
         {polylinePositions.length > 1 && (
           <Polyline
             positions={polylinePositions}
             pathOptions={{
-              color: '#FC4C02',
+              color: '#FF3B00',
               weight: 5,
-              opacity: 0.9,
+              opacity: 0.95,
               lineCap: 'round',
               lineJoin: 'round',
             }}
           />
         )}
 
-        {/* Current Position Marker (Athlete Blue / Orange Pulse) */}
+        {/* Current Position Marker (Rally Orange Beacon) */}
         {currentPosition && (
           <>
             <CircleMarker
               center={[currentPosition.lat, currentPosition.lng]}
               radius={currentPosition.accuracy ? Math.min(25, currentPosition.accuracy / 2) : 12}
               pathOptions={{
-                fillColor: '#FC4C02',
-                color: '#FC4C02',
+                fillColor: '#FF3B00',
+                color: '#FF3B00',
                 weight: 1,
-                fillOpacity: 0.15,
+                fillOpacity: 0.2,
               }}
             />
             <CircleMarker
               center={[currentPosition.lat, currentPosition.lng]}
               radius={7}
               pathOptions={{
-                fillColor: '#FC4C02',
+                fillColor: '#FF3B00',
                 color: '#FFFFFF',
                 weight: 2.5,
                 fillOpacity: 1,
