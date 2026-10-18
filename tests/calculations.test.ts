@@ -8,6 +8,7 @@ import {
   calculateBMI,
   calculateSmoothedWeights,
   calculateRallyStages,
+  calculateIdealWeight,
 } from '../src/utils/calculations';
 
 describe('Calculations Engine', () => {
@@ -149,4 +150,34 @@ describe('Calculations Engine', () => {
       expect(overview.stages.every((s) => s.status === 'completed')).toBe(true);
     });
   });
+
+  describe('calculateIdealWeight', () => {
+    it('calculates Broca ideal weight and healthy BMI range for 165 cm', () => {
+      // Height 165 cm: Broca = (165 - 100) * 0.9 = 58.5 kg
+      // WHO healthy range (18.5 - 24.9):
+      // Min: 18.5 * 1.65^2 = 50.36625 -> 50.4 kg
+      // Max: 24.9 * 1.65^2 = 67.79025 -> 67.8 kg
+      const result = calculateIdealWeight(165, 83);
+      expect(result.idealWeightKg).toBe(58.5);
+      expect(result.minHealthyKg).toBe(50.4);
+      expect(result.maxHealthyKg).toBe(67.8);
+      expect(result.bmi).toBe(30.5);
+      expect(result.category).toBe('Obesitas Tingkat 1');
+    });
+
+    it('calculates Broca ideal for height under 160 cm', () => {
+      // Height 155 cm: Broca = 155 - 100 = 55 kg
+      const result = calculateIdealWeight(155, 52);
+      expect(result.idealWeightKg).toBe(55);
+      expect(result.bmi).toBe(21.6);
+      expect(result.category).toBe('Normal');
+    });
+
+    it('handles zero or negative height safely', () => {
+      const result = calculateIdealWeight(0);
+      expect(result.idealWeightKg).toBe(0);
+      expect(result.category).toBe('N/A');
+    });
+  });
 });
+

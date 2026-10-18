@@ -5,6 +5,7 @@ import { OutdoorTracker } from './components/tracker/OutdoorTracker';
 import { WorkoutHub } from './components/workout/WorkoutHub';
 import { ProgressHub } from './components/progress/ProgressHub';
 import { SettingsView } from './components/settings/SettingsView';
+import { OnboardingView } from './components/onboarding/OnboardingView';
 import { Activity } from './types/index';
 import { getUserProfile } from './db/index';
 
@@ -23,6 +24,15 @@ export default function App() {
   const handleActivitySaved = (_activity: Activity) => {
     setActiveTab('feed');
   };
+
+  // If user has not completed onboarding, show initial setup calibration
+  if (!profile.onboarded) {
+    return (
+      <div className="min-h-screen bg-[#09090B] text-zinc-100 flex flex-col font-sans selection:bg-white selection:text-black">
+        <OnboardingView onComplete={handleProfileUpdated} />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[#09090B] text-zinc-100 flex flex-col font-sans selection:bg-white selection:text-black">

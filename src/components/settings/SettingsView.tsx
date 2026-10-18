@@ -15,7 +15,10 @@ import {
   CheckCircle2,
   AlertCircle,
   Home,
+  Sparkles,
 } from 'lucide-react';
+import { calculateIdealWeight } from '../../utils/calculations';
+import { OnboardingView } from '../onboarding/OnboardingView';
 
 interface SettingsViewProps {
   onProfileUpdated?: () => void;
@@ -35,6 +38,11 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onProfileUpdated }) 
   const [geminiApiKey, setGeminiApiKey] = useState(profile.geminiApiKey || '');
   const [soundEnabled, setSoundEnabled] = useState(profile.soundEnabled);
   const [indoorOnlyMode, setIndoorOnlyMode] = useState(profile.indoorOnlyMode ?? false);
+  const [showRecalibrationModal, setShowRecalibrationModal] = useState(false);
+
+  const parsedHeight = parseFloat(heightCm) || 0;
+  const parsedWeight = parseFloat(currentWeightKg) || 0;
+  const idealStats = calculateIdealWeight(parsedHeight, parsedWeight);
 
   const [notification, setNotification] = useState<{
     type: 'success' | 'error';
@@ -97,6 +105,30 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onProfileUpdated }) 
     }
     e.target.value = '';
   };
+
+  if (showRecalibrationModal) {
+    return (
+      <div className="fixed inset-0 z-50 bg-[#09090B] overflow-y-auto">
+        <OnboardingView
+          isRecalibration={true}
+          initialProfile={profile}
+          onCancel={() => setShowRecalibrationModal(false)}
+          onComplete={() => {
+            const updated = getUserProfile();
+            setProfile(updated);
+            setName(updated.name);
+            setAge(updated.age.toString());
+            setHeightCm(updated.heightCm.toString());
+            setCurrentWeightKg(updated.currentWeightKg.toString());
+            setTargetWeightKg(updated.targetWeightKg.toString());
+            setShowRecalibrationModal(false);
+            onProfileUpdated?.();
+            showNotification('success', 'Profil atlet berhasil dikalibrasi ulang!');
+          }}
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="w-full max-w-lg mx-auto bg-[#09090B] text-white min-h-[calc(100vh-5rem)] pb-20">
@@ -287,6 +319,44 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onProfileUpdated }) 
             </div>
           </div>
 
+          {/* Real-Time Ideal Weight Telemetry Card */}
+          {parsedHeight > 0 && (
+            <div className="p-3.5 bg-[#09090B] border border-[#27272A] rounded-xl space-y-2">
+              <div className="flex items-center justify-between text-[11px] font-mono">
+                <span className="text-zinc-400 font-bold uppercase tracking-wider flex items-center gap-1.5">
+                  <Sparkles className="w-3.5 h-3.5 text-white" />
+                  Kalkulasi Berat Badan Ideal
+                </span>
+                <span className="text-zinc-400 font-mono text-[10px]">Rumus Broca & WHO</span>
+              </div>
+              <div className="grid grid-cols-2 gap-2 font-mono">
+                <div className="bg-[#121214] p-2.5 rounded-lg border border-[#27272A]">
+                  <div className="text-[10px] text-zinc-400 uppercase">Ideal Broca</div>
+                  <div className="text-base font-black text-white mt-0.5">
+                    {idealStats.idealWeightKg}{' '}
+                    <span className="text-[10px] text-zinc-400 font-normal">KG</span>
+                  </div>
+                </div>
+                <div className="bg-[#121214] p-2.5 rounded-lg border border-[#27272A]">
+                  <div className="text-[10px] text-zinc-400 uppercase">Rentang WHO</div>
+                  <div className="text-xs font-bold text-zinc-200 mt-1">
+                    {idealStats.minHealthyKg} - {idealStats.maxHealthyKg}{' '}
+                    <span className="text-[10px] text-zinc-400 font-normal">KG</span>
+                  </div>
+                </div>
+              </div>
+              {idealStats.idealWeightKg > 0 && (
+                <button
+                  type="button"
+                  onClick={() => setTargetWeightKg(idealStats.idealWeightKg.toString())}
+                  className="w-full py-1.5 px-2 text-[11px] font-mono bg-[#18181B] hover:bg-zinc-800 text-zinc-300 hover:text-white rounded-lg border border-[#27272A] transition"
+                >
+                  Terapkan Berat Ideal ({idealStats.idealWeightKg} kg) ke Target
+                </button>
+              )}
+            </div>
+          )}
+
           {/* Sound Toggle */}
           <div className="pt-2 border-t border-[#27272A] flex items-center justify-between">
             <div className="flex items-center gap-2">
@@ -326,12 +396,23 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onProfileUpdated }) 
             </p>
           </div>
 
-          <button
-            type="submit"
-            className="w-full py-3.5 btn-rally-primary text-black text-xs font-black uppercase tracking-wider cursor-pointer"
-          >
-            SIMPAN PERUBAHAN PROFIL
-          </button>
+          <div className="pt-2 space-y-2">
+            <button
+              type="submit"
+              className="w-full py-3.5 btn-rally-primary text-black text-xs font-black uppercase tracking-wider cursor-pointer"
+            >
+              SIMPAN PERUBAHAN PROFIL
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setShowRecalibrationModal(true)}
+              className="w-full py-2.5 bg-[#18181B] hover:bg-zinc-800 text-zinc-300 hover:text-white font-mono text-xs rounded-xl border border-[#27272A] transition flex items-center justify-center gap-2 cursor-pointer"
+            >
+              <Sparkles className="w-3.5 h-3.5 text-white" />
+              <span>JALANKAN ULANG WIZARD ONBOARDING</span>
+            </button>
+          </div>
         </form>
 
         {/* Data Backup & Restore Section */}

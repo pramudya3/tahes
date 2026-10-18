@@ -27,15 +27,24 @@ export const DEFAULT_PROFILE: UserProfile = {
   soundEnabled: true,
   voiceAlertsEnabled: true,
   indoorOnlyMode: false,
+  onboarded: false,
 };
 
 export function getUserProfile(): UserProfile {
   try {
     const raw = localStorage.getItem(PROFILE_KEY);
-    if (!raw) return { ...DEFAULT_PROFILE };
-    return { ...DEFAULT_PROFILE, ...JSON.parse(raw) };
+    if (!raw) return { ...DEFAULT_PROFILE, onboarded: false };
+    const parsed = JSON.parse(raw);
+    return {
+      ...DEFAULT_PROFILE,
+      ...parsed,
+      onboarded:
+        parsed.onboarded !== undefined
+          ? Boolean(parsed.onboarded)
+          : Boolean(parsed.name && parsed.name !== 'Athlete'),
+    };
   } catch {
-    return { ...DEFAULT_PROFILE };
+    return { ...DEFAULT_PROFILE, onboarded: false };
   }
 }
 

@@ -49,6 +49,7 @@ export interface UserProfile {
   soundEnabled: boolean;
   voiceAlertsEnabled: boolean;
   indoorOnlyMode?: boolean;
+  onboarded?: boolean;
 }
 
 export interface WeightEntry {

@@ -24,15 +24,24 @@ describe('Database Layer & Local Storage', () => {
       expect(profile.age).toBe(26);
       expect(profile.targetWeightKg).toBe(65);
       expect(profile.indoorOnlyMode).toBe(false);
+      expect(profile.onboarded).toBe(false);
     });
 
-    it('updates and persists profile modifications', () => {
-      saveUserProfile({ currentWeightKg: 82.2, soundEnabled: false, indoorOnlyMode: true });
+    it('updates and persists profile modifications and onboarding flag', () => {
+      saveUserProfile({
+        name: 'Pramudya',
+        currentWeightKg: 82.2,
+        soundEnabled: false,
+        indoorOnlyMode: true,
+        onboarded: true,
+      });
       const updated = getUserProfile();
+      expect(updated.name).toBe('Pramudya');
       expect(updated.currentWeightKg).toBe(82.2);
       expect(updated.soundEnabled).toBe(false);
       expect(updated.indoorOnlyMode).toBe(true);
       expect(updated.heightCm).toBe(165); // preserved
+      expect(updated.onboarded).toBe(true);
     });
   });
 

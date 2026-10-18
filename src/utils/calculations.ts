@@ -296,3 +296,67 @@ export function calculateRallyStages(
     totalRemainingKg: Math.max(0, Math.round((currentWeightKg - targetWeightKg) * 10) / 10),
   };
 }
+
+export interface IdealWeightResult {
+  idealWeightKg: number;
+  minHealthyKg: number;
+  maxHealthyKg: number;
+  bmi: number;
+  category: string;
+}
+
+/**
+ * Calculates ideal body weight based on the Broca Formula (modified for Asian/adult populations)
+ * and healthy BMI range (18.5 - 24.9 kg/m² per WHO standard).
+ * 
+ * Formula Broca:
+ * - TB >= 160 cm: (TB - 100) - ((TB - 100) * 10%) = (TB - 100) * 0.9
+ * - TB < 160 cm: TB - 100
+ * 
+ * Healthy Weight Range (WHO BMI 18.5 - 24.9):
+ * - Min: 18.5 * (TB/100)^2
+ * - Max: 24.9 * (TB/100)^2
+ */
+export function calculateIdealWeight(
+  heightCm: number,
+  currentWeightKg?: number
+): IdealWeightResult {
+  if (!heightCm || heightCm <= 0) {
+    return {
+      idealWeightKg: 0,
+      minHealthyKg: 0,
+      maxHealthyKg: 0,
+      bmi: 0,
+      category: 'N/A',
+    };
+  }
+
+  let ideal: number;
+  if (heightCm < 160) {
+    ideal = heightCm - 100;
+  } else {
+    ideal = (heightCm - 100) * 0.9;
+  }
+  const idealWeightKg = Math.round(ideal * 10) / 10;
+
+  const heightM = heightCm / 100;
+  const minHealthyKg = Math.round(18.5 * heightM * heightM * 10) / 10;
+  const maxHealthyKg = Math.round(24.9 * heightM * heightM * 10) / 10;
+
+  let bmi = 0;
+  let category = 'Normal';
+  if (currentWeightKg && currentWeightKg > 0) {
+    const bmiRes = calculateBMI(currentWeightKg, heightCm);
+    bmi = bmiRes.bmi;
+    category = bmiRes.category;
+  }
+
+  return {
+    idealWeightKg,
+    minHealthyKg,
+    maxHealthyKg,
+    bmi,
+    category,
+  };
+}
+
